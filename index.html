@@ -209,18 +209,24 @@
 <p>这里是一个典型的单端输出两级运放，差分放大器采用了 OTA 的形式，共源级以电流源作为负载，$C_L$ 是负载电容（也包含了自带的 $C_{db6},C_{db7}$ ），$C_C$ 是补偿电容（也包含了自带的 $C_{gd6}$ ）</p>
 <p><img src="/.io//2STAGE_OPAMP.png" alt="OTA两级运放"></p>
 <ol>
-<li><p><strong>共模输入范围</strong>：ICMR 与五管 OTA 保持一致，即<br>$$<br>V_P + V_{TN} + \sqrt{\frac{2(I_{SS}&#x2F;2)}{K_N(W&#x2F;L)<em>1}}\leq V</em>{IC} \leq V_{TN}+V_{DD}-\sqrt{\frac{2(I_{SS}&#x2F;2)}{K_P(W&#x2F;L)<em>3}}-V</em>{TP}<br>$$</p>
-</li>
-<li><p><strong>低频电压增益</strong>：MOS 的输入电阻为无穷大，所以电压增益就是每一级的电压增益之积<br>$$<br>A_v &#x3D; g_{m1}(r_{ds4}\ ||\ r_{ds2}) \cdot g_{m6}(r_{ds6}\ ||\ r_{ds7})<br>$$</p>
-</li>
-<li><p><strong>主极点与带宽</strong>：由于 Miller 效应，$C_C$ 被折算回 X 点时成为原来的 $1+g_{m6}(r_{ds6}\ ||\ r_{ds7})$ 倍，而 X 到地的电阻 $r_{ds4}\ ||\ r_{ds2}$ 也是大电阻，故而 X 贡献出主极点，同时可以得出增益带宽积<br>$$<br>\mathrm{BW} &#x3D; \omega_{p1} &#x3D;\frac{1}{g_{m6}(r_{ds6}\ ||\ r_{ds7})(r_{ds4}\ ||\ r_{ds2})C_C} \quad,\quad \mathrm{GX} &#x3D; \mathrm{GBW} &#x3D; A_v \omega_{p1} &#x3D; \frac{g_{m1}}{C_C}<br>$$</p>
-</li>
-<li><p><strong>次极点与相位裕度</strong>：由于镜像结点 Y 处电阻太小，所以输出结点 OUT 贡献出次极点，这里要注意由于当频率接近次极点时 $j\omega C_C$ 相当大，所以 $C_C$ 将 M6 近似连接为 MOS 二极管，从 $C_L$ 两端看进去的电阻为 $1&#x2F;g_{m6}$ ，所以可以得到次极点与相位裕度为<br>$$<br>\omega_{p2} &#x3D; \frac{g_{m6}}{C_L} \quad,\quad \mathrm{PM} &#x3D; 180\degree - \arctan \left( A_v \right) - \arctan \left( \frac{\mathrm{GBW}}{\omega_{p2}} \right)<br>$$</p>
-</li>
-<li><p><strong>转换速率</strong>：由于是 $C_C$ 直接与差分放大器的输出相连，所以当阶跃输入过大时，所有 $I_{SS}$ 为 $C_C$ 充电，转换速率为<br>$$<br>\mathrm{SR} &#x3D; \frac{I_{SS}}{C_C}<br>$$</p>
-</li>
-<li><p><strong>右半平面零点</strong>：右半平面零点产生的原因是跨接电阻将 MOS 短接，只有 $C_C$ 满足这一条件，所以<br>$$<br>\mathrm{RHPZ} &#x3D; \frac{g_{m6}}{C_C}<br>$$</p>
-</li>
+<li><p><strong>共模输入范围</strong>：ICMR 与五管 OTA 保持一致，即</p>
+<script type="math/tex; mode=display">
+V_P + V_{TN} + \sqrt{\frac{2(I_{SS}/2)}{K_N(W/L)_1}}\leq V_{IC} \leq V_{TN}+V_{DD}-\sqrt{\frac{2(I_{SS}/2)}{K_P(W/L)_3}}-V_{TP}</script></li>
+<li><p><strong>低频电压增益</strong>：MOS 的输入电阻为无穷大，所以电压增益就是每一级的电压增益之积</p>
+<script type="math/tex; mode=display">
+A_v = g_{m1}(r_{ds4}\ ||\ r_{ds2}) \cdot g_{m6}(r_{ds6}\ ||\ r_{ds7})</script></li>
+<li><p><strong>主极点与带宽</strong>：由于 Miller 效应，$C_C$ 被折算回 X 点时成为原来的 $1+g_{m6}(r_{ds6}\ ||\ r_{ds7})$ 倍，而 X 到地的电阻 $r_{ds4}\ ||\ r_{ds2}$ 也是大电阻，故而 X 贡献出主极点，同时可以得出增益带宽积</p>
+<script type="math/tex; mode=display">
+\mathrm{BW} = \omega_{p1} =\frac{1}{g_{m6}(r_{ds6}\ ||\ r_{ds7})(r_{ds4}\ ||\ r_{ds2})C_C} \quad,\quad \mathrm{GX} = \mathrm{GBW} = A_v \omega_{p1} = \frac{g_{m1}}{C_C}</script></li>
+<li><p><strong>次极点与相位裕度</strong>：由于镜像结点 Y 处电阻太小，所以输出结点 OUT 贡献出次极点，这里要注意由于当频率接近次极点时 $j\omega C_C$ 相当大，所以 $C_C$ 将 M6 近似连接为 MOS 二极管，从 $C_L$ 两端看进去的电阻为 $1/g_{m6}$ ，所以可以得到次极点与相位裕度为</p>
+<script type="math/tex; mode=display">
+\omega_{p2} = \frac{g_{m6}}{C_L} \quad,\quad \mathrm{PM} = 180\degree - \arctan \left( A_v \right) - \arctan \left( \frac{\mathrm{GBW}}{\omega_{p2}} \right)</script></li>
+<li><p><strong>转换速率</strong>：由于是 $C_C$ 直接与差分放大器的输出相连，所以当阶跃输入过大时，所有 $I_{SS}$ 为 $C_C$ 充电，转换速率为</p>
+<script type="math/tex; mode=display">
+\mathrm{SR} = \frac{I_{SS}}{C_C}</script></li>
+<li><p><strong>右半平面零点</strong>：右半平面零点产生的原因是跨接电阻将 MOS 短接，只有 $C_C$ 满足这一条件，所以</p>
+<script type="math/tex; mode=display">
+\mathrm{RHPZ} = \frac{g_{m6}}{C_C}</script></li>
 </ol>
 <hr>
 
@@ -293,37 +299,27 @@
           <h2 id="Hexo-初体验"><a href="#Hexo-初体验" class="headerlink" title="Hexo 初体验"></a>Hexo 初体验</h2><p>趁还有印象，记一下第一次用 Hexo 搭博客时可能要注意的内容</p>
 <h3 id="路径设置"><a href="#路径设置" class="headerlink" title="路径设置"></a>路径设置</h3><p>github 现在默认刚创建的项目分支名叫 main ，所以在博客文件夹根目录下的 _config.yml 文件里在尾端要添上如下内容</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">  <span class="attr">repository:</span> <span class="string">https://github.com/PMUGO50/pmugo50.github.io.git</span></span><br><span class="line">  <span class="attr">branch:</span> <span class="string">main</span></span><br></pre></td></tr></table></figure>
-
 <p>就添在下列注释语句的后一行即可</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Deployment</span></span><br><span class="line"><span class="comment">## Docs: https://hexo.io/docs/one-command-deployment</span></span><br></pre></td></tr></table></figure>
-
 <p>同时在下列注释语句</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># URL</span></span><br><span class="line"><span class="comment">## Set your site url here. For example, if you use GitHub Page, set url as &#x27;https://username.github.io/project&#x27;</span></span><br></pre></td></tr></table></figure>
-
 <p>的后面要添加正确的 url 和 root 路径，这里 url 即为博客网站的域名</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">url:</span> <span class="string">https://pmugo50.github.io</span></span><br><span class="line"><span class="attr">root:</span> <span class="string">/</span></span><br></pre></td></tr></table></figure>
-
 <h3 id="初步主题设置"><a href="#初步主题设置" class="headerlink" title="初步主题设置"></a>初步主题设置</h3><p>在根目录的 _config.yml 文件中，下列注释语句</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Extensions</span></span><br><span class="line"><span class="comment">## Plugins: https://hexo.io/plugins/</span></span><br><span class="line"><span class="comment">## Themes: https://hexo.io/themes/</span></span><br></pre></td></tr></table></figure>
-
 <p>的后面添加上想用的主题，以 next 主题为例</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">theme:</span> <span class="string">next</span></span><br></pre></td></tr></table></figure>
-
 <p>当然，在此之前要将主题文件下载到根目录下的 themes 文件夹里</p>
 <p>然后在相应主题文件夹里的，比如 \themes\next 中还有主题的 _config.yml 文件，在其中可以对主题进行具体的定制，在一开始主要是选择主题的大致样式。找到</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Schemes</span></span><br><span class="line"><span class="comment">#scheme: Muse</span></span><br><span class="line"><span class="comment">#scheme: Mist</span></span><br><span class="line"><span class="comment">#scheme: Pisces</span></span><br><span class="line"><span class="comment">#scheme: Gemini</span></span><br></pre></td></tr></table></figure>
-
 <p>next 提供了四种渲染方案，想用哪个就把其注释拿掉打开就行，<strong>注意不要同时拿掉两个</strong> </p>
 <h3 id="初步主页设置"><a href="#初步主页设置" class="headerlink" title="初步主页设置"></a>初步主页设置</h3><p>在根目录的 _config.yml 文件的开头没几行，可以看到 #site 的注释语句，在其下面就是初步的主页内容设置，可以个性化定制，比如</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">title:</span> <span class="string">PhecStar</span></span><br><span class="line"><span class="attr">subtitle:</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="attr">description:</span> <span class="string">人性无非那么几种，与之相比，大海都更加富于变化</span></span><br><span class="line"><span class="attr">keywords:</span></span><br><span class="line"><span class="attr">author:</span> <span class="string">PMUG050</span></span><br><span class="line"><span class="attr">language:</span> <span class="string">zh-CN</span></span><br><span class="line"><span class="attr">timezone:</span> <span class="string">Asia/Shanghai</span></span><br></pre></td></tr></table></figure>
-
 <p>这样初步的网页就成形了</p>
 <h3 id="部署网页"><a href="#部署网页" class="headerlink" title="部署网页"></a>部署网页</h3><p>在博客文件夹根目录下打开 git bash，输入</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
-
 <p>即可部署网页，再输入</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo s</span><br></pre></td></tr></table></figure>
-
 <p>此时会返回一个网址，点进去就能查看网页的效果，查看完后按 ctri+c 退出查看</p>
 <blockquote>
 <p>这个过程参考了很多知乎和 csdn 以及博客园上的文章，最主要的比如</p>
