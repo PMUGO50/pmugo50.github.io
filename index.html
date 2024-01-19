@@ -20,12 +20,12 @@
     var CONFIG = {"hostname":"pmugo50.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="无曰已是，无曰遂真">
+  <meta name="description" content="对今天而言, 最宝贵的东西是对明天的希望">
 <meta property="og:type" content="website">
 <meta property="og:title" content="PhecStar">
 <meta property="og:url" content="https://pmugo50.github.io/index.html">
 <meta property="og:site_name" content="PhecStar">
-<meta property="og:description" content="无曰已是，无曰遂真">
+<meta property="og:description" content="对今天而言, 最宝贵的东西是对明天的希望">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:author" content="PMUG050">
 <meta name="twitter:card" content="summary">
@@ -274,7 +274,7 @@ mjx-container[display="true"] + br {
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="PMUG050">
-      <meta itemprop="description" content="无曰已是，无曰遂真">
+      <meta itemprop="description" content="对今天而言, 最宝贵的东西是对明天的希望">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -375,7 +375,7 @@ A_v = g_{m1}(r_{ds4}\ ||\ r_{ds2}) \cdot g_{m6}(r_{ds6}\ ||\ r_{ds7})</script></
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="PMUG050">
-      <meta itemprop="description" content="无曰已是，无曰遂真">
+      <meta itemprop="description" content="对今天而言, 最宝贵的东西是对明天的希望">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -395,7 +395,7 @@ A_v = g_{m1}(r_{ds4}\ ||\ r_{ds2}) \cdot g_{m6}(r_{ds6}\ ||\ r_{ds7})</script></
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2024-01-19 11:52:35 / 修改时间：18:34:02" itemprop="dateCreated datePublished" datetime="2024-01-19T11:52:35+08:00">2024-01-19</time>
+              <time title="创建时间：2024-01-19 11:52:35 / 修改时间：23:38:07" itemprop="dateCreated datePublished" datetime="2024-01-19T11:52:35+08:00">2024-01-19</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -418,13 +418,13 @@ A_v = g_{m1}(r_{ds4}\ ||\ r_{ds2}) \cdot g_{m6}(r_{ds6}\ ||\ r_{ds7})</script></
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="Hexo-初体验"><a href="#Hexo-初体验" class="headerlink" title="Hexo 初体验"></a>Hexo 初体验</h2><p>趁还有印象，记一下第一次用 Hexo 搭博客时可能要注意的内容</p>
+          <h2 id="Hexo-初步部署"><a href="#Hexo-初步部署" class="headerlink" title="Hexo 初步部署"></a>Hexo 初步部署</h2><p>趁还有印象，记一下第一次用 Hexo 搭博客时可能要注意的内容；方法本身是从知乎和 csdn 以及博客园上的文章中学来的，但是似乎完全照搬并不能解决问题，需要根据具体情况对有些地方做略微改动，所以这里写的也就算大杂烩了。当然，看起来还是大同小异的</p>
 <h3 id="路径设置"><a href="#路径设置" class="headerlink" title="路径设置"></a>路径设置</h3><p>github 现在默认刚创建的项目分支名叫 main ，所以在博客文件夹根目录下的 _config.yml 文件里在尾端要添上如下内容</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">  <span class="attr">repository:</span> <span class="string">https://github.com/PMUGO50/pmugo50.github.io.git</span></span><br><span class="line">  <span class="attr">branch:</span> <span class="string">main</span></span><br></pre></td></tr></table></figure>
 <p>就添在下列注释语句的后一行即可</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Deployment</span></span><br><span class="line"><span class="comment">## Docs: https://hexo.io/docs/one-command-deployment</span></span><br></pre></td></tr></table></figure>
 <p>同时在下列注释语句</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># URL</span></span><br><span class="line"><span class="comment">## Set your site url here. For example, if you use GitHub Page, set url as &#x27;https://username.github.io/project&#x27;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># URL</span></span><br><span class="line"><span class="comment">## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'</span></span><br></pre></td></tr></table></figure>
 <p>的后面要添加正确的 url 和 root 路径，这里 url 即为博客网站的域名</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">url:</span> <span class="string">https://pmugo50.github.io</span></span><br><span class="line"><span class="attr">root:</span> <span class="string">/</span></span><br></pre></td></tr></table></figure>
 <h3 id="初步主题设置"><a href="#初步主题设置" class="headerlink" title="初步主题设置"></a>初步主题设置</h3><p>在根目录的 _config.yml 文件中，下列注释语句</p>
@@ -436,21 +436,79 @@ A_v = g_{m1}(r_{ds4}\ ||\ r_{ds2}) \cdot g_{m6}(r_{ds6}\ ||\ r_{ds7})</script></
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Schemes</span></span><br><span class="line"><span class="comment">#scheme: Muse</span></span><br><span class="line"><span class="comment">#scheme: Mist</span></span><br><span class="line"><span class="comment">#scheme: Pisces</span></span><br><span class="line"><span class="comment">#scheme: Gemini</span></span><br></pre></td></tr></table></figure>
 <p>next 提供了四种渲染方案，想用哪个就把其注释拿掉打开就行，<strong>注意不要同时拿掉两个</strong> </p>
 <h3 id="初步主页设置"><a href="#初步主页设置" class="headerlink" title="初步主页设置"></a>初步主页设置</h3><p>在根目录的 _config.yml 文件的开头没几行，可以看到 #site 的注释语句，在其下面就是初步的主页内容设置，可以个性化定制，比如</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">title:</span> <span class="string">PhecStar</span></span><br><span class="line"><span class="attr">subtitle:</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="attr">description:</span> <span class="string">人性无非那么几种，与之相比，大海都更加富于变化</span></span><br><span class="line"><span class="attr">keywords:</span></span><br><span class="line"><span class="attr">author:</span> <span class="string">PMUG050</span></span><br><span class="line"><span class="attr">language:</span> <span class="string">zh-CN</span></span><br><span class="line"><span class="attr">timezone:</span> <span class="string">Asia/Shanghai</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">title:</span> <span class="string">PhecStar</span></span><br><span class="line"><span class="attr">subtitle:</span> <span class="string">''</span></span><br><span class="line"><span class="attr">description:</span> <span class="string">人性无非那么几种，与之相比，大海都更加富于变化</span></span><br><span class="line"><span class="attr">keywords:</span></span><br><span class="line"><span class="attr">author:</span> <span class="string">PMUG050</span></span><br><span class="line"><span class="attr">language:</span> <span class="string">zh-CN</span></span><br><span class="line"><span class="attr">timezone:</span> <span class="string">Asia/Shanghai</span></span><br></pre></td></tr></table></figure>
 <p>这样初步的网页就成形了</p>
 <h3 id="部署网页"><a href="#部署网页" class="headerlink" title="部署网页"></a>部署网页</h3><p>在博客文件夹根目录下打开 git bash，输入</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
 <p>即可部署网页，再输入</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo s</span><br></pre></td></tr></table></figure>
-<p>此时会返回一个网址，点进去就能查看网页的效果，查看完后按 ctri+c 退出查看</p>
-<blockquote>
-<p>这个过程参考了很多知乎和 csdn 以及博客园上的文章，最主要的比如</p>
+<p>此时会返回一个网址，点进去就能查看网页的效果，查看完后按 ctrl+c 退出查看</p>
+<hr>
+<p>本部分过程参考了</p>
 <ul>
-<li><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/335470115">https://www.zhihu.com/question/335470115</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.zhihu.com/column/c_1201860091307458560">https://www.zhihu.com/column/c_1201860091307458560</a></li>
-<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_40871466/article/details/86763540">https://blog.csdn.net/qq_40871466/article/details/86763540</a></li>
+<li><p><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/335470115">https://www.zhihu.com/question/335470115</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.zhihu.com/column/c_1201860091307458560">https://www.zhihu.com/column/c_1201860091307458560</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_40871466/article/details/86763540">https://blog.csdn.net/qq_40871466/article/details/86763540</a></p>
+</li>
 </ul>
+<hr>
+<h2 id="公式、图片和字体"><a href="#公式、图片和字体" class="headerlink" title="公式、图片和字体"></a>公式、图片和字体</h2><h3 id="字体大小"><a href="#字体大小" class="headerlink" title="字体大小"></a>字体大小</h3><blockquote>
+<p>em类似一种相对单位，对于浏览器的默认设定，一般有 1em = 16px</p>
 </blockquote>
+<p>仍然用 next 主题，在<strong>主题文件夹，即 \themes\next 里</strong>的 _config.yml 中找到</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">font:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Uri of fonts host, e.g. https://fonts.googleapis.com (Default).</span></span><br><span class="line">  <span class="attr">host:</span> <span class="string">https://fonts.googleapis.com</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Font options:</span></span><br><span class="line">  <span class="comment"># `external: true` will load this font family from `host` above.</span></span><br><span class="line">  <span class="comment"># `family: Times New Roman`. Without any quotes.</span></span><br><span class="line">  <span class="comment"># `size: x.x`. Use `em` as unit. Default: 1 (16px)</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Global font settings used for all elements inside &lt;body&gt;.</span></span><br><span class="line">  <span class="attr">global:</span></span><br><span class="line">    <span class="attr">external:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">family:</span> <span class="string">Lato</span></span><br><span class="line">    <span class="attr">size:</span> <span class="number">0.95</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Font settings for site title (.site-title).</span></span><br><span class="line">  <span class="attr">title:</span></span><br><span class="line">    <span class="attr">external:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">family:</span></span><br><span class="line">    <span class="attr">size:</span> <span class="number">2</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Font settings for headlines (&lt;h1&gt; to &lt;h6&gt;).</span></span><br><span class="line">  <span class="attr">headings:</span></span><br><span class="line">    <span class="attr">external:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">family:</span></span><br><span class="line">    <span class="attr">size:</span> <span class="number">1.625</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Font settings for posts (.post-body).</span></span><br><span class="line">  <span class="attr">posts:</span></span><br><span class="line">    <span class="attr">external:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">family:</span></span><br><span class="line">    <span class="attr">size:</span> <span class="number">0.95</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Font settings for &lt;code&gt; and code blocks.</span></span><br><span class="line">  <span class="attr">codes:</span></span><br><span class="line">    <span class="attr">external:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">family:</span></span><br><span class="line">    <span class="attr">size:</span> <span class="number">0.85</span></span><br></pre></td></tr></table></figure>
+<p>将 font 下的 enable 置为 true，host 可以采用想要的字体的网址，后面的 global ，title ，headings ，posts ，codes 中</p>
+<ul>
+<li>external 表示是否采用 host 中的字体</li>
+<li>family 表示采用新字体</li>
+<li>size 则表示该部分的字体的基本大小；这其中 headings 字体大小会随标题级数的增加而减小</li>
+</ul>
+<p>然后在 \themes\next\source\css_variables\base.styl 中找到</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Font size</span></span><br><span class="line"><span class="variable">$font</span>-size-base           = (<span class="built_in">hexo-config</span>(<span class="string">'font.enable'</span>) and <span class="built_in">hexo-config</span>(<span class="string">'font.global.size'</span>) is <span class="selector-tag">a</span> <span class="string">'unit'</span>) ? <span class="built_in">unit</span>(<span class="built_in">hexo-config</span>(<span class="string">'font.global.size'</span>), em) : .<span class="number">95em</span>;</span><br><span class="line"><span class="variable">$font</span>-size-smallest       = .<span class="number">8em</span>;</span><br><span class="line"><span class="variable">$font</span>-size-smaller        = .<span class="number">85em</span>;</span><br><span class="line"><span class="variable">$font</span>-size-small          = .<span class="number">9em</span>;</span><br><span class="line"><span class="variable">$font</span>-size-medium         = .<span class="number">95em</span>;</span><br><span class="line"><span class="variable">$font</span>-size-large          = <span class="number">1em</span>;</span><br><span class="line"><span class="variable">$font</span>-size-larger         = <span class="number">1.25em</span>;</span><br><span class="line"><span class="variable">$font</span>-size-largest        = <span class="number">1.45em</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Headings font size</span></span><br><span class="line"><span class="variable">$font</span>-size-headings-step  = .<span class="number">125em</span>;</span><br><span class="line"><span class="variable">$font</span>-size-headings-base  = (<span class="built_in">hexo-config</span>(<span class="string">'font.enable'</span>) and <span class="built_in">hexo-config</span>(<span class="string">'font.headings.size'</span>) is <span class="selector-tag">a</span> <span class="string">'unit'</span>) ? <span class="built_in">unit</span>(<span class="built_in">hexo-config</span>(<span class="string">'font.headings.size'</span>), em) : <span class="number">1.625em</span>;</span><br></pre></td></tr></table></figure>
+<p>修改等号后面的值可以进一步改变页面各部分对应的字号</p>
+<h3 id="mathjax-公式支持"><a href="#mathjax-公式支持" class="headerlink" title="mathjax 公式支持"></a>mathjax 公式支持</h3><ol>
+<li><p>hexo 默认的 math 支持插件是 hexo-math 以及 hexo-renderer-marked ，将二者卸载并分别换为hexo-filter-mathjax 以及 hexo-renderer-kramed ，即在根目录下打开 git bash ，输入</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">npm uninstall hexo-renderer-marked --save</span><br><span class="line">npm uninstall hexo-math --save</span><br><span class="line">npm install hexo-filter-mathjax --save</span><br><span class="line">npm install hexo-renderer-kramed --save</span><br></pre></td></tr></table></figure>
+<p>下载好后可以通过 npm list 命令确定是否已安装成功</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm list hexo-filter-mathjax</span><br><span class="line">npm list hexo-renderer-kramed</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>接下来在<strong>主题文件夹，即 \themes\next 里</strong>的 _config.yml 中找到</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">math:</span></span><br><span class="line">  <span class="comment"># Default (true) will load mathjax / katex script on demand.</span></span><br><span class="line">  <span class="comment"># That is it only render those page which has `mathjax: true` in Front-matter.</span></span><br><span class="line">  <span class="comment"># If you set it to false, it will load mathjax / katex srcipt EVERY PAGE.</span></span><br><span class="line">  <span class="attr">per_page:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># hexo-renderer-pandoc (or hexo-renderer-kramed) required for full MathJax support.</span></span><br><span class="line">  <span class="attr">mathjax:</span></span><br><span class="line">    <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">    <span class="comment"># See: https://mhchem.github.io/MathJax-mhchem/</span></span><br><span class="line">    <span class="attr">mhchem:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<p>将 mathjax 下两项都置为 true</p>
+</li>
+<li><p>然后为了改掉一些符号冲突，打开<strong>根目录</strong>下的 node_modules\kramed\lib\rules\inline.js ，将其中的</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">escape</span>: <span class="regexp">/^\\([\\`*{}\[\]()#$+\-.!_&gt;])/</span>,</span><br><span class="line"><span class="attr">em</span>: <span class="regexp">/^\b_((?:__|[\s\S])+?)_\b|^\*((?:\*\*|[\s\S])+?)\*(?!\*)/</span>,</span><br></pre></td></tr></table></figure>
+<p>两行分别修改为</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">escape</span>: <span class="regexp">/^\\([`*\[\]()#$+\-.!_&gt;])/</span>,</span><br><span class="line"><span class="attr">em</span>: <span class="regexp">/^\*((?:\*\*|[\s\S])+?)\*(?!\*)/</span>,</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>最后，在每次写 blog 的 md 文档的时候，在开头的导言区添上</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mathjax: true</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="图片插入与大小"><a href="#图片插入与大小" class="headerlink" title="图片插入与大小"></a>图片插入与大小</h3><ol>
+<li><p>安装插件 hexo-asset-image ，在根目录下打开 git bash ，输入</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install https://github.com/CodeFalling/hexo-asset-image --save</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将<strong>根目录</strong>下的 _config.yml 文件中的 post_asset_folder 置为 true ，这样每次用 hexo new 指令生成新 blog 文档时会自动产生一个同名文件夹，其中就可以放图片</p>
+<p>比如说此时 blog 文档名称为 w123.md ，生成的图片文件夹则为 w123</p>
+</li>
+<li><p>在 md 文档中写入图片时，采用 html 的写法并用相对路径，但是注意最前面 “./“ 的存在；这里 width 的比例指定，height 缺省时会自动保证图片比例不变，宽度变为页面宽度的 65%</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"./w123/pic1.png"</span> <span class="attr">width</span>=<span class="string">"65%"</span> /&gt;</span></span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="链接蓝色化"><a href="#链接蓝色化" class="headerlink" title="链接蓝色化"></a>链接蓝色化</h3><p>找到 themes/next/source/css/_common/components/post/post.styl ，在其底部添加</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.post-body</span> <span class="selector-tag">p</span> a{</span><br><span class="line">     <span class="attribute">color</span>: <span class="number">#0593d3</span>;</span><br><span class="line">     <span class="attribute">border-bottom</span>: none;</span><br><span class="line">     <span class="selector-pseudo">&amp;:hover</span> {</span><br><span class="line">       <span class="attribute">color</span>: <span class="number">#0477ab</span>;</span><br><span class="line">       <span class="attribute">text-decoration</span>: underline;</span><br><span class="line">     }</span><br><span class="line">   }</span><br></pre></td></tr></table></figure>
+<hr>
+<p>本部分过程参考了</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_43401436/article/details/107191688">https://blog.csdn.net/m0_43401436/article/details/107191688</a></li>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/265077468">https://zhuanlan.zhihu.com/p/265077468</a></li>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/106060640">https://zhuanlan.zhihu.com/p/106060640</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_45511189/article/details/115798563">https://blog.csdn.net/weixin_45511189/article/details/115798563</a></li>
+</ul>
+<hr>
 
       
     </div>
@@ -525,7 +583,7 @@ A_v = g_{m1}(r_{ds4}\ ||\ r_{ds2}) \cdot g_{m6}(r_{ds6}\ ||\ r_{ds7})</script></
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
   <p class="site-author-name" itemprop="name">PMUG050</p>
-  <div class="site-description" itemprop="description">无曰已是，无曰遂真</div>
+  <div class="site-description" itemprop="description">对今天而言, 最宝贵的东西是对明天的希望</div>
 </div>
 <div class="site-state-wrap motion-element">
   <nav class="site-state">
