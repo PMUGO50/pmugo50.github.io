@@ -1729,7 +1729,7 @@ A_v = g_{m1}(r_{ds4}\ ||\ r_{ds2}) \cdot g_{m6}(r_{ds6}\ ||\ r_{ds7})</script></
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-01-31 23:56:06" itemprop="dateModified" datetime="2024-01-31T23:56:06+08:00">2024-01-31</time>
+                <time title="修改时间：2024-02-18 22:33:03" itemprop="dateModified" datetime="2024-02-18T22:33:03+08:00">2024-02-18</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1753,7 +1753,9 @@ A_v = g_{m1}(r_{ds4}\ ||\ r_{ds2}) \cdot g_{m6}(r_{ds6}\ ||\ r_{ds7})</script></
 
       
           <h2 id="Hexo-初步部署"><a href="#Hexo-初步部署" class="headerlink" title="Hexo 初步部署"></a>Hexo 初步部署</h2><p>趁还有印象，记一下第一次用 Hexo 搭博客时可能要注意的内容；方法本身是从知乎和 csdn 以及博客园上的文章中学来的，但是似乎完全照搬并不能解决问题，需要根据具体情况对有些地方做略微改动，所以这里写的也就算大杂烩了。当然，看起来还是大同小异的</p>
-<h3 id="路径设置"><a href="#路径设置" class="headerlink" title="路径设置"></a>路径设置</h3><p>github 现在默认刚创建的项目分支名叫 main ，所以在博客文件夹根目录下的 _config.yml 文件里在尾端要添上如下内容</p>
+<h3 id="路径设置"><a href="#路径设置" class="headerlink" title="路径设置"></a>路径设置</h3><p>github 现在创建默认分支时需要键入</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch -M main</span><br></pre></td></tr></table></figure>
+<p>默认分支名称就成了 main ，所以需要在博客文件夹根目录下的 _config.yml 文件里在尾端要添上如下内容</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">  <span class="attr">repository:</span> <span class="string">https://github.com/PMUGO50/pmugo50.github.io.git</span></span><br><span class="line">  <span class="attr">branch:</span> <span class="string">main</span></span><br></pre></td></tr></table></figure>
 <p>就添在下列注释语句的后一行即可</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Deployment</span></span><br><span class="line"><span class="comment">## Docs: https://hexo.io/docs/one-command-deployment</span></span><br></pre></td></tr></table></figure>
