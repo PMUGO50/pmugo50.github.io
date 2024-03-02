@@ -1164,7 +1164,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #e0bdff;
+  background: #ffa398;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -1579,7 +1579,7 @@ pre .javascript .function {
   width: 10px;
 }
 .posts-collapse .collection-year {
-  font-size: 1.45em;
+  font-size: 1.5em;
   font-weight: bold;
   margin: 60px 0;
   position: relative;
@@ -1767,7 +1767,7 @@ pre .javascript .function {
   font-size: 1em;
 }
 .posts-expand .post-title {
-  font-size: 1.45em;
+  font-size: 1.5em;
   font-weight: normal;
   margin: initial;
   text-align: center;
@@ -2239,7 +2239,7 @@ mjx-container + br {
   }
 }
 .site-brand-container {
-  background: #222;
+  background: #386d09;
 }
 @media (max-width: 991px) {
   .site-brand-container {
@@ -2574,21 +2574,21 @@ mjx-container + br {
   }
 }
 body {
-  background: url("/images/background_genemi.png");
+  background: url("/images/enkidu.png");
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: 50% 50%;
 }
 .content-wrap {
-  opacity: 0.8;
+  opacity: 0.9;
 }
 .sidebar {
-  opacity: 0.9;
+  opacity: 0.95;
 }
 .header-inner {
   background: rgba(255,255,255,0.8);
 }
 .popup {
-  opacity: 0.9;
+  opacity: 0.95;
 }
