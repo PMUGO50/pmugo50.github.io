@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"pmugo50.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","width":240,"display":"always","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="叙述直接在 VSC 上配置或者用 Conda 配置 Python 运行环境的流程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在VSCode上配置Python运行环境">
+<meta property="og:url" content="https://pmugo50.github.io/2024/03/28/vscconda/index.html">
+<meta property="og:site_name" content="PhecStar">
+<meta property="og:description" content="叙述直接在 VSC 上配置或者用 Conda 配置 Python 运行环境的流程">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pmugo50.github.io/2024/03/28/vscconda/language.png">
+<meta property="og:image" content="https://pmugo50.github.io/2024/03/28/vscconda/pythondug.png">
+<meta property="og:image" content="https://pmugo50.github.io/2024/03/28/vscconda/create.png">
+<meta property="og:image" content="https://pmugo50.github.io/2024/03/28/vscconda/install.png">
+<meta property="og:image" content="https://pmugo50.github.io/2024/03/28/vscconda/defaultipt.png">
+<meta property="og:image" content="https://pmugo50.github.io/2024/03/28/vscconda/envment.png">
+<meta property="og:image" content="https://pmugo50.github.io/2024/03/28/vscconda/envchoose.png">
+<meta property="article:published_time" content="2024-03-28T13:38:16.000Z">
+<meta property="article:modified_time" content="2024-04-01T09:16:02.508Z">
+<meta property="article:author" content="PMUG050">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pmugo50.github.io/2024/03/28/vscconda/language.png">
+
+<link rel="canonical" href="https://pmugo50.github.io/2024/03/28/vscconda/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>在VSCode上配置Python运行环境 | PhecStar</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">PhecStar</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://pmugo50.github.io/2024/03/28/vscconda/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="PMUG050">
+      <meta itemprop="description" content="对今天而言, 最宝贵的东西是对明天的希望">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="PhecStar">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          在VSCode上配置Python运行环境
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-03-28 21:38:16" itemprop="dateCreated datePublished" datetime="2024-03-28T21:38:16+08:00">2024-03-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-04-01 17:16:02" itemprop="dateModified" datetime="2024-04-01T17:16:02+08:00">2024-04-01</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/" itemprop="url" rel="index"><span itemprop="name">工具使用</span></a>
+                </span>
+            </span>
+
+          
+            <div class="post-description">叙述直接在 VSC 上配置或者用 Conda 配置 Python 运行环境的流程</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>有一段时间为了机器学习以及爬虫，需要有多个 python 环境，所以需要用 conda 创建虚拟环境，再让 VSC 调用虚拟环境来调试和运行 py 文件。突然想起来这件事情，所以临时起意回忆一下当时配置的过程</p>
+<h2 id="VSCode-下载与准备"><a href="#VSCode-下载与准备" class="headerlink" title="VSCode 下载与准备"></a>VSCode 下载与准备</h2><p>VSCode 本身只是个文本编辑器，跟 Windows 自带的笔记本本质上是一样的东西。不过得益于繁多丰富的插件，才让其具备了许多编辑器本身并没有的功能，比如解释并运行代码、SSH 远程登录、<del>追番</del>等等</p>
+<p>VSCode 是开源免费的，直接在官网 <a target="_blank" rel="noopener" href="https://code.visualstudio.com">https://code.visualstudio.com</a> 下载并安装就行</p>
+<p>然后打开后点击右边栏中由四个方块构成的图标（下图中的自上向下数的第五个），这是浏览及管理插件的地方。在搜索栏里搜 chinese ，会弹出 chinese(simplified) ，即简体中文的插件，下面也有繁体的。看个人喜好简体还是繁体，总之点开之后安装，重启 VSC 界面就成为中文的了</p>
+<p><img src="/2024/03/28/vscconda/language.png" alt="RIGHT_SIDE_BAR" width="100%"></p>
+<p>接着安装 python 和 debug 的插件，在插件搜索栏中键入 python 后会出现一列插件，在其中找到 python 和 python debugger 两个插件安装，如下图左侧栏目中第一个和第三个，都是 Microsoft 自己发布的</p>
+<p>安装完之后，再在搜索栏中键入 pylance 并安装，这个插件是为写 python 代码提供辅助功能的插件，包括函数的参数提示、引用跳转等。这个名字好像是来自骑士 Lancelot ，乐（<del>Gawain 和 Tristan 流下了羡慕的泪水，Altria 继续干饭</del>）</p>
+<p><img src="/2024/03/28/vscconda/pythondug.png" alt="RIGHT_SIDE_BAR" width="100%"></p>
+<p>VSC 的配置到这里先暂停，为了调用环境，接下来需要下载和配置 Conda</p>
+<h2 id="Conda-创建虚拟环境"><a href="#Conda-创建虚拟环境" class="headerlink" title="Conda 创建虚拟环境"></a>Conda 创建虚拟环境</h2><h3 id="Conda-安装"><a href="#Conda-安装" class="headerlink" title="Conda 安装"></a>Conda 安装</h3><p>Conda 本质上可以看成一个管理工具，就跟手机设置里能管理一堆 app 一样。Anaconda 集成了 Conda 本身和一些科学数据库，以及编辑运行 Python 的工具，对于专门进行 Python 开发的人员应该会很有帮助，官网下载地址是 <a target="_blank" rel="noopener" href="https://www.anaconda.com/download">https://www.anaconda.com/download</a></p>
+<p>但是 Anaconda 占用的空间也很大，如果仅仅是为了配置环境可以考虑轻量版的 Miniconda ，Miniconda 相比于 Anaconda ，主要成分只有 Conda 本身，而没有集成一堆开发工具，甚至没有图形化用户界面。当然这不是问题，对于配置环境而言，常用的 conda 指令也就只有几条，命令行中输入也很快</p>
+<p>这里就以 Miniconda 为例来创建环境，可供下载的版本在 <a target="_blank" rel="noopener" href="https://repo.anaconda.com/miniconda">https://repo.anaconda.com/miniconda</a> 中列出，按自己的系统下载合适的版本，选择安装目录进行安装就可以，比如此处下载的是 23.11.0 ，安装在 D:/ 下</p>
+<p>安装过程中可能会出现下面的选项</p>
+<ul>
+<li>Add miniconda to my PATH environment variable，是说将 miniconda 自动添加到环境变量中，这可以通过手动完成，如果自动完成据说 conda 会加一些无关的环境变量，所以不勾选</li>
+<li>Register miniconda as my default python，是说登记 conda 环境里的 python ，以便 VSC 等编辑器能找到，勾选上即可</li>
+</ul>
+<p>然后就可以打开 cmd ，输入相应的 conda 命令来操作了</p>
+<p>为了检查是否安装成功以及版本，打开 cmd 后直接输入</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda -V</span><br></pre></td></tr></table></figure>
+<p>如果跳出版本号，则说明安装成功</p>
+<h3 id="Conda-创建环境"><a href="#Conda-创建环境" class="headerlink" title="Conda 创建环境"></a>Conda 创建环境</h3><p>所谓创建环境就是圈一块地，把可能用到的库放进去以便调用。但在创建环境前首先把下载库的地址换成国内高校或者企业的镜像源，比如清华开源软件镜像站（最近中科大镜像站上好像撤下了 anaconda ），清华镜像站上给出了具体的操作方法：<a target="_blank" rel="noopener" href="https://mirror.tuna.tsinghua.edu.cn/help/anaconda">https://mirror.tuna.tsinghua.edu.cn/help/anaconda</a></p>
+<p>在按照网站上操作完之后，输入</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda config --show default_channels</span><br></pre></td></tr></table></figure>
+<p>可以看到默认下载源已经更换完成，屏幕上显示</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">default_channels:</span><br><span class="line">  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main</span><br><span class="line">  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/r</span><br><span class="line">  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/msys2</span><br></pre></td></tr></table></figure>
+<p>接下来输入</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda create -n envname python=3.x.x</span><br></pre></td></tr></table></figure>
+<p>这里 envname 是要创建的环境的名称，3.x.x 是希望该环境使用的 python 版本号，比如这里输入</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda create -n pmuenv python=3.8.8</span><br></pre></td></tr></table></figure>
+<p>创建了一个名为 pmuenv 的环境，采用 3.8.8 的 python </p>
+<p>输入完后会提醒是否 proceed ，输入 y 即可完成创建</p>
+<p><img src="/2024/03/28/vscconda/create.png" alt="RIGHT_SIDE_BAR" width="100%"></p>
+<h3 id="Conda-配置环境"><a href="#Conda-配置环境" class="headerlink" title="Conda 配置环境"></a>Conda 配置环境</h3><p>创建完环境后会出现一串提示</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># To activate this environment, use</span><br><span class="line">#</span><br><span class="line">#     $ conda activate envname</span><br><span class="line">#</span><br><span class="line"># To deactivate an active environment, use</span><br><span class="line">#</span><br><span class="line">#     $ conda deactivate</span><br></pre></td></tr></table></figure>
+<p>这串提示是说如何打开（ activate ）以及如何退出（ deactivate ）这个环境。所以就按照提示，输入</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda activate envname</span><br></pre></td></tr></table></figure>
+<p>就可以打开刚创建的环境，打开后在命令行开头会显示本环境的名称，比如这里显示的是</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(pmuenv) C:\Users\14800&gt;</span><br></pre></td></tr></table></figure>
+<p>接下来可以安装想要的库，比如如果要进行一些数据处理的话，最常用的库是 numpy 和 pandas ，如果牵扯到一些科学计算的话，可能还需要 scipy 的参与。安装命令是 install ，安装这三个库就是分别输入</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">conda install numpy</span><br><span class="line">conda install pandas</span><br><span class="line">conda install scipy</span><br></pre></td></tr></table></figure>
+<p>这里以 pandas 为例，同样系统会确认是否要安装，并列出了将加入本环境中的库，因为 pandas 需要调用一些其它库（比如 numpy ） ，所以会将其自动安装上，自然输入 y 安装即可</p>
+<p><img src="/2024/03/28/vscconda/install.png" alt="RIGHT_SIDE_BAR" width="100%"></p>
+<p>在安装完成后，可以输入</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda list</span><br></pre></td></tr></table></figure>
+<p>来查看本环境中已经有的库，比如这里输入完之后会显示</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"># Name                    Version                   Build  Channel</span><br><span class="line">blas                      1.0                         mkl    defaults</span><br><span class="line">bottleneck                1.3.7            py38h9128911_0    defaults</span><br><span class="line">ca-certificates           2024.3.11            haa95532_0    defaults</span><br><span class="line">intel-openmp              2023.1.0         h59b6b97_46320    defaults</span><br><span class="line">libffi                    3.4.4                hd77b12b_0    defaults</span><br><span class="line">mkl                       2023.1.0         h6b88ed4_46358    defaults</span><br><span class="line">mkl-service               2.4.0            py38h2bbff1b_1    defaults</span><br><span class="line">mkl_fft                   1.3.8            py38h2bbff1b_0    defaults</span><br><span class="line">mkl_random                1.2.4            py38h59b6b97_0    defaults</span><br><span class="line">numexpr                   2.8.4            py38h7b80656_1    defaults</span><br><span class="line">numpy                     1.24.3           py38h79a8e48_1    defaults</span><br><span class="line">numpy-base                1.24.3           py38h8a87ada_1    defaults</span><br><span class="line">openssl                   3.0.13               h2bbff1b_0    defaults</span><br><span class="line">pandas                    2.0.3            py38h4ed8f06_0    defaults</span><br><span class="line">pip                       23.3.1           py38haa95532_0    defaults</span><br><span class="line">python                    3.8.19               h1aa4202_0    defaults</span><br><span class="line">python-dateutil           2.8.2              pyhd3eb1b0_0    defaults</span><br><span class="line">python-tzdata             2023.3             pyhd3eb1b0_0    defaults</span><br><span class="line">pytz                      2023.3.post1     py38haa95532_0    defaults</span><br><span class="line">setuptools                68.2.2           py38haa95532_0    defaults</span><br><span class="line">six                       1.16.0             pyhd3eb1b0_1    defaults</span><br><span class="line">sqlite                    3.41.2               h2bbff1b_0    defaults</span><br><span class="line">tbb                       2021.8.0             h59b6b97_0    defaults</span><br><span class="line">vc                        14.2                 h21ff451_1    defaults</span><br><span class="line">vs2015_runtime            14.27.29016          h5e58377_2    defaults</span><br><span class="line">wheel                     0.41.2           py38haa95532_0    defaults</span><br></pre></td></tr></table></figure>
+<p>可以看到其中已经有了 numpy 和 pandas</p>
+<p>然后如果需要删除某个库的话，就输入卸载命令，以 pandas 为例就是</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda uninstall pandas</span><br></pre></td></tr></table></figure>
+<p>系统也会再次确认是否要删除，选择 y 即可完成删除。通过安装和卸载命令，就可以对环境进行灵活的配置了，最后要退出目前的环境的话，就输入</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda deactiavte</span><br></pre></td></tr></table></figure>
+<p>即可退出本环境</p>
+<h3 id="Conda-删除环境"><a href="#Conda-删除环境" class="headerlink" title="Conda 删除环境"></a>Conda 删除环境</h3><p>对于不用的环境，可以予以删除。有时候环境太多，以至于有的环境长期不用占地方，这时可以先用 info 命令列出所有环境，嫌 info 输出的信息太多的话，可以输入</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda info -e</span><br></pre></td></tr></table></figure>
+<p>这样 info 就只会列出虚拟环境，而不显示其它信息了。比如这里将会列出</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># conda environments:</span><br><span class="line">#</span><br><span class="line">base                     D:\Miniconda</span><br><span class="line">flow                     D:\Miniconda\envs\flow</span><br><span class="line">mlearn                   D:\Miniconda\envs\mlearn</span><br><span class="line">pmuenv                   D:\Miniconda\envs\pmuenv</span><br></pre></td></tr></table></figure>
+<p>其中 base 是基本环境，一般不要动。flow 和 mlearn 是之前创建的两个环境，后者有一段时间专用来做机器学习。总之现在可能因为各种原因，pmuenv 这个环境用不上了，那就输入</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda remove -n pmuenv --all</span><br></pre></td></tr></table></figure>
+<p>系统会确认是否要删除，输入 y 即可完成删除。但在删除前务必先退出要删除的环境</p>
+<h2 id="VSCode-调用环境"><a href="#VSCode-调用环境" class="headerlink" title="VSCode 调用环境"></a>VSCode 调用环境</h2><p>对于已经创建并配置好的环境，可以用 VSC 进行调用</p>
+<p>在 VSC 界面的左下角有设置的图标，打开并且点击设置，可以进入设置界面，接着如图在搜索栏中输入 python: default ，这里注意冒号是英文的，就会跳出图中的选项 <strong>Python: Default Intepreter Path</strong> ，即默认的解释器</p>
+<p>将默认的解释器可以选为一个比较常用的环境下的 python.exe ，下图中 D:\Miniconda 是 Miniconda 安装的位置；envs 是 miniconda 安装根目录下的文件夹，专门用来装虚拟环境的；然后下面有创建好的各环境文件夹，比如这里是 flow ；打开 flow 之后会有解释器 python.exe ，将该解释器的绝对路径输入进去即可</p>
+<p><img src="/2024/03/28/vscconda/defaultipt.png" alt="RIGHT_SIDE_BAR" width="100%"></p>
+<p>配置好之后，在 VSC 中随便打开一个含 py 文件的文件夹，并且之后打开这个 py 文件，会发现右下角显示了当前所使用的虚拟环境名称，如下图中显示了 flow: conda</p>
+<p><img src="/2024/03/28/vscconda/envment.png" alt="RIGHT_SIDE_BAR" width="100%"></p>
+<p>可以点击 flow: conda 这个地方，顶部就会出现可选的解释器（环境）列表，如下图</p>
+<p><img src="/2024/03/28/vscconda/envchoose.png" alt="RIGHT_SIDE_BAR" width="100%"></p>
+<p>在这里可以选择要用的环境，如果采用默认环境自然不用变，如果要换环境的话点击相应的环境即可</p>
+<p>然后要调试或运行 py 脚本的话，就在右边栏中选中如上图一样的“带有虫子（bug）的三角形”，并点击“创建 launch.json 文件”，点击后顶部会先后出现对调试器的选取以及要调试的文件的选取，分别选取一开始安装的“ python debugger ”以及“ python 文件”即可，选完后会弹出 launch.json 的内容</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">{</span></span><br><span class="line">    <span class="comment">// 使用 IntelliSense 了解相关属性。 </span></span><br><span class="line">    <span class="comment">// 悬停以查看现有属性的描述。</span></span><br><span class="line">    <span class="comment">// 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387</span></span><br><span class="line">    <span class="attr">"version"</span><span class="punctuation">:</span> <span class="string">"0.2.0"</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">"configurations"</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="punctuation">{</span></span><br><span class="line">            <span class="attr">"name"</span><span class="punctuation">:</span> <span class="string">"Python 调试程序: 当前文件"</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">"type"</span><span class="punctuation">:</span> <span class="string">"debugpy"</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">"request"</span><span class="punctuation">:</span> <span class="string">"launch"</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">"program"</span><span class="punctuation">:</span> <span class="string">"${file}"</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">"console"</span><span class="punctuation">:</span> <span class="string">"integratedTerminal"</span></span><br><span class="line">        <span class="punctuation">}</span></span><br><span class="line">    <span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">}</span></span><br></pre></td></tr></table></figure>
+<p>如果只是要运行当前脚本的话，就不用动这个文件，回到 py 脚本按 F5 即为调试，按 ctrl+F5 为直接运行，F10 为按过程运行，F11 为按语句运行</p>
+<p>但如果比如说这是个小项目，有多个脚本，但是希望每次按 F5 都是从主程序进入来执行的话，那么就把 json 中的 “program” 项改为主程序的名字，比如一般是 main.py ，这样每次按 F5 或者 ctrl+F5 都会从主程序进入项目开始运行</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/03/22/githubset/" rel="prev" title="关联github远程仓库">
+      <i class="fa fa-chevron-left"></i> 关联github远程仓库
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2024/04/02/usualipcore/" rel="next" title="Xilinx FPGA中一部分常见的IP核">
+      Xilinx FPGA中一部分常见的IP核 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#VSCode-%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%87%86%E5%A4%87"><span class="nav-number">1.</span> <span class="nav-text">VSCode 下载与准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Conda-%E5%88%9B%E5%BB%BA%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83"><span class="nav-number">2.</span> <span class="nav-text">Conda 创建虚拟环境</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Conda-%E5%AE%89%E8%A3%85"><span class="nav-number">2.1.</span> <span class="nav-text">Conda 安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Conda-%E5%88%9B%E5%BB%BA%E7%8E%AF%E5%A2%83"><span class="nav-number">2.2.</span> <span class="nav-text">Conda 创建环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Conda-%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83"><span class="nav-number">2.3.</span> <span class="nav-text">Conda 配置环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Conda-%E5%88%A0%E9%99%A4%E7%8E%AF%E5%A2%83"><span class="nav-number">2.4.</span> <span class="nav-text">Conda 删除环境</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#VSCode-%E8%B0%83%E7%94%A8%E7%8E%AF%E5%A2%83"><span class="nav-number">3.</span> <span class="nav-text">VSCode 调用环境</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="PMUG050"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">PMUG050</p>
+  <div class="site-description" itemprop="description">对今天而言, 最宝贵的东西是对明天的希望</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">18</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/PMUGO50" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;PMUGO50" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/emailaddress" title="E-Mail → emailaddress"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2024-01 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">PMUG050</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+          load: ['[tex]/mhchem'],
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+          packages: {'[+]': ['mhchem']},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>
