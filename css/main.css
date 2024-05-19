@@ -1164,7 +1164,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #571170;
+  background: #ff6bff;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2239,7 +2239,7 @@ mjx-container + br {
   }
 }
 .site-brand-container {
-  background: #ffd700;
+  background: #00bfff;
 }
 @media (max-width: 991px) {
   .site-brand-container {
@@ -2574,7 +2574,7 @@ mjx-container + br {
   }
 }
 body {
-  background: url("/images/Autumn.png");
+  background: url("/images/Summer.png");
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
