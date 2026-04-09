@@ -30,7 +30,7 @@
 <meta property="og:image" content="https://pmugo50.github.io/2025/11/09/coupvector/general.png">
 <meta property="og:image" content="https://pmugo50.github.io/2025/11/09/coupvector/geo_equal.png">
 <meta property="article:published_time" content="2025-11-09T06:28:37.000Z">
-<meta property="article:modified_time" content="2026-04-06T14:01:54.851Z">
+<meta property="article:modified_time" content="2026-04-09T14:24:52.324Z">
 <meta property="article:author" content="PMUGO50">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://pmugo50.github.io/2025/11/09/coupvector/general.png">
@@ -305,7 +305,7 @@ mjx-container[display="true"] + br {
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2026-04-06 22:01:54" itemprop="dateModified" datetime="2026-04-06T22:01:54+08:00">2026-04-06</time>
+                <time title="修改时间：2026-04-09 22:24:52" itemprop="dateModified" datetime="2026-04-09T22:24:52+08:00">2026-04-09</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -329,8 +329,8 @@ mjx-container[display="true"] + br {
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="相矢图"><a href="#相矢图" class="headerlink" title="相矢图"></a>相矢图</h2><p>分析 2x2 定向耦合器的一个简单的方法是用所谓的正交模式法，参照 <em>R. Youngquist, L. Stokes, and H. Shaw, “Effects of normal mode loss in dielectric waveguide directional couplers and interferometers,” IEEE J. Quantum Electron., Vol. 19, pp. 1888(1983).</em></p>
-<p>这种方法认为耦合器中存在两个模式，一个是关于两个波导对称的（Even），另一个是关于两个波导反对称的（Odd）。这两个模式的相位差会随空间变化，通过控制耦合区长度来控制这个相位差即可控制耦合的分光比</p>
+        <h2 id="相矢图"><a href="#相矢图" class="headerlink" title="相矢图"></a>相矢图</h2><p>分析 2x2 定向耦合器的一个简单的方法是用所谓的正交模式法，参照 <em>R. Youngquist, L. Stokes, and H. Shaw, IEEE J. Quantum Electron., Vol. 19, pp. 1888(1983).</em> </p>
+<p>这种方法认为耦合器中存在两个模式（准确说是两类），一个是关于两个波导对称的（Even），另一个是关于两个波导反对称的（Odd）。这两个模式的相位差会随空间变化，通过控制耦合区长度来控制这个相位差即可控制耦合的分光比</p>
 <p>现在固定对称模式的相位不动，让反对称模式的相位旋转，即可绘制出所谓的相矢图，如下所示。传输电场（输入光所在波导的输出电场，用下标 <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.023ex;" xmlns="http://www.w3.org/2000/svg" width="0.88ex" height="1.414ex" role="img" focusable="false" viewbox="0 -615 389 625"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="TeXAtom" data-mjx-texclass="ORD"><g data-mml-node="mi"><path data-c="74" d="M27 422Q80 426 109 478T141 600V615H181V431H316V385H181V241Q182 116 182 100T189 68Q203 29 238 29Q282 29 292 100Q293 108 293 146V181H333V146V134Q333 57 291 17Q264 -10 221 -10Q187 -10 162 2T124 33T105 68T98 100Q97 107 97 248V385H18V422H27Z"/></g></g></g></g></svg></mjx-container> 表示）是对称模式与反对称模式相加，耦合电场（用下标 <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.025ex;" xmlns="http://www.w3.org/2000/svg" width="1.005ex" height="1.038ex" role="img" focusable="false" viewbox="0 -448 444 459"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="TeXAtom" data-mjx-texclass="ORD"><g data-mml-node="mi"><path data-c="63" d="M370 305T349 305T313 320T297 358Q297 381 312 396Q317 401 317 402T307 404Q281 408 258 408Q209 408 178 376Q131 329 131 219Q131 137 162 90Q203 29 272 29Q313 29 338 55T374 117Q376 125 379 127T395 129H409Q415 123 415 120Q415 116 411 104T395 71T366 33T318 2T249 -11Q163 -11 99 53T34 214Q34 318 99 383T250 448T370 421T404 357Q404 334 387 320Z"/></g></g></g></g></svg></mjx-container> 表示）是对称模式减去反对称模式</p>
 <p><img src="/2025/11/09/coupvector/general.png" alt="2STAGE_OPAMP" width="75%"></p>
 <p>在理想情况下，两个模式之间没有差分损耗，那么不管是加还是减，两个模式的相矢总是张成菱形，而输出的总电场分别是菱形的两条对角线。由于菱形的性质，这两个输出电场之间总是存在着90°的相位差</p>
