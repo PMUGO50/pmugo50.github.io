@@ -65,19 +65,23 @@ $$
 \end{aligned}
 $$
 
->在光学测量中，只有光强是可测的，所以上面两式是否构成可解的方程组尤为重要。将上面两式写为
->$$
->\left[\begin{matrix} \mathrm{d}I_\mathrm{t} \\ \mathrm{d}I_\mathrm{c}\end{matrix}\right] = 
->\left[\begin{matrix}  2(s+ s_0\cos\theta) & -2s_0 s\sin\theta \\  2(s - s_0\cos\theta) & 2s_0 s\sin\theta \end{matrix}\right]
->\left[\begin{matrix} \mathrm{d}s \\ \mathrm{d}\theta \end{matrix}\right]
->$$
->这个矩阵的行列式是
->$$
->\det \left[\begin{matrix}  2(s+ s_0\cos\theta) & -2s_0 s\sin\theta \\  2(s - s_0\cos\theta) & 2s_0 s\sin\theta \end{matrix}\right] = 8s_0s^2\sin\theta
->$$
->这个行列式只有在 $s=0$ 或 $\theta = 0,\pi$ 的时候为零，在其它偏置点处都不为零。因此除了两种特殊情况之外，矩阵总是可逆的，因而方程组总有唯一解
->
->单独考虑特殊情况，$s=0$ 意味着反对称模式完全消失，那么耦合器已经失去功能了，这一般不太可能发生；而 $\theta = 0$ 意味着只有传输光波输出，$\theta = \pi$ 则是只有耦合光波输出
+___
+
+在光学测量中，只有光强是可测的，所以上面两式是否构成可解的方程组尤为重要。将上面两式写为
+$$
+\left[\begin{matrix} \mathrm{d}I_\mathrm{t} \\ \mathrm{d}I_\mathrm{c}\end{matrix}\right] = 
+\left[\begin{matrix}  2(s+ s_0\cos\theta) & -2s_0 s\sin\theta \\  2(s - s_0\cos\theta) & 2s_0 s\sin\theta \end{matrix}\right]
+\left[\begin{matrix} \mathrm{d}s \\ \mathrm{d}\theta \end{matrix}\right]
+$$
+这个矩阵的行列式是
+$$
+\det \left[\begin{matrix}  2(s+ s_0\cos\theta) & -2s_0 s\sin\theta \\  2(s - s_0\cos\theta) & 2s_0 s\sin\theta \end{matrix}\right] = 8s_0s^2\sin\theta
+$$
+这个行列式只有在 $s=0$ 或 $\theta = 0,\pi$ 的时候为零，在其它偏置点处都不为零。因此除了两种特殊情况之外，矩阵总是可逆的，因而方程组总有唯一解
+
+单独考虑特殊情况，$s=0$ 意味着反对称模式完全消失，那么耦合器已经失去功能了，这一般不太可能发生；而 $\theta = 0$ 意味着只有传输光波输出，$\theta = \pi$ 则是只有耦合光波输出
+
+___
 
 另一方面，$\psi$ 的微分是
 $$

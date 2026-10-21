@@ -116,8 +116,12 @@ A_{v2} = G_2 (R_{o2}\ ||\ R_S) = \frac{g_m}{1+H_D} \cdot \frac{[(1+H_D)/(g_{m} +
 $$
 再注意到 $H_S = (g_m+g_{mb}+g_{ds})R_S$ 和  $H_D = g_{ds}R_D$ 就可以列出
 
-> - 漏端输出时：跨导增益 $\displaystyle{G_1 = \frac{-g_m}{1+H_S}}$ ；输出电阻 $\displaystyle{R_{o1} = (1+H_S)r_{ds}}$ ；电压增益 $\displaystyle{A_{v1} = \frac{-g_mR_D}{1+H_S+H_D}}$ 
-> - 源端输出时：跨导增益 $\displaystyle{G_2 = \frac{g_m}{1+H_D}}$ ；输出电阻 $\displaystyle{R_{o2} = (1+H_D)(1/g_m\ ||\ 1/g_{mb}\ ||\ r_{ds})}$ ；电压增益 $\displaystyle{A_{v2} = \frac{g_mR_S}{1+H_S+H_D}}$ 
+___
+
+- 漏端输出时：跨导增益 $\displaystyle{G_1 = \frac{-g_m}{1+H_S}}$ ；输出电阻 $\displaystyle{R_{o1} = (1+H_S)r_{ds}}$ ；电压增益 $\displaystyle{A_{v1} = \frac{-g_mR_D}{1+H_S+H_D}}$ 
+- 源端输出时：跨导增益 $\displaystyle{G_2 = \frac{g_m}{1+H_D}}$ ；输出电阻 $\displaystyle{R_{o2} = (1+H_D)(1/g_m\ ||\ 1/g_{mb}\ ||\ r_{ds})}$ ；电压增益 $\displaystyle{A_{v2} = \frac{g_mR_S}{1+H_S+H_D}}$ 
+
+___
 
 而由于很多情况下可以近似认为 $g_m \gg g_{ds}$​ ，所以也可以利用上述关系快速判断端口阻抗是比较大还是比较小
 

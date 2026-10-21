@@ -24,7 +24,11 @@ A^{(s)}_i = \sum_{k} S_{ik} A^{(i)}_k
 $$
 这里沿用了之前的上标，$\{S_{ik}\}$​​ 被称为散射矩阵，它表示了光学系统本身的特性
 
-> 这里无需要求波导是单模的，对于多模波导，只需把同一个端口的不同模式等效为不同的端口即可
+___
+
+这里无需要求波导是单模的，对于多模波导，只需把同一个端口的不同模式等效为不同的端口即可
+
+___
 
 ## 互易性约束
 
@@ -51,15 +55,19 @@ $$
 \boldsymbol{E}_i \cdot (\nabla \times \boldsymbol{B}_k) - 
  \boldsymbol{B}_k \cdot (\nabla \times \boldsymbol{E}_i) = \boldsymbol{E}_k \cdot (\nabla \times \boldsymbol{B}_i) - \boldsymbol{B}_i \cdot (\nabla \times \boldsymbol{E}_k)
 $$
-反用矢量微分恒等式 $\nabla \cdot (\boldsymbol{X}\times\boldsymbol{Y}) = \boldsymbol{Y} \cdot (\nabla \times \boldsymbol{X}) - \boldsymbol{X} \cdot (\nabla \times \boldsymbol{Y})$ ，就得到**微分形式的 Lorentz 互易定理**
-$$
-\nabla\cdot(\boldsymbol{E}_i \times \boldsymbol{B}_k) = \nabla\cdot(\boldsymbol{E}_k \times \boldsymbol{B}_i)
-$$
+反用矢量微分恒等式 $\nabla \cdot (\boldsymbol{X}\times\boldsymbol{Y}) = \boldsymbol{Y} \cdot (\nabla \times \boldsymbol{X}) - \boldsymbol{X} \cdot (\nabla \times \boldsymbol{Y})$ ，就得到
 
-直接应用微积分的 Gauss-Ostrograsky 公式，即可得到**积分形式的 Lorentz 互易定理** 
-$$
-\oint_S(\boldsymbol{E}_i \times \boldsymbol{B}_k)\cdot\mathrm{d}\boldsymbol{\sigma} = \oint_S(\boldsymbol{E}_k \times \boldsymbol{B}_i)\cdot\mathrm{d}\boldsymbol{\sigma}
-$$
+> **微分形式的 Lorentz 互易定理**：在线性定常介质中，电磁场处处服从
+> $$
+> \nabla\cdot(\boldsymbol{E}_i \times \boldsymbol{B}_k) = \nabla\cdot(\boldsymbol{E}_k \times \boldsymbol{B}_i)
+> $$
+
+直接应用微积分的 Gauss-Ostrograsky 公式，即可得到
+
+> **积分形式的 Lorentz 互易定理**：在线性定常介质中，对于任意光滑曲面 $S$ ，电磁场的叉积对其的通量满足
+> $$
+> \oint_S(\boldsymbol{E}_i \times \boldsymbol{B}_k)\cdot\mathrm{d}\boldsymbol{\sigma} = \oint_S(\boldsymbol{E}_k \times \boldsymbol{B}_i)\cdot\mathrm{d}\boldsymbol{\sigma}
+> $$
 
 ### 矩阵形式的互易性
 
@@ -83,10 +91,10 @@ $i,k$ 遍历了同样的指标集合，所以交换等号右侧的指标即得�
 $$
 \sum_{i,k} A^{(i,1)}_i S_{ik} A^{(i,2)}_k = \sum_{i,k} A^{(i,2)}_k S_{ki} A^{(i,1)}_i
 $$
-由于两束光 $A^{(i,1)}_i, A^{(i,2)}_i$ 是任选的，所以上式成立的充要条件就成为**散射矩阵的互易性约束**，即对于线性定常的光学系统，其散射矩阵 $\{S_{ik}\}$ 必定满足
-$$
-S_{ik} = S_{ki}
-$$
+由于两束光 $A^{(i,1)}_i, A^{(i,2)}_i$ 是任选的，所以上式成立的充要条件就成为
+
+> **散射矩阵的互易性约束**，即对于线性定常的光学系统，其散射矩阵 $\{S_{ik}\}$ 必定满足 $S_{ik} = S_{ki}$ 
+
 这是说散射矩阵是对称的。某种程度上可以说，互易性约束使得光学系统的任意两个端口之间传输的光路都是可逆的。或者也可以说（尽管略有一些武断），光路可逆的系统才是互易的
 
 ### 非惯性系对互易性的破坏

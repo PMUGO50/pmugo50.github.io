@@ -107,7 +107,11 @@ f_\mathrm{b}^2 \tau_\mathrm{co}^2 \geq \frac{1}{16\pi^2}
 $$
 不等式的等号只有在光谱具有 Gauss 形状时才成立，因此一般上式更多地近似写为 $f_\mathrm{b} \tau_\mathrm{co} \approx 1$ ，进行量级上的估计；当采用波长而非频率衡量谱宽时，只要 $f_\mathrm{b} \ll f_\mathrm{c}$ ，那么就有 $\tau_\mathrm{co} \approx \lambda_\mathrm{c}^2/c\Delta \lambda$ ，这里$\lambda_\mathrm{c} = c/f_\mathrm{c}$ ，而 $\Delta \lambda$ 是以波长衡量的谱宽
 
-> 值得一提的是，如果上述过程不进行变量代换 $f \rightarrow f + f_\mathrm{c}$ ，将无法得到不确定性关系式。这是因为这种情况下，对易不等式的放缩过度了
+___
+
+值得一提的是，如果上述过程不进行变量代换 $f \rightarrow f + f_\mathrm{c}$ ，将无法得到不确定性关系式。这是因为这种情况下，对易不等式的放缩过度了
+
+___
 
 ## 强度的谱分解
 

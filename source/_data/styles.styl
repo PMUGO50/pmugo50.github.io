@@ -1,24 +1,28 @@
-body {
-      background: url(/images/Paper.png);
-
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-attachment: fixed;
-      background-position: 50% 50%;
+.post-body blockquote {
+  margin: 1em 0;
+  padding: 1em 1em;
+  background: #e5f0ff;
+  border-left: 4px solid #0f1978;
+  border-radius: 3px;
+  color: #171c3dd8;
+  overflow-x: auto;
 }
 
-.post-block {
-	background: rgba(255,255,255,0.85) none repeat scroll !important;
+.post-body blockquote p:first-child {
+  margin-top: 0;
 }
 
-.sidebar-inner {
-  background: rgba(255,255,255,0.85) none repeat scroll !important;
-  }
-
-.header-inner {
-  background: rgba(255,255,255,0.8);
+.post-body blockquote p:last-child {
+  margin-bottom: 0;
 }
 
-.popup {		
-  opacity: 0.95;
+.post-body hr {
+  height: 0;
+  background: none;
+  background-image: none;
+  border: none; 
+  
+  width: 100%;
+  margin: 1em auto;
+  border-top: 3px dashed #0f1978;
 }
