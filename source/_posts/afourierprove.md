@@ -13,7 +13,7 @@ description: 因果系统实部自满性与复解析信号
 > R(f) = \frac{1}{\pi}\int_{-\infty}^{+\infty} \frac{X(\eta)}{f-\eta} \mathrm{d}\eta \quad , \quad X(f) = -\frac{1}{\pi}\int_{-\infty}^{+\infty} \frac{R(\eta)}{f-\eta} \mathrm{d}\eta
 > $$
 
-## 实部自满性
+# 实部自满性
 
 因果系统（前提是单位脉冲响应在原点没有奇异性）有所谓的实部自满性，就是其 Fourier 变换的实部能包含该信号全部信息
 
@@ -41,7 +41,7 @@ R(f) + jX(f) = \frac{1}{\pi}\int_{-\infty}^{+\infty} \frac{X(\eta)}{f-\eta} \mat
 $$
 令实部虚部分别相等就得到考题要求证明的结果。这表明因果系统 Fourier 变换的实部和虚部是通过一个卷积关系互相关联的，也就是给定其实部也能求出虚部，同样说明了其具有实部自满性
 
-## Hilbert 变换
+# Hilbert 变换
 
 上面过程中出现的式子
 $$

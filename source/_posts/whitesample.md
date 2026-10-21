@@ -6,7 +6,7 @@ mathjax: true
 description: 对噪声进行采样产生的混叠现象
 ---
 
-## 零阶保持
+# 零阶保持
 
 对于许多 ADC 而言，从一个连续的信号中进行采样的过程是
 $$
@@ -25,7 +25,7 @@ $$
 \mathcal{F}[h_0(t-kT_s)] = \int_{kT_s}^{(k+1)T_s} e^{-j2\pi ft}\mathrm{d}t = \frac{\sin(\pi f/f_s)}{\pi f} e^{-j\pi f/f_s}e^{-j2k\pi f/f_s} = \mathcal{F}[h_0(t)]e^{-j2k\pi f/f_s}
 $$
 
-## 对功率信号的采样
+# 对功率信号的采样
 
 对于功率信号 $x(t)$ ，可以将其展开写为
 $$

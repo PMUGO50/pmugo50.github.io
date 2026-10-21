@@ -6,7 +6,7 @@ mathjax: true
 description: 给出自发辐射光源下的光谱
 ---
 
-## 光强
+# 光强
 
 对于真空中的单色平面电波 $\boldsymbol{e}_r(t)=\boldsymbol{E}\cos(2\pi ft - 2\pi \boldsymbol{m} \cdot \boldsymbol{x} + \theta)$ ，其 Poynting 矢量为
 $$
@@ -38,9 +38,9 @@ $$
 $$
 I = \frac{c}{8\pi}\Braket{\frac{1}{2}[e(t) + e^{\ast}(t)]^2} = \frac{c}{8\pi}\Braket{e(t)e^{\ast}(t)} = \frac{c}{8\pi}\Braket{|e(t)|^2}
 $$
-## 自发辐射的光谱
+# 自发辐射的光谱
 
-### 谱分解
+## 谱分解
 
 关于平稳随机信号的谱分解，详细的描述参照 *L. Landau, and E. Lifshitz, "Statistical physics, part 1," 3rd ed., Sec. 122.* 以及 *A. Papoulis, and S. U. Pillai, "Probability, random variables and stochastic processes," 4th ed., Chap. 11, Sec. 4.* 
 
@@ -67,17 +67,20 @@ $$
 $$
 \varGamma(\tau) = \frac{c}{8\pi} \mathrm{E}\left[e(t)e^\ast(t-\tau)\right] \quad,\quad S(f) = \int_{-\infty}^{+\infty} \varGamma(\tau) e^{-j2\pi f\tau}\mathrm{d}\tau
 $$
-这给出**平稳随机过程频谱的零相关性**，即电场的谱分解结果
-$$
-\frac{c}{8\pi}\mathrm{E}\left[E(f)E^\ast(\nu) \right] = S(f) \delta(f-\nu)
-$$
+这给出平稳随机过程频谱的零相关性，即
+
+> **Wiener-Khinchin 定理**：对于广义平稳的随机过程 $e(t)$ ，记其 Fourier 变换为 $E(f)$ ，其自相关函数 $\varGamma(\tau)$ 的 Fourier 变换为 $S(f)$ ，那么
+> $$
+> \frac{c}{8\pi}\mathrm{E}\left[E(f)E^\ast(\nu) \right] = S(f) \delta(f-\nu)
+> $$
+
 将上述结果代回 $I$ 的表达式，或者注意 $I=\varGamma(0)$ ，总之就得到
 $$
 I = \int_0^\infty S(f) \mathrm{d}f
 $$
 也即光强是由函数 $S(f)$ 在频域上线性叠加的结果，因此 $S(f)$ 被称为**光谱** ，不难看出光谱是实函数，因而 ACF 作为它的 Fourier 逆变换一定是一个偶函数
 
-### 时间相干性
+## 时间相干性
 
 由于 ACF 与光谱构成 Fourier 变换对，这就意味着它们之间存在类似于量子力学中不确定性关系的约束：光谱越宽，ACF 就越尖锐；反之光谱越窄，ACF 则越平坦
 
@@ -113,7 +116,7 @@ ___
 
 ___
 
-## 强度的谱分解
+# 强度的谱分解
 
 由于实际的光电探测往往无法捕捉以极高频率变化的电场，而是将光强转化为正比于其的电流或者电压输出，因此光电探测器也被称为一个**平方律器件** ，那么对光强进行谱分解时，经由与对电场分解完全相同的形式，得到
 $$
