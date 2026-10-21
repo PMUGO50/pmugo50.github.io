@@ -1164,7 +1164,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #8bff3c;
+  background: #73ccff;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2395,10 +2395,10 @@ hr {
 .post-body blockquote {
   margin: 1em 0;
   padding: 1em 1em;
-  background: #e5f0ff;
-  border-left: 4px solid #0e1235;
+  background: #f1f5f9;
+  border-left: 4px solid #64748b;
   border-radius: 3px;
-  color: #0e1235;
+  color: rgba(41,46,83,0.965);
   overflow-x: auto;
 }
 .post-body blockquote p:first-child {
@@ -2408,8 +2408,11 @@ hr {
   margin-bottom: 0;
 }
 .post-body hr {
-  width: 80%;
-  margin: 1em auto;
+  height: 0;
+  background: none;
+  background-image: none;
   border: none;
-  border-top: 2px solid #0e1235;
+  width: 100%;
+  margin: 1em auto;
+  border-top: 3px dashed #64748b;
 }
