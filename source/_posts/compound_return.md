@@ -98,7 +98,7 @@ ___
 
 所以如果要对同一只证券的收益情况跨时间纵向统计，往往用对数收益率，简单收益率会高估收益。不过简单收益率也有发挥作用的场合，就是在同一时间截面上，资产组合的简单收益率恰好是各资产按照市值加权的收益率，即
 $$
-R(\Delta t) = \frac{\sum_{k=1}^K [P_k(t+\Delta t) - P_k(t)]}{\sum_{k=1}^K P_k(t)} = \frac{\sum_{k=1}^K R_k(\Delta t)P_k(t)}{\sum_{k=1}^K P_k(t)} = \sum_{k=1}^K w_k R_k(\Delta t) \quad,\quad w_k = \frac{P_k(t)}{\sum_{k=1}^K P_k(t)}
+R(\Delta t) = \frac{\sum_{k=1}^K [P_k(t+\Delta t) - P_k(t)]}{\sum_{k=1}^K P_k(t)} = \frac{\sum_{k=1}^K R_k(\Delta t)P_k(t)}{\sum_{k=1}^K P_k(t)} = \sum_{k=1}^K x_k R_k(\Delta t) \quad,\quad x_k = \frac{P_k(t)}{\sum_{k=1}^K P_k(t)}
 $$
 
 ___
@@ -108,4 +108,12 @@ ___
 同样在 $N \approx 252$ 的情况下，简单收益率的方差将是
 $$
 \mathrm{Var}(R_\mathrm{Annual}) = \mathrm{E}\left[\left( R_\mathrm{Annual}-\mathrm{E}(R_\mathrm{Annual}) \right)^2 \right] = \mathrm{E}\left[\left( e^v-\mathrm{E}(e^v) \right)^2 \right] = \mathrm{E}(e^{2v}) - e^{2(\mu'N_\mathrm{A} + \sigma^2N_\mathrm{A}/2)}
+$$
+对于 $\mathrm{E}(e^{2v})$ ，计算方法和期望时一样，与正态分布的概率密度函数结合后可以化为一个二次式，结果是
+$$
+\mathrm{E}(e^{2v}) = e^{2(\mu'N_\mathrm{A} + \sigma^2N_\mathrm{A})} \int_{-\infty}^{+\infty} \frac{1}{\sqrt{2\pi N_\mathrm{A}}\sigma}\exp\left[-\frac{(v-\mu'N_\mathrm{A}-2\sigma^2N_\mathrm{A})^2}{2\sigma^2N_\mathrm{A}}\right] \mathrm{d}v = e^{2(\mu'N_\mathrm{A} + \sigma^2N_\mathrm{A})}
+$$
+所以方差是
+$$
+\mathrm{Var}(R_\mathrm{Annual}) = e^{\mu' N_\mathrm{A} + \sigma^2 N_\mathrm{A}} \left( e^{\sigma^2N_\mathrm{A}} - 1 \right)
 $$

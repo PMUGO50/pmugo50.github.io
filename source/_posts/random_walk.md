@@ -1,5 +1,5 @@
 ---
-title: 关于对数收益率的统计
+title: 随机游走与对数收益
 date: 2026-10-16 14:36:07
 categories: 时间序列处理
 mathjax: true
@@ -7,6 +7,8 @@ description: 对数价格与几何 Brown 运动
 ---
 
 # 随机游走
+
+## Wiener 过程
 
 独立的标准白噪声序列的求和被称为**随机游走**，即
 
@@ -52,7 +54,7 @@ $$
 
 $\mu, \sigma$ 都是 $t$ 的函数。广义 Wiener 过程是在无零漂的随机游走中引入了一个缓慢的漂移项
 
-# Itô 引理
+## Itô 引理
 
 对于广义 Wiener 过程的函数$f(x, t)$，对于微小的变动 $\Delta t$ ，差分可以展开写为
 
@@ -113,7 +115,7 @@ $$
 > \mathrm{d}f = \left( \mu \frac{\partial f}{\partial x} + \frac{\sigma^2}{2} \frac{\partial^2 f}{\partial x^2} + \frac{\partial f}{\partial t}\right) \mathrm{d}t + \sigma\frac{\partial f}{\partial x} \mathrm{d}w
 > $$
 
-# 几何Brown运动
+## 几何Brown运动
 
 令 $\mathrm{d}x = \mu x\mathrm{d}t + \sigma x \mathrm{d}w$ ，此时的广义 Wiener 过程被称为**几何 Brown 运动**，现在让 $f(x,t) = \ln x$ ，代入 Itô引理显然有
 
@@ -180,42 +182,60 @@ $$
 
 ## 样本方差
 
-在已准确得知期望的情况下，样本方差的估计值是
-
+记 $\mu' = \mu - \sigma^2/2$ ，并在以 $\bar{r}$ 作为期望的估计值的情况下，样本方差的估计值是
 $$
-s^2 = \frac{1}{T} \sum_{i=1}^n [r_i(\Delta t_i) - \mathrm{E}(r_i)]^2
-$$
-
-记 $u_i = [r_i - \mathrm{E}(r_i)]/\sigma\sqrt{\Delta t_i}$ ，它是标准正态变量，其平方服从 $\chi^2(1)$ 分布，期望为 $1$ ，因此 $s^2$ 的期望是
-
-$$
-\mathrm{E}(s^2) = \frac{1}{T} \sum_{i=1}^n \mathrm{E}\left\{ [r_i - \mathrm{E}(r_i)]^2 \right\} = \frac{1}{T} \sum_{i=1}^n \sigma^2 \Delta t_i = \sigma^2
+s^2 = \frac{1}{\Theta} \sum_{i=1}^n [r_i(\Delta t_i) - \bar{r}\Delta t_i]^2 \quad,\quad \Theta = T - \frac{1}{T}\sum_{i=1}^n (\Delta t_i)^2
 $$
 
-同样，由于独立性，$s^2$ 的方差是
+展开计算 $s^2$ 的期望是
 
 $$
-\mathrm{Var}(s^2) = \frac{1}{T^2} \sum_{i=1}^n \sigma^2 \mathrm{E}\left[ u_i^2 - \mathrm{E}(u_i^2) \right]^2 \Delta t_i = \frac{2\sigma^2}{T}
+\begin{aligned}
+\mathrm{E}(s^2) &= \frac{1}{\Theta} \sum_{i=1}^n \mathrm{E}\left\{ [(r_i - \mathrm{E}(r_i)) - (\bar{r}\Delta t_i - \mathrm{E}(r_i))]^2 \right\} \\[12pt]
+&= \frac{1}{\Theta} \sum_{i=1}^n \left\{ \mathrm{E}[(r_i - \mathrm{E}(r_i))^2] + \mathrm{E}[(\bar{r}\Delta t_i - \mathrm{E}(r_i))^2] - 2\mathrm{E}[(r_i - \mathrm{E}(r_i))(\bar{r}\Delta t_i - \mathrm{E}(r_i))] \right\}
+\end{aligned}
 $$
 
-这里利用了标准正态分布的四阶矩 $\mathrm{E}(u_i^4) = 3$. 随着 $T \rightarrow \infty$ ，方差也趋向于零。因而由 Chebshev 大数定律，$s^2 \rightarrow \sigma^2$
+将三项分开处理：
 
-在无法准确得知期望时，用估计值 $\bar{r}$ 进行代替，这会使得方差的估计存在偏差，不过在样本量较大时几乎可以忽略不计。如此，对数收益的**年化期望**和**年化波动**可以估计为
+1. 对于第一项，记 $u_i = [r_i - \mathrm{E}(r_i)]/\sigma\sqrt{\Delta t_i}$ ，它是标准正态变量，其平方服从 $\chi^2(1)$ 分布，期望为 $1$ ，所以 $\mathrm{E}[(r_i - \mathrm{E}(r_i))^2] = \sigma^2\Delta t_i$ 
 
+2. 第二项和第三项中的期望展开后分别是
+   $$
+   \begin{aligned}
+   & \mathrm{E}[(\bar{r}\Delta t_i - \mathrm{E}(r_i))^2] = \mathrm{E}[(\bar{r}\Delta t_i)^2] + \mathrm{E}(r_i)^2 - 2\mathrm{E}(r_i)\mathrm{E}(\bar{r}\Delta t_i) \\[12pt]
+   & \mathrm{E}[(r_i - \mathrm{E}(r_i))(\bar{r}\Delta t_i - \mathrm{E}(r_i))] = \mathrm{E}(r_i\bar{r}\Delta t_i) - \mathrm{E}(r_i)\mathrm{E}(\bar{r}\Delta t_i)
+   \end{aligned}
+   $$
+   也就是说后两项之和为
+   $$
+   \mathrm{E}[(\bar{r}\Delta t_i - \mathrm{E}(r_i))^2] - 2\mathrm{E}[(r_i - \mathrm{E}(r_i))(\bar{r}\Delta t_i - \mathrm{E}(r_i))] = \mathrm{E}[(\bar{r}\Delta t_i)^2] + \mathrm{E}(r_i)^2 -2 \mathrm{E}(r_i\bar{r}\Delta t_i)
+   $$
+
+
+   代入以前得到的结果，并考虑到 $\mathrm{E}(r_i\bar{r}\Delta t_i) = (\Delta t_i/T) \left[ \mathrm{Var}(r_i) + \mathrm{E}(r_i)\sum_{k=1}^n \mathrm{E}(r_k)\right]$ ，上式就化为
+$$
+\mathrm{E}[(\bar{r} - \mathrm{E}(r_i))^2] - 2\mathrm{E}[(r_i - \mathrm{E}(r_i))(\bar{r} - \mathrm{E}(r_i))] = -\frac{\sigma^2}{T}(\Delta t_i)^2
+$$
+
+现在将三项加在一起求和，得到
+$$
+\mathrm{E}(s^2) = \frac{\sigma^2}{\Theta} \sum_{i=1}^n \left[ \Delta t_i - \frac{(\Delta t_i)^2}{T} \right] = \frac{\sigma^2}{\Theta} \left[ T - \frac{1}{T}\sum_{i=1}^n (\Delta t_i)^2 \right] = \sigma^2
+$$
+随着 $T \rightarrow \infty$ ，也会有 $s^2 \rightarrow \sigma^2$ （懒得证了，感觉很难算）。如此一来就会有
+
+> **对数收益率的期望和波动估计**：记 $T_\mathrm{Annual}$ 是一年的时长，那么对数收益的年化期望和年化波动可以估计为
 > $$
-> \begin{aligned}
-> &\mu_\mathrm{Log,Annual} = \left( \mu - \frac{\sigma^2}{2} \right)T_\mathrm{Annual} \approx  \bar{r}T_\mathrm{Annual} \\[12pt]
-> & \sigma_\mathrm{Log,Annual} = \sigma\sqrt{T_\mathrm{Annual}} \approx s \sqrt{T_\mathrm{Annual}}
-> \end{aligned}
+> \mu'_\mathrm{Annual} = \left( \mu - \frac{\sigma^2}{2} \right)T_\mathrm{Annual} \approx  \bar{r}\ T_\mathrm{Annual} \quad,\quad \sigma_\mathrm{Annual} = \sigma\sqrt{T_\mathrm{Annual}} \approx s \sqrt{T_\mathrm{Annual}}
 > $$
 >
 
 ## 高阶样本矩
 
-对于更高阶的样本矩，在已经准确得知期望的情况下，估计值是
+对于更高阶的归一化中心矩，在已经准确得知期望的情况下，用样本矩进行估计的值是
 
 $$
-b_m = \frac{1}{T} \sum_{i=1}^n \left[ \frac{r_i(\Delta t_i) - \mathrm{E}(r_i)}{\sqrt{\Delta t_i}} \right]^m \Delta t_i
+b_m = \frac{1}{T} \sum_{i=1}^n \left[ \frac{r_i(\Delta t_i) - \bar{r}\Delta t_i}{\sqrt{\Delta t_i}} \right]^m \Delta t_i
 $$
 
 特别地，偏度和超额峰度估计为
