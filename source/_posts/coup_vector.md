@@ -14,7 +14,7 @@ description: 四端口2x2定向耦合器的相矢图
 
 现在固定对称模式的相位不动，让反对称模式的相位旋转，即可绘制出所谓的相矢图，如下所示。传输电场（输入光所在波导的输出电场，用下标 $\mathrm{t}$ 表示）是对称模式与反对称模式相加，耦合电场（用下标 $\mathrm{c}$ 表示）是对称模式减去反对称模式
 
-<img src="./coupvector/general.png" alt="2STAGE_OPAMP" width="75%" />
+<img src="./coup_vector/general.png" alt="2STAGE_OPAMP" width="75%" />
 
 在理想情况下，两个模式之间没有差分损耗，那么不管是加还是减，两个模式的相矢总是张成菱形，而输出的总电场分别是菱形的两条对角线。由于菱形的性质，这两个输出电场之间总是存在着90°的相位差
 
@@ -114,7 +114,7 @@ $$
 
 对于均等分光的特殊情况，几何作图法也是有效的做法，并将导出完全一致的结果
 
-<img src="./coupvector/geo_equal.png" alt="2STAGE_OPAMP" width="65%" />
+<img src="./coup_vector/geo_equal.png" alt="2STAGE_OPAMP" width="65%" />
 
 左图是存在差分损耗的情况，此时$\triangle BHC$ 是一个等腰直角三角形，$BC = \mathrm{d}s$ ，$CH = BC\sin(\pi/4)=BC/\sqrt{2}$ ，$BH = BC\cos(\pi/4)=BC/\sqrt{2}$ ；$\triangle OHC$ 则是一个顶角无限小的等腰三角形（我的一位老师习惯称它为“直角等腰三角形”，这是因为 $\angle HOC$ 无限小，导致 $\angle OCH, \angle CHO$ 都无限接近90° ）
 

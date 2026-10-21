@@ -8,7 +8,7 @@ description: 找到 MOS 和 BJT 从端口看进去的电阻的表达式之间的
 
 这里所说的 MOS 端口电阻是在**低频情况下**从漏端或者源端看进去的小信号电阻，即下图中的 $R_{o1},R_{o2}$​ ；因为低频下一般认为从栅极看进去的电阻就是无穷大，所以没必要特意计算
 
-<img src="./transimpe/CN_MOS.png" width="85%" />
+<img src="./trans_impe/CN_MOS.png" width="85%" />
 
 同时，也可以算出漏端输出和源端输出两种情况下的小信号跨导，即 $i_{o1},i_{o2}$ 和 $v_{in}$ 的关系，从而可以直接利用 Norton 定理得出小信号电压增益。而通过将图中的 $R_D,R_S$​ 置零恰可以分别得到共源级和源极跟随器
 
@@ -18,7 +18,7 @@ description: 找到 MOS 和 BJT 从端口看进去的电阻的表达式之间的
 
 对于漏端输出的情况，计算小信号跨导和小信号输出电阻的小信号电路分别如下图
 
-<img src="./transimpe/CN_D_MOS.png" width="85%" />
+<img src="./trans_impe/CN_D_MOS.png" width="85%" />
 
 ## 跨导增益
 
@@ -63,7 +63,7 @@ $$
 
 对于源端输出的情况，计算小信号跨导和小信号输出电阻的小信号电路则分别如下图
 
-<img src="./transimpe/CN_S_MOS.png" width="85%" />
+<img src="./trans_impe/CN_S_MOS.png" width="85%" />
 
 ## 跨导增益
 
@@ -153,7 +153,7 @@ BJT 的混合 pi 模型和 MOS 的模型比较相似，只是多了一个 $r_{\p
 
 从集电极输出的情况如下图所示，右侧是小信号电路，其中 $g_m = \beta/r_{\pi}$ 
 
-<img src="./transimpe/CN_C_BJT.png" width="85%" />
+<img src="./trans_impe/CN_C_BJT.png" width="85%" />
 
 要计算 $R_{o1}$ ，将 $v_{in}$ 置零，然后从 $R_C$ 的左边看进去。之后只要将 $r_{\pi}\ ||\ R_E$ 视为 $R_S$ ，其实就和 MOS 一样了，所以就有
 $$
@@ -164,7 +164,7 @@ $$
 
 从射极输出的情况如下图所示，右侧是小信号电路
 
-<img src="./transimpe/CN_E_BJT.png" width="85%" />
+<img src="./trans_impe/CN_E_BJT.png" width="85%" />
 
 要计算 $R_{o2}$ ，将 $v_{in}$ 置零，然后从 $R_E$ 的左边看进去。如果 $r_{\pi}$ 是开路，那么就和 MOS 一样了，而 $r_{\pi}$ 又是并联在输出端口和交流地之间的，也就是说 $R_{o2}$ 相当于 MOS 的情况并上一个 $r_{\pi}$ ，即
 $$

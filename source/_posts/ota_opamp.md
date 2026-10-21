@@ -18,7 +18,7 @@ ___
 
 $C_L$ 是负载电容（也包含了自带的 $C_{db6},C_{db7}$ ），$C_C$ 是补偿电容（也包含了自带的 $C_{gd6}$ ）
 
-<img src="./otaopamp/2STAGE_OPAMP.png" alt="2STAGE_OPAMP" width="100%" />
+<img src="./ota_opamp/2STAGE_OPAMP.png" alt="2STAGE_OPAMP" width="100%" />
 
 它的性质在部分教科书中被当作经典范式来使用，如 P.E.Allen 的 *CMOS Analog Circuit Design* 中的运放有关章节
 
