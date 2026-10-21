@@ -1164,7 +1164,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #73ccff;
+  background: #870f12;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2395,10 +2395,10 @@ hr {
 .post-body blockquote {
   margin: 1em 0;
   padding: 1em 1em;
-  background: #f1f5f9;
+  background: #edf2f8;
   border-left: 4px solid #64748b;
   border-radius: 3px;
-  color: rgba(41,46,83,0.965);
+  color: rgba(59,60,82,0.941);
   overflow-x: auto;
 }
 .post-body blockquote p:first-child {
