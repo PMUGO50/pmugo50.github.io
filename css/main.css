@@ -1164,7 +1164,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #ffffbf;
+  background: #57e4ff;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2384,21 +2384,6 @@ hr {
 .sub-menu .menu-item {
   display: inline-block;
 }
-.post-body blockquote {
-  margin: 1em 0;
-  padding: 1em 1em;
-  background: #edf2f8;
-  border-left: 4px solid #64748b;
-  border-radius: 3px;
-  color: rgba(59,60,82,0.941);
-  overflow-x: auto;
-}
-.post-body blockquote p:first-child {
-  margin-top: 0;
-}
-.post-body blockquote p:last-child {
-  margin-bottom: 0;
-}
 .post-body hr {
   height: 0;
   background: none;
@@ -2415,4 +2400,79 @@ hr {
 .post-body p a:hover {
   color: #5ca6fb;
   border-bottom: 1px solid #5ca6fb;
+}
+.post-body .note,
+.note {
+  border-radius: 6px;
+  padding: 12px 16px;
+}
+.post-body .note .note-title,
+.note .note-title {
+  margin: 0 0 6px;
+  font-size: 1em;
+  font-weight: 600;
+}
+.post-body .note.primary,
+.note.primary {
+  background-color: #edf2f8;
+  border-left-color: #64748b;
+}
+.post-body .note.primary > i,
+.note.primary > i {
+  color: #64748b;
+}
+.post-body .note.primary::before,
+.post-body .note.primary::after,
+.note.primary::before,
+.note.primary::after {
+  background-color: #edf2f8;
+  border-left-color: #64748b;
+}
+.post-body .note.warning,
+.note.warning {
+  background-color: #f8f8ed;
+  border-left-color: #8b8764;
+}
+.post-body .note.warning > i,
+.note.warning > i {
+  color: #8b8764;
+}
+.post-body .note.warning::before,
+.post-body .note.warning::after,
+.note.warning::before,
+.note.warning::after {
+  background-color: #f8f8ed;
+  border-left-color: #8b8764;
+}
+.post-body .note.danger,
+.note.danger {
+  background-color: #f8eded;
+  border-left-color: #8b6464;
+}
+.post-body .note.danger > i,
+.note.danger > i {
+  color: #8b6464;
+}
+.post-body .note.danger::before,
+.post-body .note.danger::after,
+.note.danger::before,
+.note.danger::after {
+  background-color: #f8eded;
+  border-left-color: #8b6464;
+}
+.post-body .note,
+.note {
+  color: rgba(59,60,82,0.941);
+}
+.post-body .note p,
+.note p,
+.post-body .note li,
+.note li,
+.post-body .note strong,
+.note strong,
+.post-body .note em,
+.note em,
+.post-body .note span,
+.note span {
+  color: inherit;
 }

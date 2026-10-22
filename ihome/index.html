@@ -300,7 +300,7 @@ mjx-container[display="true"] + br {
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2026-10-22 09:59:23" itemprop="dateModified" datetime="2026-10-22T09:59:23+08:00">2026-10-22</time>
+                <time title="修改时间：2026-10-22 11:39:56" itemprop="dateModified" datetime="2026-10-22T11:39:56+08:00">2026-10-22</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -350,7 +350,7 @@ mjx-container[display="true"] + br {
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://pmugo50.github.io/2026/10/16/random_walk/">
+    <link itemprop="mainEntityOfPage" href="https://pmugo50.github.io/2026/10/21/random_walk/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -364,7 +364,7 @@ mjx-container[display="true"] + br {
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2026/10/16/random_walk/" class="post-title-link" itemprop="url">随机游走与矩估计</a>
+            <a href="/2026/10/21/random_walk/" class="post-title-link" itemprop="url">未命名</a>
         </h2>
 
         <div class="post-meta">
@@ -374,24 +374,15 @@ mjx-container[display="true"] + br {
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2026-10-16 14:36:07" itemprop="dateCreated datePublished" datetime="2026-10-16T14:36:07+08:00">2026-10-16</time>
+              <time title="创建时间：2026-10-21 14:36:07" itemprop="dateCreated datePublished" datetime="2026-10-21T14:36:07+08:00">2026-10-21</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2026-10-22 10:01:16" itemprop="dateModified" datetime="2026-10-22T10:01:16+08:00">2026-10-22</time>
+                <time title="修改时间：2026-10-22 11:39:09" itemprop="dateModified" datetime="2026-10-22T11:39:09+08:00">2026-10-22</time>
               </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E5%A4%84%E7%90%86/" itemprop="url" rel="index"><span itemprop="name">时间序列处理</span></a>
-                </span>
-            </span>
 
           
 
@@ -404,15 +395,106 @@ mjx-container[display="true"] + br {
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>随机游走以及对其的连续化</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2026/10/16/random_walk/">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
+          <blockquote>
+<hr>
+<p>title: 随机游走与矩估计<br>date: 2026-10-16 14:36:07<br>categories: 时间序列处理<br>mathjax: true</p>
+<h2 id="description-随机游走以及对其的连续化"><a href="#description-随机游走以及对其的连续化" class="headerlink" title="description: 随机游走以及对其的连续化"></a>description: 随机游走以及对其的连续化</h2></blockquote>
+<h1 id="随机游走"><a href="#随机游走" class="headerlink" title="随机游走"></a>随机游走</h1><h2 id="Wiener-过程"><a href="#Wiener-过程" class="headerlink" title="Wiener 过程"></a>Wiener 过程</h2><p>独立的标准白噪声序列的求和被称为<strong>随机游走</strong>，即</p>
+<script type="math/tex; mode=display">
+w_N = \sum_{i=1}^{N} z_{i} \quad,\quad z_i \sim N(0,\sigma_i) \quad,\quad \mathrm{E}(z_i z_{i'}) = \sigma_i\delta_{ii'}</script><p>只需要按照一些常数加权，这就成为许多常见现象的模型。比如说认为 $z_i$ 是速度，那么这就是粒子的 Brown 运动</p>
+<script type="math/tex; mode=display">
+w(t) = \sum_{i=1}^{N(t)} z_{i} \Delta t_i \quad,\quad t = \sum_{i=1}^{N(t)} \Delta t_i</script><p>$w(t)$ 是 $t$ 时刻粒子所处的位置。再比如认为 $z_i$ 是角速度，那么就有了无零漂的陀螺仪输出模型。对于随机游走，它的期望和方差分别是</p>
+<script type="math/tex; mode=display">
+\mathrm{E}[w(t)] = \sum_{i=1}^{N(t)} \mathrm{E}(z_{i}) \Delta t_i = 0 \quad,\quad \mathrm{Var}[w(t)] = \sum_{i=1}^{N(t)} \mathrm{E}(z_{i}^2) \Delta t_i^2 = \sum_{i=1}^{N(t)} \sigma_i^2\Delta t_i^2</script><p>在 $t$ 不变的情况下令 $N(t) \rightarrow \infty$ ，$w(t)$ 成为一个 Riemann 积分。它的期望自然是零，方差则是</p>
+<script type="math/tex; mode=display">
+\mathrm{Var}[w(t)] = \lim_{N(t) \rightarrow \infty}\sum_{i=1}^{N(t)} \sigma_i^2\Delta t_i^2</script><p>如果 $\sigma_i$ 的构造能够使得方差收敛且不为零，那么就称 $x(t)$ 是一个 <strong>Wiener 过程</strong>。这个条件要求对于足够多的 $i$ 有 $\sigma_i^2\Delta t_i^2 \propto 1/N(t) \propto \Delta t_i$，所以 $\sigma_i \propto 1/\sqrt{\Delta t_i}$. 当这个比例系数始终为1时，称 $w(t)$ 是标准的 Wiener 过程，即</p>
+<script type="math/tex; mode=display">
+w(t) = \int_0^t u(\tau) \mathrm{d}\tau \quad,\quad \mathrm{d}w = z \mathrm{d}t \sim N \left(0, \sqrt{\mathrm{d}t} \right)</script><p>这时可以得出标准Wiener过程的方差是</p>
+<script type="math/tex; mode=display">
+\mathrm{Var}[w(t)] = \lim_{N(t) \rightarrow \infty}\sum_{i=1}^{N(t)} \Delta t_i = t</script><p>标准Wiener过程与一个常义的微分之和被称为<strong>广义 Wiener 过程</strong>，即</p>
+<div class="note primary">
+            <script type="math/tex; mode=display">\mathrm{d}x = \mu\mathrm{d}t + \sigma\mathrm{d}w \quad,\quad \mathrm{d}w \sim N \left(0, \sqrt{\mathrm{d}t} \right)</script>
+          </div>
+<p>$\mu, \sigma$ 都是 $t$ 的函数。广义 Wiener 过程是在无零漂的随机游走中引入了一个缓慢的漂移项</p>
+<h2 id="Ito-引理"><a href="#Ito-引理" class="headerlink" title="Itô 引理"></a>Itô 引理</h2><p>对于广义 Wiener 过程的函数$f(x, t)$，对于微小的变动 $\Delta t$ ，差分可以展开写为</p>
+<script type="math/tex; mode=display">
+\Delta f = \frac{\partial f}{\partial x} \Delta x + \frac{\partial f}{\partial t} \Delta t + \frac{1}{2}\frac{\partial^2 f}{\partial x^2} (\Delta x)^2 + \frac{\partial^2 f}{\partial x\partial t} \Delta x\Delta t + \frac{1}{2}\frac{\partial^2 f}{\partial t^2} (\Delta t)^2 + o \left( (\Delta t)^2 \right)</script><p>这里自然 $\Delta x = \mu\Delta t + \sigma\Delta w + o(\Delta t)$，$\Delta w \sim N(0, \sqrt{\Delta t})$，不妨用一个标准正态变量 $u$ 将其写为 $\Delta w = u\sqrt{\Delta t}$ ，如此一来将上式保留到一次项就有</p>
+<script type="math/tex; mode=display">
+\Delta f = \frac{\partial f}{\partial x} (\mu\Delta t + \sigma u\sqrt{\Delta t}) + \frac{\partial f}{\partial t} \Delta t + \frac{1}{2}\frac{\partial^2 f}{\partial x^2} \sigma^2u^2\Delta t + o \left( \Delta t \right)</script><p>令 $\Delta t \rightarrow 0$ ，得到极限形式的微分，并代回 $\Delta w = u\sqrt{\Delta t}$ 就有</p>
+<script type="math/tex; mode=display">
+\mathrm{d}f = \left( \mu \frac{\partial f}{\partial x} + \frac{\sigma^2}{2} u^2\frac{\partial^2 f}{\partial x^2} + \frac{\partial f}{\partial t}\right) \mathrm{d}t + \sigma\frac{\partial f}{\partial x} \mathrm{d}w</script><p>也即</p>
+<script type="math/tex; mode=display">
+f(x, t) = \int_0^t \left( \mu \frac{\partial f}{\partial x} + \frac{\sigma^2}{2} u^2\frac{\partial^2 f}{\partial x^2} + \frac{\partial f}{\partial t}\right) \mathrm{d}\tau + \int_0^t \sigma\frac{\partial f}{\partial x} \mathrm{d}w(\tau)</script><p>对于含 $u^2$ 的这一项，它也是一个随机变量。由于 $u^2$ 是标准正态变量的平方，因而服从 $\chi^2(1)$ 分布，它的期望是 $1$ ，所以这个积分项的期望就是</p>
+<script type="math/tex; mode=display">
+\mathrm{E}\left( \int_0^t \frac{\sigma^2}{2} u^2\frac{\partial^2 f}{\partial x^2} \mathrm{d}\tau \right) = \int_0^t \frac{\sigma^2}{2} \frac{\partial^2 f}{\partial x^2} \mathrm{d}\tau</script><p>代入不同 $t$ 的 $u(t)$ 之间的独立性，二阶矩则是</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\mathrm{E}\left[\left( \int_0^t \frac{\sigma^2}{2} u^2\frac{\partial^2 f}{\partial x^2} \mathrm{d}\tau \right)^2\right] &= \int_0^t\int_0^t \frac{\sigma(\tau)^2\sigma(\tau')^2}{4} \mathrm{E}\left[u(\tau)^2u(\tau')^2\right]\frac{\partial^2 f}{\partial x^2}(\tau) \frac{\partial^2 f}{\partial x^2}(\tau') \mathrm{d}\tau\mathrm{d}\tau' \\[12pt]
+&= \int_0^t\int_0^t \frac{\sigma(\tau)^2\sigma(\tau')^2}{4} \mathrm{E}[u(\tau)^2]\mathrm{E}[u(\tau')^2]\frac{\partial^2 f}{\partial x^2}(\tau) \frac{\partial^2 f}{\partial x^2}(\tau') \mathrm{d}\tau\mathrm{d}\tau' \\[12pt]
+&= \left( \int_0^t \frac{\sigma^2}{2} \frac{\partial^2 f}{\partial x^2} \mathrm{d}\tau \right)^2
+\end{aligned}</script><p>固然 $\tau=\tau’$ 时 $\mathrm{E}\left[u(\tau)^2u(\tau’)^2\right] = \mathrm{E}\left[u(\tau)^4\right]$ ，但是这一条线在整个面积分中是没有贡献的。所以可以得到积分式的方差是</p>
+<script type="math/tex; mode=display">
+\mathrm{Var}\left( \int_0^t \frac{\sigma^2}{2} u^2\frac{\partial^2 f}{\partial x^2} \mathrm{d}\tau \right) = \mathrm{E}\left[\left( \int_0^t \frac{\sigma^2}{2} u^2\frac{\partial^2 f}{\partial x^2} \mathrm{d}\tau \right)^2\right] - \mathrm{E}\left( \int_0^t \frac{\sigma^2}{2} u^2\frac{\partial^2 f}{\partial x^2} \mathrm{d}\tau \right)^2 = 0</script><p>也就是说在宏观的时间尺度上看来，这一积分项总是取到它的期望，实际上是个定值。将其再代回就得到</p>
+<script type="math/tex; mode=display">
+f(x, t) = \int_0^t \left( \mu \frac{\partial f}{\partial x} + \frac{\sigma^2}{2} \frac{\partial^2 f}{\partial x^2} + \frac{\partial f}{\partial t}\right) \mathrm{d}\tau + \int_0^t \sigma\frac{\partial f}{\partial x} \mathrm{d}w(\tau))</script><p>求回微分就是</p>
+<div class="note primary">
+            <p><strong>Itô 引理</strong>：对于一个广义Wiener过程 $\mathrm{d}x = \mu\mathrm{d}t + \sigma\mathrm{d}w$ ，这里 $\mathrm{d}w \sim N(0, \sqrt{\mathrm{d}t})$ ，函数 $f(x(t),t)$ 的全微分是</p><script type="math/tex; mode=display">\mathrm{d}f = \left( \mu \frac{\partial f}{\partial x} + \frac{\sigma^2}{2} \frac{\partial^2 f}{\partial x^2} + \frac{\partial f}{\partial t}\right) \mathrm{d}t + \sigma\frac{\partial f}{\partial x} \mathrm{d}w</script>
+          </div>
+<h2 id="几何Brown运动"><a href="#几何Brown运动" class="headerlink" title="几何Brown运动"></a>几何Brown运动</h2><p>令 $\mathrm{d}x = \mu x\mathrm{d}t + \sigma x \mathrm{d}w$ ，此时的广义 Wiener 过程被称为<strong>几何 Brown 运动</strong>，现在让 $f(x,t) = \ln x$ ，代入 Itô引理显然有</p>
+<script type="math/tex; mode=display">
+\mathrm{d}f = \left( \mu - \frac{\sigma^2}{2} \right) \mathrm{d}t + \sigma \mathrm{d}w</script><p>假定 $\mu, \sigma$ 在所关注的时间段内都是常数，积分得到</p>
+<script type="math/tex; mode=display">
+\ln x(t) = \left( \mu - \frac{\sigma^2}{2} \right) t + \sigma w(t)</script><p>由于 $w(t)$ 是标准 Wiener 过程，所以这意味着</p>
+<script type="math/tex; mode=display">
+\ln x(t) \sim N\left( \left( \mu - \frac{\sigma^2}{2} \right)t,\ \sigma^2 t \right)</script><p>证券的价格 $P(t)$ 是典型的几何 Brown 运动，证券的对数收益率定义为</p>
+<script type="math/tex; mode=display">
+r(\Delta t) = \ln P(t) - \ln P(t - \Delta t) = \int_{t-\Delta t}^t \left( \mu - \frac{\sigma^2}{2} \right) \mathrm{d}\tau + \int_{t-\Delta t}^t \sigma \mathrm{d}w(\tau)</script><p>完全一样地，就有</p>
+<div class="note primary">
+            <p><strong>对数收益率的分布</strong>：如果价格的变动是一个几何 Brown 运动，那么它的对数收益率服从如下正态分布</p><script type="math/tex; mode=display">r(\Delta t) = \left( \mu - \frac{\sigma^2}{2} \right) \Delta t + \sigma \Delta w \sim N\left( \left( \mu - \frac{\sigma^2}{2} \right) \Delta t,\ \sigma^2\Delta t \right)</script>
+          </div>
+<p>并且不同时间段内的 $r(\Delta t)$ 是相互独立的</p>
+<h1 id="矩的估计"><a href="#矩的估计" class="headerlink" title="矩的估计"></a>矩的估计</h1><h2 id="样本均值"><a href="#样本均值" class="headerlink" title="样本均值"></a>样本均值</h2><p>假定按时间顺序获得了一系列对数收益率样本 $r_i(\Delta t_i)$ ，它们包含的时间范围两两不重合，因而两两独立。记样本总长度是 $n$ ，所有 $\Delta t_i$ 的和记为总时长 $T$ ，那么对数收益率均值的估计值是</p>
+<script type="math/tex; mode=display">
+\bar{r} = \frac{1}{T} \sum_{i=1}^n r_i(\Delta t_i)</script><p>求样本均值的期望</p>
+<script type="math/tex; mode=display">
+\mathrm{E}(\bar{r}) = \frac{1}{T} \sum_{i=1}^n \mathrm{E}(r_i) = \left( \mu - \frac{\sigma^2}{2} \right)\frac{1}{T} \sum_{i=1}^n \Delta t_i = \mu - \frac{\sigma^2}{2}</script><p>以及方差</p>
+<script type="math/tex; mode=display">
+\mathrm{Var}(\bar{r}) = \mathrm{E} \left\{ \left[ \frac{1}{T} \sum_{i=1}^n r_i - \mathrm{E}(\bar{r}) \right]^2 \right\} = \mathrm{E} \left\{ \left[ \frac{1}{T} \sum_{i=1}^n \left(r_i - \mathrm{E}(r_i) \right) \right]^2 \right\}</script><p>由于独立性，求和号展开后有</p>
+<script type="math/tex; mode=display">
+\mathrm{Var}(\bar{r}) = \frac{1}{T^2} \sum_{i=1}^n \mathrm{E}\left[ r_i - \mathrm{E}(r_i) \right]^2 = \frac{1}{T^2} \sum_{i=1}^n \mathrm{Var}(r_i) = \sigma^2 \frac{1}{T^2} \sum_{i=1}^n \Delta t_i = \frac{\sigma^2}{T}</script><p>随着 $T \rightarrow \infty$ ，方差趋向于零。因而由 Chebshev 大数定律，$\bar{r} \rightarrow \mu - \sigma^2/2$ </p>
+<h2 id="样本方差"><a href="#样本方差" class="headerlink" title="样本方差"></a>样本方差</h2><p>记 $\mu’ = \mu - \sigma^2/2$ ，并在以 $\bar{r}$ 作为期望的估计值的情况下，样本方差的估计值是</p>
+<script type="math/tex; mode=display">
+s^2 = \frac{1}{\Theta} \sum_{i=1}^n [r_i(\Delta t_i) - \bar{r}\Delta t_i]^2 \quad,\quad \Theta = T - \frac{1}{T}\sum_{i=1}^n (\Delta t_i)^2</script><p>展开计算 $s^2$ 的期望是</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\mathrm{E}(s^2) &= \frac{1}{\Theta} \sum_{i=1}^n \mathrm{E}\left\{ [(r_i - \mathrm{E}(r_i)) - (\bar{r}\Delta t_i - \mathrm{E}(r_i))]^2 \right\} \\[12pt]
+&= \frac{1}{\Theta} \sum_{i=1}^n \left\{ \mathrm{E}[(r_i - \mathrm{E}(r_i))^2] + \mathrm{E}[(\bar{r}\Delta t_i - \mathrm{E}(r_i))^2] - 2\mathrm{E}[(r_i - \mathrm{E}(r_i))(\bar{r}\Delta t_i - \mathrm{E}(r_i))] \right\}
+\end{aligned}</script><p>将三项分开处理：</p>
+<ol>
+<li><p>对于第一项，记 $u_i = [r_i - \mathrm{E}(r_i)]/\sigma\sqrt{\Delta t_i}$ ，它是标准正态变量，其平方服从 $\chi^2(1)$ 分布，期望为 $1$ ，所以 $\mathrm{E}[(r_i - \mathrm{E}(r_i))^2] = \sigma^2\Delta t_i$ </p>
+</li>
+<li><p>第二项和第三项中的期望展开后分别是</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+& \mathrm{E}[(\bar{r}\Delta t_i - \mathrm{E}(r_i))^2] = \mathrm{E}[(\bar{r}\Delta t_i)^2] + \mathrm{E}(r_i)^2 - 2\mathrm{E}(r_i)\mathrm{E}(\bar{r}\Delta t_i) \\[12pt]
+& \mathrm{E}[(r_i - \mathrm{E}(r_i))(\bar{r}\Delta t_i - \mathrm{E}(r_i))] = \mathrm{E}(r_i\bar{r}\Delta t_i) - \mathrm{E}(r_i)\mathrm{E}(\bar{r}\Delta t_i)
+\end{aligned}</script><p>也就是说后两项之和为</p>
+<script type="math/tex; mode=display">
+\mathrm{E}[(\bar{r}\Delta t_i - \mathrm{E}(r_i))^2] - 2\mathrm{E}[(r_i - \mathrm{E}(r_i))(\bar{r}\Delta t_i - \mathrm{E}(r_i))] = \mathrm{E}[(\bar{r}\Delta t_i)^2] + \mathrm{E}(r_i)^2 -2 \mathrm{E}(r_i\bar{r}\Delta t_i)</script></li>
+</ol>
+<p>   代入以前得到的结果，并考虑到 $\mathrm{E}(r<em>i\bar{r}\Delta t_i) = (\Delta t_i/T) \left[ \mathrm{Var}(r_i) + \mathrm{E}(r_i)\sum</em>{k=1}^n \mathrm{E}(r_k)\right]$ ，上式就化为</p>
+<script type="math/tex; mode=display">
+\mathrm{E}[(\bar{r} - \mathrm{E}(r_i))^2] - 2\mathrm{E}[(r_i - \mathrm{E}(r_i))(\bar{r} - \mathrm{E}(r_i))] = -\frac{\sigma^2}{T}(\Delta t_i)^2</script><p>现在将三项加在一起求和，得到</p>
+<script type="math/tex; mode=display">
+\mathrm{E}(s^2) = \frac{\sigma^2}{\Theta} \sum_{i=1}^n \left[ \Delta t_i - \frac{(\Delta t_i)^2}{T} \right] = \frac{\sigma^2}{\Theta} \left[ T - \frac{1}{T}\sum_{i=1}^n (\Delta t_i)^2 \right] = \sigma^2</script><p>随着 $T \rightarrow \infty$ ，也会有 $s^2 \rightarrow \sigma^2$ （懒得证了，感觉很难算）。如此一来就会有</p>
+<div class="note primary">
+            <p><strong>对数收益率的期望和波动估计</strong>：记 $T_\mathrm{Annual}$ 是一年的时长，那么对数收益的年化期望和年化波动可以估计为</p><script type="math/tex; mode=display">\mu'_\mathrm{Annual} = \left( \mu - \frac{\sigma^2}{2} \right)T_\mathrm{Annual} \approx  \bar{r}\ T_\mathrm{Annual} \quad,\quad \sigma_\mathrm{Annual} = \sigma\sqrt{T_\mathrm{Annual}} \approx s \sqrt{T_\mathrm{Annual}}</script>
+          </div>
+<h2 id="高阶样本矩"><a href="#高阶样本矩" class="headerlink" title="高阶样本矩"></a>高阶样本矩</h2><p>对于更高阶的归一化中心矩，在已经准确得知期望的情况下，用样本矩进行估计的值是</p>
+<script type="math/tex; mode=display">
+b_m = \frac{1}{T} \sum_{i=1}^n \left[ \frac{r_i(\Delta t_i) - \bar{r}\Delta t_i}{\sqrt{\Delta t_i}} \right]^m \Delta t_i</script><p>特别地，偏度和超额峰度估计为</p>
+<script type="math/tex; mode=display">
+\kappa_3 = \frac{b_3}{s^3} \quad,\quad \kappa_4 = \frac{b_4}{s^4} - 3</script>
       
     </div>
 
@@ -462,7 +544,7 @@ mjx-container[display="true"] + br {
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2026-10-22 09:59:23" itemprop="dateModified" datetime="2026-10-22T09:59:23+08:00">2026-10-22</time>
+                <time title="修改时间：2026-10-22 11:39:43" itemprop="dateModified" datetime="2026-10-22T11:39:43+08:00">2026-10-22</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
