@@ -57,17 +57,23 @@ $$
 $$
 反用矢量微分恒等式 $\nabla \cdot (\boldsymbol{X}\times\boldsymbol{Y}) = \boldsymbol{Y} \cdot (\nabla \times \boldsymbol{X}) - \boldsymbol{X} \cdot (\nabla \times \boldsymbol{Y})$ ，就得到
 
-> **微分形式的 Lorentz 互易定理**：在线性定常介质中，电磁场处处服从
-> $$
-> \nabla\cdot(\boldsymbol{E}_i \times \boldsymbol{B}_k) = \nabla\cdot(\boldsymbol{E}_k \times \boldsymbol{B}_i)
-> $$
+{% note primary %}
+
+**微分形式的 Lorentz 互易定理**：在线性定常介质中，电磁场处处服从
+$$
+\nabla\cdot(\boldsymbol{E}_i \times \boldsymbol{B}_k) = \nabla\cdot(\boldsymbol{E}_k \times \boldsymbol{B}_i)
+$$
+{% endnote %}
 
 直接应用微积分的 Gauss-Ostrograsky 公式，即可得到
 
-> **积分形式的 Lorentz 互易定理**：在线性定常介质中，对于任意光滑曲面 $S$ ，电磁场的叉积对其的通量满足
-> $$
-> \oint_S(\boldsymbol{E}_i \times \boldsymbol{B}_k)\cdot\mathrm{d}\boldsymbol{\sigma} = \oint_S(\boldsymbol{E}_k \times \boldsymbol{B}_i)\cdot\mathrm{d}\boldsymbol{\sigma}
-> $$
+{% note primary %}
+
+**积分形式的 Lorentz 互易定理**：在线性定常介质中，对于任意光滑曲面 $S$ ，电磁场的叉积对其的通量满足
+$$
+\oint_S(\boldsymbol{E}_i \times \boldsymbol{B}_k)\cdot\mathrm{d}\boldsymbol{\sigma} = \oint_S(\boldsymbol{E}_k \times \boldsymbol{B}_i)\cdot\mathrm{d}\boldsymbol{\sigma}
+$$
+{% endnote %}
 
 ## 矩阵形式的互易性
 
@@ -93,7 +99,11 @@ $$
 $$
 由于两束光 $A^{(i,1)}_i, A^{(i,2)}_i$ 是任选的，所以上式成立的充要条件就成为
 
-> **散射矩阵的互易性约束**，即对于线性定常的光学系统，其散射矩阵 $\{S_{ik}\}$ 必定满足 $S_{ik} = S_{ki}$ 
+{% note primary %}
+
+**散射矩阵的互易性约束**，即对于线性定常的光学系统，其散射矩阵 $\{S_{ik}\}$ 必定满足 $S_{ik} = S_{ki}$ 
+
+{% endnote %}
 
 这是说散射矩阵是对称的。某种程度上可以说，互易性约束使得光学系统的任意两个端口之间传输的光路都是可逆的。或者也可以说（尽管略有一些武断），光路可逆的系统才是互易的
 

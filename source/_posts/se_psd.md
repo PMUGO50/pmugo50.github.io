@@ -69,10 +69,13 @@ $$
 $$
 这给出平稳随机过程频谱的零相关性，即
 
-> **Wiener-Khinchin 定理**：对于广义平稳的随机过程 $e(t)$ ，记其 Fourier 变换为 $E(f)$ ，其自相关函数 $\varGamma(\tau)$ 的 Fourier 变换为 $S(f)$ ，那么
-> $$
-> \frac{c}{8\pi}\mathrm{E}\left[E(f)E^\ast(\nu) \right] = S(f) \delta(f-\nu)
-> $$
+{% note primary %}
+
+**Wiener-Khinchin 定理**：对于广义平稳的随机过程 $e(t)$ ，记其 Fourier 变换为 $E(f)$ ，其自相关函数 $\varGamma(\tau)$ 的 Fourier 变换为 $S(f)$ ，那么
+$$
+\frac{c}{8\pi}\mathrm{E}\left[E(f)E^\ast(\nu) \right] = S(f) \delta(f-\nu)
+$$
+{% endnote %}
 
 将上述结果代回 $I$ 的表达式，或者注意 $I=\varGamma(0)$ ，总之就得到
 $$
@@ -143,10 +146,18 @@ $$
 $$
 S_\mathrm{I}(f) \delta(f-\nu) = \delta(f-\nu) \int_0^\infty S(\alpha)S(\alpha-f) \mathrm{d}\alpha + I^2\delta(f)\delta(\nu)
 $$
-事实上，从积分的效果上看，$\delta(f)\delta(\nu) = \delta(f)\delta(f-\nu)$ ，所以就得到**强度的谱分解** 
+事实上，从积分的效果上看，$\delta(f)\delta(\nu) = \delta(f)\delta(f-\nu)$ ，所以就得到
+
+{% note primary %}
+
+**强度的谱分解** ：对于光谱为 $S(f)$ 的一束光 $e(t)$ ，其光强 $I(t) = |e(t)|^2$ 的功率谱密度服从
 $$
 S_\mathrm{I}(f) = \int_0^\infty S(\alpha)S(\alpha-f) \mathrm{d}\alpha + I^2\delta(f)
 $$
+
+这里 $I$ 是直流光强
+
+{% endnote %}
 
 ___
 
