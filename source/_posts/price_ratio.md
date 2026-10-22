@@ -16,7 +16,7 @@ $$
 $$
 这样定义的一个初衷是：投资者可以同时持有一部分风险资产和无风险资产，既然 Sharpe 比率意在衡量风险资产本身的持有价值，那么只要投资者不改变持有的风险资产，而只是调整持有风险资产占总资产的比例 $y$ 时，Sharpe 比率就不应当改变
 
-上式定义的 Sharpe 比率是符合这样的要求的。按照 [长期复利收益](/2026/08/28/compound_return) 中最后说明的，在同一时间截面上，资产组合的简单收益率就是其中各资产简单收益率的市值加权，即
+上式定义的 Sharpe 比率是符合这样的要求的。按照[长期复利收益](/2026/08/28/compound_return)中最后说明的，在同一时间截面上，资产组合的简单收益率就是其中各资产简单收益率的市值加权，即
 $$
 R_\mathrm{Total} = yR + (1-y)R_f \quad,\quad \mathrm{E}(R_\mathrm{Total}) = y\mu_R + (1-y)R_f \quad,\quad \mathrm{Var}(R_\mathrm{Total}) = y^2\sigma^2_R
 $$
@@ -26,7 +26,9 @@ $$
 $$
 它不依赖于 $y$ ，因而是符合上述要求的。并且还有
 
-> **Sharpe比率对持仓的独立性**：对于一个资产组合，它的 Sharpe 比率就等于其中风险资产的 Sharpe 比率，且不依赖于风险资产占总资产的持仓比例
+{% note primary %}
+**Sharpe比率对持仓的独立性**：对于一个资产组合，它的 Sharpe 比率就等于其中风险资产的 Sharpe 比率，且不依赖于风险资产占总资产的持仓比例
+{% endnote %}
 
 Sharpe 比率的意义是：承受单位波动能获得的超额收益。显然，一位理性的投资者总是想最大化 Sharpe 比率的。假设这样的投资者手中有 $n$ 个可选的风险资产，分配给它们的比例用一个向量表示 $\boldsymbol{x} = [x_1, \cdots, x_n]$ ，那么风险资产总的收益是一个多元联合分布的随机变量的线性组合 $R = \boldsymbol{R}^T \boldsymbol{x}$ 
 
@@ -51,11 +53,13 @@ $$
 $$
 \frac{\partial L}{\partial \boldsymbol{x}} = 2 \boldsymbol{\Sigma}_R\boldsymbol{x} + \lambda \boldsymbol{\mu}_R = 0 \quad,\quad \frac{\partial L}{\partial \lambda} = \boldsymbol{\mu}_R^T \boldsymbol{x} - \mathrm{E}(R) = 0
 $$
-由第一个方程组解出 $\boldsymbol{x} = (\lambda/2) \boldsymbol{\Sigma}_R^{-1} \boldsymbol{\mu}_R$ ，常数 $\lambda$ 是一个待定系数，它由 $\sum_{i=1}^n x_i = 1$ 来确定
+由第一个方程组解出 $ \boldsymbol{x} = (\lambda/2) \boldsymbol{\Sigma}_R^{-1} \boldsymbol{\mu}_R $ ，常数 $\lambda$ 是一个待定系数，它由 $\sum_{i=1}^n x_i = 1$ 来确定
 
 ## 资本资产定价模型
 
 资本资产定价模型（CAPM）给出在理性市场上的竞争导致的定价结果。
+
+
 
 # 连续复合收益的学生氏检验
 

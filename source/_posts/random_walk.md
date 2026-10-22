@@ -1,9 +1,9 @@
 ---
-title: 随机游走与对数收益
+title: 随机游走与矩估计
 date: 2026-10-16 14:36:07
 categories: 时间序列处理
 mathjax: true
-description: 对数价格与几何 Brown 运动
+description: 随机游走以及对其的连续化
 ---
 
 # 随机游走
@@ -48,9 +48,11 @@ $$
 
 标准Wiener过程与一个常义的微分之和被称为**广义 Wiener 过程**，即
 
->$$
->\mathrm{d}x = \mu\mathrm{d}t + \sigma\mathrm{d}w \quad,\quad \mathrm{d}w \sim N \left(0, \sqrt{\mathrm{d}t} \right)
->$$
+{% note primary %}
+$$
+\mathrm{d}x = \mu\mathrm{d}t + \sigma\mathrm{d}w \quad,\quad \mathrm{d}w \sim N \left(0, \sqrt{\mathrm{d}t} \right)
+$$
+{% endnote %}
 
 $\mu, \sigma$ 都是 $t$ 的函数。广义 Wiener 过程是在无零漂的随机游走中引入了一个缓慢的漂移项
 
@@ -110,10 +112,15 @@ $$
 
 求回微分就是
 
-> **Itô 引理**：对于一个广义Wiener过程 $\mathrm{d}x = \mu\mathrm{d}t + \sigma\mathrm{d}w$ ，这里 $\mathrm{d}w \sim N(0, \sqrt{\mathrm{d}t})$ ，函数 $f(x(t),t)$ 的全微分是
-> $$
-> \mathrm{d}f = \left( \mu \frac{\partial f}{\partial x} + \frac{\sigma^2}{2} \frac{\partial^2 f}{\partial x^2} + \frac{\partial f}{\partial t}\right) \mathrm{d}t + \sigma\frac{\partial f}{\partial x} \mathrm{d}w
-> $$
+{% note primary %}
+
+**Itô 引理**：对于一个广义Wiener过程 $\mathrm{d}x = \mu\mathrm{d}t + \sigma\mathrm{d}w$ ，这里 $\mathrm{d}w \sim N(0, \sqrt{\mathrm{d}t})$ ，函数 $f(x(t),t)$ 的全微分是
+$$
+\mathrm{d}f = \left( \mu \frac{\partial f}{\partial x} + \frac{\sigma^2}{2} \frac{\partial^2 f}{\partial x^2} + \frac{\partial f}{\partial t}\right) \mathrm{d}t + \sigma\frac{\partial f}{\partial x} \mathrm{d}w
+$$
+{% endnote %}
+
+
 
 ## 几何Brown运动
 
@@ -143,10 +150,13 @@ $$
 
 完全一样地，就有
 
-> **对数收益率的分布**：如果价格的变动是一个几何 Brown 运动，那么它的对数收益率服从如下正态分布
-> $$
-> r(\Delta t) = \left( \mu - \frac{\sigma^2}{2} \right) \Delta t + \sigma \Delta w \sim N\left( \left( \mu - \frac{\sigma^2}{2} \right) \Delta t,\ \sigma^2\Delta t \right)
-> $$
+{% note primary %}
+
+**对数收益率的分布**：如果价格的变动是一个几何 Brown 运动，那么它的对数收益率服从如下正态分布
+$$
+r(\Delta t) = \left( \mu - \frac{\sigma^2}{2} \right) \Delta t + \sigma \Delta w \sim N\left( \left( \mu - \frac{\sigma^2}{2} \right) \Delta t,\ \sigma^2\Delta t \right)
+$$
+{% endnote %}
 
 并且不同时间段内的 $r(\Delta t)$ 是相互独立的
 
@@ -224,11 +234,14 @@ $$
 $$
 随着 $T \rightarrow \infty$ ，也会有 $s^2 \rightarrow \sigma^2$ （懒得证了，感觉很难算）。如此一来就会有
 
-> **对数收益率的期望和波动估计**：记 $T_\mathrm{Annual}$ 是一年的时长，那么对数收益的年化期望和年化波动可以估计为
-> $$
-> \mu'_\mathrm{Annual} = \left( \mu - \frac{\sigma^2}{2} \right)T_\mathrm{Annual} \approx  \bar{r}\ T_\mathrm{Annual} \quad,\quad \sigma_\mathrm{Annual} = \sigma\sqrt{T_\mathrm{Annual}} \approx s \sqrt{T_\mathrm{Annual}}
-> $$
->
+{% note primary %}
+
+**对数收益率的期望和波动估计**：记 $T_\mathrm{Annual}$ 是一年的时长，那么对数收益的年化期望和年化波动可以估计为
+$$
+\mu'_\mathrm{Annual} = \left( \mu - \frac{\sigma^2}{2} \right)T_\mathrm{Annual} \approx  \bar{r}\ T_\mathrm{Annual} \quad,\quad \sigma_\mathrm{Annual} = \sigma\sqrt{T_\mathrm{Annual}} \approx s \sqrt{T_\mathrm{Annual}}
+$$
+
+{% endnote %}
 
 ## 高阶样本矩
 

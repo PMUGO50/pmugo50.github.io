@@ -10,34 +10,43 @@ description: 对数收益率与复利收益
 
 在证券市场中——尤其对于长期投资的人而言——收益是一个复利，即不断相乘的关系。现在假设某只证券单交易日的收益率是 $ R $ ，这是一个随机变量。记第$ n $个交易日的收益率是 $ R_n $ ，它是一个与 $ R $ 的系综一致的随机过程，收益的复利关系首先意味着
 
-> **命题1（基本不等式）**：如果持有一张证券 $N$ 个交易日，平均的日收益率 $R_\mathrm{Daily} $ 是
-> $$
-> 1 + R_\mathrm{Daily} = \left[\prod_{n=1}^N \left( 1 + R_n\right)\right]^{1/N} \leq 1 + \frac{1}{N}\sum_{n=1}^N R_n
-> $$
+{% note primary %}
+
+**命题1（基本不等式）**：如果持有一张证券 $N$ 个交易日，平均的日收益率 $R_\mathrm{Daily} $ 是
+$$
+1 + R_\mathrm{Daily} = \left[\prod_{n=1}^N \left( 1 + R_n\right)\right]^{1/N} \leq 1 + \frac{1}{N}\sum_{n=1}^N R_n
+$$
+{% endnote %}
 
 这个不等关系是几何平均不大于算术平均。上面的连乘可以用对数函数表达为求和，即令 $r_n = \ln(1+R_n) $ ，并将上式写为
-
 $$
 1 + R_\mathrm{Daily} = \exp\left[\frac{1}{N}\sum_{n=1}^N \ln\left( 1 + R_n\right)\right] = \exp\left(\frac{1}{N}\sum_{n=1}^N r_n\right)
 $$
 $ r_n $ 也被称作**对数收益率**。当长期持有时 $ N\rightarrow\infty $，如果求和收敛，按照大数定律，一般来讲它应当就是随机变量 $ r = \ln(1+R) $ 的期望 $ \mu'$ ，这个值也被称为**连续复合收益**，也即
 
-> **命题2（连续复合收益）**：对于长期持有的证券，平均收益率 $ R_\mathrm{Daily} $ 将是
-> $$
-> R_\mathrm{Daily} = e^{ \mu'} - 1 \quad,\quad  \mu' = \mathrm{E}[\ln(1+R)]
-> $$
-> 这表明要靠长期持有证券获利，需要满足 $  \mu'=\mathrm{E}[\ln(1+R)]>0 $ 
+{% note primary %}
+
+**命题2（连续复合收益）**：对于长期持有的证券，平均收益率 $ R_\mathrm{Daily} $ 将是
+$$
+R_\mathrm{Daily} = e^{ \mu'} - 1 \quad,\quad  \mu' = \mathrm{E}[\ln(1+R)]
+$$
+这表明要靠长期持有证券获利，需要满足 $  \mu'=\mathrm{E}[\ln(1+R)]>0 $ 
+
+{% endnote %}
 
 如果回到命题1，并对不等号两侧取对数和极限的话，假设大数定律收敛，得到的是
 
->**命题3（琴生不等式）**：收益率满足
->$$
->\mathrm{E}[\ln(1+R)] \leq \ln[1+\mathrm{E}(R)]
->$$
->因而 $ \mathrm{E}(R)>0 $ 并不能保证长期获利，因为它只保证了不等号右侧的部分大于零
+{% note primary %}
+
+**命题3（琴生不等式）**：收益率满足
+$$
+\mathrm{E}[\ln(1+R)] \leq \ln[1+\mathrm{E}(R)]
+$$
+因而 $ \mathrm{E}(R)>0 $ 并不能保证长期获利，因为它只保证了不等号右侧的部分大于零
+
+{% endnote %}
 
 将对数函数进行 Taylor 展开，得到
-
 $$
  \mu' = \mathrm{E}\left[ \sum_{k=1}^\infty \frac{(-1)^{k-1}}{k}r^k\right] =  \mathrm{E}(R) - \frac{\mathrm{E}(R^2)}{2} + \frac{\mathrm{E}(R^3)}{3} - \frac{\mathrm{E}(R^4)}{4} + \cdots
 $$
@@ -54,7 +63,11 @@ $$
 
 考虑到一般单日的 $ \mu_R $ 不太会超过10%，$ \sigma_R $ 一般也很难接近或超过 30%，所以除非偏度和峰度有明显的贡献，否则可以只保留期望和方差项。事实上，在有效市场和时间足够连续化的假设下，由于更高阶矩成为了 $\mathrm{d}t$ 的高阶小量，因而只保留期望和方差项是极限情况下的精确解
 
-> **结论4**：连续复合收益与简单收益率的期望和方差之间近似有 $\mu' \approx \mu_R - \sigma_R^2/2$ 
+{% note primary %}
+
+**命题4**：连续复合收益与简单收益率的期望和方差之间近似有 $\mu' \approx \mu_R - \sigma_R^2/2$ 
+
+{% endnote %}
 
 # 收益率的非遍历性
 
@@ -85,7 +98,7 @@ $$
 \mathrm{E}(R_\mathrm{Annual}) = e^{\mu'N_\mathrm{A} + \sigma^2N_\mathrm{A}/2} \int_{-\infty}^{+\infty} \frac{1}{\sqrt{2\pi N_\mathrm{A}}\sigma}\exp\left[-\frac{(v-\mu'N_\mathrm{A}-\sigma^2N_\mathrm{A})^2}{2\sigma^2N_\mathrm{A}}\right] \mathrm{d}v - 1 = e^{\mu'N_\mathrm{A} + \sigma^2N_\mathrm{A}/2} - 1
 $$
 
-然后就会发现 $R'_\mathrm{Annual}<\mathrm{E}(R_\mathrm{Annual})$ ；这是因为连乘不是线性操作，因此先乘后求期望和先求期望后乘的意义不同，具体来说
+然后就会发现 $ R'_\mathrm{Annual}<\mathrm{E}(R_\mathrm{Annual}) $ ；这是因为连乘不是线性操作，因此先乘后求期望和先求期望后乘的意义不同，具体来说
 
 - $R'_\mathrm{Annual}$ 的计算过程是先估计出单日收益率的均值，然后再在时间轴上连乘积累收益；直观来说，先得出市场每天平均增长多少，然后让一个特定的投资者按照这个方式去累积收益
 - $\mathrm{E}(R_\mathrm{Annual})$ 的计算过程是先在时间轴上“纵向地”连乘积累增益，然后再在周期末对整个系综“横向地”求一次均值；直观来说，先让市场上所有人都投资一年，一年后再将所有人的收益情况都算进来做个平均
