@@ -86,11 +86,11 @@ $$
 
 既然如此，每个投资者自然也将拥有同样的 Sharpe 比率，并且由于他们的理性，自然也是最优化的，也就是说必要条件是
 $$
-\frac{\partial}{\partial x_i}\mathrm{Sharpe} = \frac{\sigma_M\partial\mu_M/\partial x_i - (\mu_M - R_f)\partial\sigma_M/\partial x_i}{\sigma_M^2} = 0
+\frac{\partial}{\partial x_i}\mathrm{Sharpe} = \frac{\sigma_M\partial(\mu_M-R_f)/\partial x_i - (\mu_M - R_f)\partial\sigma_M/\partial x_i}{\sigma_M^2} = 0
 $$
 考虑到
 $$
-\frac{\partial\mu_M}{\partial x_i} = \mu_{R,i} \quad,\quad \frac{\partial\sigma_M}{\partial x_i} = \frac{1}{\sigma_M}\sum_{m=1}^n \Sigma_{R,im}x_m
+\frac{\partial(\mu_M - R_f)}{\partial x_i} = \mu_{R,i} - R_f \quad,\quad \frac{\partial\sigma_M}{\partial x_i} = \frac{1}{\sigma_M}\sum_{m=1}^n \Sigma_{R,im}x_m
 $$
 于是导函数为零这个方程成为
 $$
@@ -100,21 +100,36 @@ $$
 $$
 \mathrm{E} \left[(R_i - \mu_{R,i})\cdot \sum_{m=1}^nx_m(R_m - \mu_{R,m})\right] = \mathrm{E} \left[(R_i - \mu_{R,i})(R_M - \mu_{M})\right] = \rho_{i,M} \sigma_{R,i}\sigma_M
 $$
-这里 $\rho_{i,M}$ 是资产 $i$ 和市场指数收益之间的相关性，结合以上两式给出
+这里 $\rho_{i,M}$ 是资产 $i$ 和市场指数收益之间的相关系数，结合以上两式给出
 
 {% note primary %}
 **命题3**：在 CAPM 的假设下，单个资产的期望收益和市值加权市场指数的期望收益之间的关系是
 $$
-\mu_{R,i} = \rho_{i,M}\frac{\sigma_{R,i}}{\sigma_M} (\mu_M - R_f)
+\mu_{R,i} = R_f + \beta_i (\mu_M - R_f) \quad,\quad \beta_i = \rho_{i,M}\frac{\sigma_{R,i}}{\sigma_M}
 $$
 {% endnote %}
 
-# 连续复合收益的学生氏检验
+这表明，在 CAPM 假定的市场均衡状态下，单个资产的超额收益总是与市场的超额收益以某个系数成正比。并且从 beta 系数的构成可以看出，想要获得更高的收益，势必要承担更高的波动风险
 
 # 其它比率
 
 ## Sortino 比率
 
+Sortino 比率是 Sharpe 比率的一种变体，它基于这样一个理念：投资者并不在乎上行波动，而只在意下行波动。毕竟没有一个理性人会嫌自己赚得多。因此用标准差来对收益进行惩罚是不够合理的，更合适的做法是只用某个基准收益（MAR）之下的波动对收益进行惩罚
+$$
+\mathrm{Sortino} = \frac{\mathrm{E}(R) - R_f}{M(R)} \quad,\quad M(R) = \mathrm{E}\left\{ \left[ \min (R - \mathrm{MAR}, 0) \right]^2 \right\}
+$$
+当然，它没有 Sharpe 比率那样好的数学性质，可以用来构建很多衍生的模型，更多地只能用于既定风险资产组合的横向比较：如果资产组合 A 比组合 B 的 Sharpe 比率更高但是 Sortino 比率却更低，可能意味着组合 A 的下行波动较大，而组合 B 的波动则更集中在上行部分
+
+如此一来，显然组合 B 是要比组合 A 更优的，但如果按照 Sharpe 比率最大化的思路来优化资产组合，就会形成错配。所以 Sortino 比率可以作为一个有效的辅助参考指标。不过实际中如果统计时间够长的话，往往高 Sharpe 比率的资产也具有高的 Sortino 比率，即各资产的 $M(R)/\sigma_R$ 都很接近。这意味着在长期来看，价格的超预期上涨或下跌总是不稳定的
+
+> 对我国投资者可以接触到的一些资产来说，令 $\mathrm{MAR} = R_f$ ，那么在近六年里，$M(R)/\sigma_R$ 基本都分布在 0.65~0.75 这个范围内
+
 ## Omega 比率
+
+Omega 比率是一种计算上非常“暴力”的比率，它没有复杂的构造过程，单纯就是用超过 MAR 的收益比上低于 MAR 的收益，即
+$$
+\mathrm{Omega} = \frac{\mathrm{E}[\max (R - \mathrm{MAR}, 0)]}{\mathrm{E}[|\min (R - \mathrm{MAR}, 0)|]} = \frac{\mathrm{E}[\max (R - \mathrm{MAR}, 0)]}{\mathrm{E}[\max (\mathrm{MAR} - R, 0)]}
+$$
 
 ## Calmar 比率
