@@ -117,19 +117,35 @@ $$
 
 Sortino 比率是 Sharpe 比率的一种变体，它基于这样一个理念：投资者并不在乎上行波动，而只在意下行波动。毕竟没有一个理性人会嫌自己赚得多。因此用标准差来对收益进行惩罚是不够合理的，更合适的做法是只用某个基准收益（MAR）之下的波动对收益进行惩罚
 $$
-\mathrm{Sortino} = \frac{\mathrm{E}(R) - R_f}{M(R)} \quad,\quad M(R) = \mathrm{E}\left\{ \left[ \min (R - \mathrm{MAR}, 0) \right]^2 \right\}
+\mathrm{Sortino} = \frac{\mathrm{E}(R) - R_f}{\mathrm{DR}(R)}
+$$
+这里 $\mathrm{DR}(R)$ 被称为下行标准差
+$$
+\mathrm{DR}(R) = \mathrm{E}\left\{ \left[ \min (R - \mathrm{MAR}, 0) \right]^2 \right\} = \int_{-\infty}^\mathrm{MAR} (R-\mathrm{MAR})^2 p(R) \mathrm{d}R
 $$
 当然，它没有 Sharpe 比率那样好的数学性质，可以用来构建很多衍生的模型，更多地只能用于既定风险资产组合的横向比较：如果资产组合 A 比组合 B 的 Sharpe 比率更高但是 Sortino 比率却更低，可能意味着组合 A 的下行波动较大，而组合 B 的波动则更集中在上行部分
 
-如此一来，显然组合 B 是要比组合 A 更优的，但如果按照 Sharpe 比率最大化的思路来优化资产组合，就会形成错配。所以 Sortino 比率可以作为一个有效的辅助参考指标。不过实际中如果统计时间够长的话，往往高 Sharpe 比率的资产也具有高的 Sortino 比率，即各资产的 $M(R)/\sigma_R$ 都很接近。这意味着在长期来看，价格的超预期上涨或下跌总是不稳定的
+如此一来，显然组合 B 是要比组合 A 更优的，但如果按照 Sharpe 比率最大化的思路来优化资产组合，就会形成错配。所以 Sortino 比率可以作为一个有效的辅助参考指标
+
+不过实际中如果统计时间够长的话，往往高 Sharpe 比率的资产也具有高的 Sortino 比率，即各资产的 $M(R)/\sigma_R$ 都很接近。这意味着在长期来看，价格的超预期上涨或下跌总是不稳定的
 
 > 对我国投资者可以接触到的一些资产来说，令 $\mathrm{MAR} = R_f$ ，那么在近六年里，$M(R)/\sigma_R$ 基本都分布在 0.65~0.75 这个范围内
 
 ## Omega 比率
 
-Omega 比率是一种计算上非常“暴力”的比率，它没有复杂的构造过程，单纯就是用超过 MAR 的收益比上低于 MAR 的收益，即
+Omega 比率是一种看似计算上非常“暴力”的比率，它没有复杂的构造过程，单纯就是用超过 MAR 的收益比上低于 MAR 的收益，即
 $$
 \mathrm{Omega} = \frac{\mathrm{E}[\max (R - \mathrm{MAR}, 0)]}{\mathrm{E}[|\min (R - \mathrm{MAR}, 0)|]} = \frac{\mathrm{E}[\max (R - \mathrm{MAR}, 0)]}{\mathrm{E}[\max (\mathrm{MAR} - R, 0)]}
 $$
+
+不过遍历 Omega 比率就能够包含整个概率分布的信息，而不像 Sharpe 比率只依赖于期望和方差，或者 Sortino 比率只依赖于期望和下行标准差。为此，将 Omega 比率展开写为
+$$
+\mathrm{Omega} = \frac{ \int_\mathrm{MAR}^{+\infty}(R-\mathrm{MAR})p(R)\mathrm{d}R }{ -\int_{-\infty}^\mathrm{MAR}(R-\mathrm{MAR})p(R)\mathrm{d}R }
+$$
+将分子上的积分式拆开，就有
+$$
+\int_\mathrm{MAR}^{+\infty}(R-\mathrm{MAR})p(R)\mathrm{d}R = \left[ \left.RP(R)\right|^{+\infty}_\mathrm{MAR} - \int_\mathrm{MAR}^{+\infty} P(R) \mathrm{d}R \right] - \mathrm{MAR}\left.P(R)\right|^{+\infty}_\mathrm{MAR}
+$$
+
 
 ## Calmar 比率

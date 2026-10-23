@@ -176,19 +176,7 @@ $$
 \mathrm{E}(\bar{r}) = \frac{1}{T} \sum_{i=1}^n \mathrm{E}(r_i) = \left( \mu - \frac{\sigma^2}{2} \right)\frac{1}{T} \sum_{i=1}^n \Delta t_i = \mu - \frac{\sigma^2}{2}
 $$
 
-以及方差
-
-$$
-\mathrm{Var}(\bar{r}) = \mathrm{E} \left\{ \left[ \frac{1}{T} \sum_{i=1}^n r_i - \mathrm{E}(\bar{r}) \right]^2 \right\} = \mathrm{E} \left\{ \left[ \frac{1}{T} \sum_{i=1}^n \left(r_i - \mathrm{E}(r_i) \right) \right]^2 \right\}
-$$
-
-由于独立性，求和号展开后有
-
-$$
-\mathrm{Var}(\bar{r}) = \frac{1}{T^2} \sum_{i=1}^n \mathrm{E}\left[ r_i - \mathrm{E}(r_i) \right]^2 = \frac{1}{T^2} \sum_{i=1}^n \mathrm{Var}(r_i) = \sigma^2 \frac{1}{T^2} \sum_{i=1}^n \Delta t_i = \frac{\sigma^2}{T}
-$$
-
-随着 $T \rightarrow \infty$ ，方差趋向于零。因而由 Chebshev 大数定律，$\bar{r} \rightarrow \mu - \sigma^2/2$ 
+随着 $T \rightarrow \infty$ ，方差趋向于零。因而由 Khinchin 大数定律，$\bar{r} \rightarrow \mu - \sigma^2/2$ 
 
 ## 样本方差
 
@@ -232,7 +220,7 @@ $$
 $$
 \mathrm{E}(s^2) = \frac{\sigma^2}{\Theta} \sum_{i=1}^n \left[ \Delta t_i - \frac{(\Delta t_i)^2}{T} \right] = \frac{\sigma^2}{\Theta} \left[ T - \frac{1}{T}\sum_{i=1}^n (\Delta t_i)^2 \right] = \sigma^2
 $$
-随着 $T \rightarrow \infty$ ，也会有 $s^2 \rightarrow \sigma^2$ （懒得证了，感觉很难算）。如此一来就会有
+随着 $T \rightarrow \infty$ ，同样由 Khinchin 大数定律 $s^2 \rightarrow \sigma^2$ ，如此一来就有
 
 {% note primary %}
 
@@ -254,5 +242,5 @@ $$
 特别地，偏度和超额峰度估计为
 
 $$
-\kappa_3 = \frac{b_3}{s^3} \quad,\quad \kappa_4 = \frac{b_4}{s^4} - 3
+\kappa_3 \approx \frac{b_3}{s^3} \quad,\quad \kappa_4 \approx \frac{b_4}{s^4} - 3
 $$
