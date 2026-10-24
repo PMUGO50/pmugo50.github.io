@@ -111,7 +111,7 @@ $$
 
 这表明，在 CAPM 假定的市场均衡状态下，单个资产的超额收益总是与市场的超额收益以某个系数成正比。并且从 beta 系数的构成可以看出，想要获得更高的收益，势必要承担更高的波动风险
 
-# 其它比率
+# 关于回撤的比率
 
 ## Sortino 比率
 
@@ -131,7 +131,25 @@ $$
 
 > 对我国投资者可以接触到的一些资产来说，令 $\mathrm{MAR} = R_f$ ，那么在近六年里，$M(R)/\sigma_R$ 基本都分布在 0.65~0.75 这个范围内
 
-## Omega 比率
+## Calmar 比率
+
+Calmar 比率是年化平均收益与所取时间段内最大回撤量之比，即
+$$
+\mathrm{Calmar} = \frac{\mathrm{E}(R)}{\mathrm{Drawback}}
+$$
+关于最大回撤，一般这样计算，用一个累计最大函数 $\mathrm{cummax}$ 来获取无回撤的价格，然后用无回撤价格减去实际价格，最终这个差值的最大值就是式中的 $\mathrm{Drawback}$ 
+
+具体来说，首先累计最大函数定义为
+$$
+\mathrm{cummax}(P(t_i)) = \begin{cases} P(t_i) &, P(t_i) \geq \mathrm{cummax}(P(t_{i-1})) \\[6pt] \mathrm{cummax}(P(t_{i-1})) &, P(t_i) < \mathrm{cummax}(P(t_{i-1}))  \end{cases}
+$$
+也就是说如果实际的 $P(t)$ 超越了累计最大前值，就随之上升，否则就维持累计最大前值不动。于是
+$$
+\mathrm{Drawback} = \max \left[ \mathrm{cummax}(P) - P \right]
+$$
+Calmar 比率的意义是：承受单位最大回撤能够带来的收益回报。Calmar 比率更高的证券自然是更好的选择，不过另外也要考虑最大回撤完成修复的时间，不然待到花开之日，人却已不再少年了
+
+# Omega 比率
 
 Omega 比率是一种看似计算上非常“暴力”的比率，它没有复杂的构造过程，单纯就是用超过 MAR 的收益比上低于 MAR 的收益，即
 $$
@@ -140,12 +158,36 @@ $$
 
 不过遍历 Omega 比率就能够包含整个概率分布的信息，而不像 Sharpe 比率只依赖于期望和方差，或者 Sortino 比率只依赖于期望和下行标准差。为此，将 Omega 比率展开写为
 $$
-\mathrm{Omega} = \frac{ \int_\mathrm{MAR}^{+\infty}(R-\mathrm{MAR})p(R)\mathrm{d}R }{ -\int_{-\infty}^\mathrm{MAR}(R-\mathrm{MAR})p(R)\mathrm{d}R }
+\mathrm{Omega} = \frac{ \int_\mathrm{MAR}^{+\infty}(R-\mathrm{MAR})p(R)\mathrm{d}R }{ -\int_{-\infty}^\mathrm{MAR}(R-\mathrm{MAR})p(R)\mathrm{d}R } = \frac{N(\mathrm{MAR})}{D(\mathrm{MAR})}
 $$
-将分子上的积分式拆开，就有
+将分母上的积分式拆开，就有
 $$
-\int_\mathrm{MAR}^{+\infty}(R-\mathrm{MAR})p(R)\mathrm{d}R = \left[ \left.RP(R)\right|^{+\infty}_\mathrm{MAR} - \int_\mathrm{MAR}^{+\infty} P(R) \mathrm{d}R \right] - \mathrm{MAR}\left.P(R)\right|^{+\infty}_\mathrm{MAR}
+\int^\mathrm{MAR}_{-\infty}(R-\mathrm{MAR})p(R)\mathrm{d}R = \left[ \left.RP(R)\right|_{-\infty}^\mathrm{MAR} - \int^\mathrm{MAR}_{-\infty} P(R) \mathrm{d}R \right] - \mathrm{MAR}\left.P(R)\right|_{-\infty}^\mathrm{MAR} = -\int^\mathrm{MAR}_{-\infty} P(R) \mathrm{d}R
 $$
 
+这里 $P$ 是概率分布函数，即 $P(R) = \int_{-\infty}^R p(z)\mathrm{d}z$ ；对于分子上的积分式，只需要令 $\tilde{P}(R) = 1-P(R)$ ，那么分子成为
+$$
+\int_\mathrm{MAR}^{+\infty}(R-\mathrm{MAR})p(R)\mathrm{d}R = -\int_\mathrm{MAR}^{+\infty}(R-\mathrm{MAR})\mathrm{d}\tilde{P} = \int_\mathrm{MAR}^{+\infty} \tilde{P}(R) \mathrm{d}R
+$$
+这意味着 $\mathrm{d}N/\mathrm{d}\mathrm{MAR} = P(R) - 1 = \mathrm{d}D/\mathrm{d}\mathrm{MAR} - 1$  
 
-## Calmar 比率
+如果已经获得了所有 $\mathrm{MAR}$ 取值对应的 Omega 比率，那么就可以算出概率分布函数，即通过
+$$
+\frac{\mathrm{d}N}{\mathrm{d}\mathrm{MAR}} = \mathrm{Omega}\frac{\mathrm{d}D}{\mathrm{d}\mathrm{MAR}} + D\frac{\mathrm{d}\mathrm{Omega}}{\mathrm{d}\mathrm{MAR}}
+$$
+这是个关于 $D$ 的常微分方程。因而通过方程解出 $D$ ，即可完全还原概率分布函数 $P(R) = \mathrm{d}D/\mathrm{d}\mathrm{MAR}$ ，以及概率密度函数 $p(R) = \mathrm{d}P/\mathrm{d}R$ ；对上面方程稍作变形就有
+
+{% note primary %}
+**Omega比率**：对于在所有 $\mathrm{MAR}$ 上都给定的 Omega 比率，构造常微分方程
+$$
+(1-\mathrm{Omega})\frac{\mathrm{d}D}{\mathrm{d}\mathrm{MAR}} - \frac{\mathrm{d}\mathrm{Omega}}{\mathrm{d}\mathrm{MAR}} D - 1 = 0
+$$
+方程的解 $D(\mathrm{MAR})$ 的导函数就是收益率的概率分布函数
+
+{% endnote %}
+
+不过在实际应用中，尤其是在阅读第三方机构的报告时，自然很难获取所有 $\mathrm{MAR}$ 上的 Omega 比率，更多的情况是只有几个典型值。比如说：
+
+- 令 $\mathrm{MAR} = R_\mathrm{min}$ ，即某个可以接受的最低收益（往往是负值），以衡量收益率的回撤表现
+- 令 $\mathrm{MAR} = 0$ ，以单纯衡量收益率偏正还是偏负的表现
+- 令 $\mathrm{MAR} = R_f$ ，即无风险收益率，以衡量超额收益表现
