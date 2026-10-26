@@ -164,7 +164,7 @@ $$
 
 **独立非正态样本的几何 Sharpe 比率**：如果证券的对数收益样本序列是独立变量，记其年化几何 Sharpe 比率的估计值为 $\hat{\mathcal{S}}$ ，一年包含的样本数为 $n_\mathrm{A}$ ，那么当样本数量 $n \rightarrow \infty$ 时有
 $$
-\hat{\mathcal{S}} \sim N \left( \mathcal{S}, \frac{n_\mathrm{A}}{n}V^2 \right) \quad,\quad V^2 = 1 - \kappa_3\frac{\mathcal{S}}{\sqrt{n_\mathrm{A}}} + \frac{\kappa_4-1}{4}\cdot\frac{\mathcal{S}^2}{n_\mathrm{A}}
+\zeta = \sqrt{\frac{n}{n_\mathrm{A}}} \frac{\hat{\mathcal{S}} - \mathcal{S}}{V} \sim N \left( 0, 1 \right) \quad,\quad V^2 = 1 - \kappa_3\frac{\mathcal{S}}{\sqrt{n_\mathrm{A}}} + \frac{\kappa_4-1}{4}\cdot\frac{\mathcal{S}^2}{n_\mathrm{A}}
 $$
 这里 $\kappa_3$ 是样本分布的偏度，$\kappa_4$ 是分布的峰度，$\mathcal{S}$ 是年化几何 Sharpe 比率的真值
 
@@ -175,10 +175,10 @@ $$
 > **单边 Z 检验**：
 >
 > 1. 做出原假设 $H_0: \mu' \leq r_f$ ，表述上完全等价于 $H_0: \mathcal{S} \leq 0$ 
-> 2. 构造统计量 $z = \hat{\mathcal{S}}/(\hat{V}\sqrt{n_\mathrm{A}/n})$ ，在原假设为真的情况下它应当服从标准正态分布 $N(0,1)$ 
-> 3. 如果 $z$ 大于等于标准正态分布的 $\alpha \%$ 分位数，那么就可以断言：有 $\alpha \%$ 的把握认为原假设不成立，因而证券的期望收益 $\mu'$ 明显超过无风险收益
+> 2. 以 $\hat{V}$ 作为 $V$ 的估计值，按照上述命题构造统计量 $\zeta$ 
+> 3. 如果 $\zeta$ 大于等于标准正态分布的 $\alpha \%$ 分位数，那么就可以断言：有 $\alpha \%$ 的把握认为原假设不成立，因而证券的期望收益 $\mu'$ 明显超过无风险收益
 
 和正态情况一样，几何 Sharpe 比率越大，把握值 $\alpha \%$ 也越大，越能说明证券具有高的超额收益
 
-但从 $V^2$ 的表达式可以看出，和正态情况下不一样的地方在于：负的偏度（ $\kappa_3<0$ ）和正的超额峰度（ $\kappa_4>3$ ）会抬高 $\hat{V}$ ；这就使得考虑了高阶矩的统计量 $z$ 要比不考虑高阶矩的统计量 $\tau$ 更小，因此落在更靠近概率分布中央的区域，做出 $\mu' > r_f$ 这个断言的把握就会降低
+但从 $V^2$ 的表达式可以看出，和正态情况下不一样的地方在于：负的偏度（ $\kappa_3<0$ ）和正的超额峰度（ $\kappa_4>3$ ）会抬高 $\hat{V}$ ；这就使得考虑了高阶矩的统计量 $\zeta$ 要比不考虑高阶矩的统计量 $\tau$ 更小，因此落在更靠近概率分布中央的区域，做出 $\mu' > r_f$ 这个断言的把握就会降低
 

@@ -120,4 +120,4 @@ mathjax:
 pandoc:
   pandoc_path: "C:/Program Files/Pandoc/pandoc.exe"
   args:
-    - "--mathjax"
+    - '--math-method=mathjax'
