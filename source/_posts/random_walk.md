@@ -239,8 +239,9 @@ $$
 b_m = \frac{1}{T} \sum_{i=1}^n \left[ \frac{r_i(\Delta t_i) - \bar{r}\Delta t_i}{\sqrt{\Delta t_i}} \right]^m \Delta t_i
 $$
 
-特别地，偏度和超额峰度估计为
+特别地，偏度和峰度估计为
 
 $$
-\kappa_3 \approx \frac{b_3}{s^3} \quad,\quad \kappa_4 \approx \frac{b_4}{s^4} - 3
+\kappa_3 \approx \frac{b_3}{s^3} \quad,\quad \kappa_4 \approx \frac{b_4}{s^4}
 $$
+超额峰度就是 $\kappa_{4,\mathrm{Ex}} = \kappa_4 -3$ 
