@@ -1164,7 +1164,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #34ffe2;
+  background: #2deba1;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2428,37 +2428,53 @@ hr {
   background-color: #edf2f8;
   border-left-color: #64748b;
 }
+.post-body .note.info,
+.note.info {
+  background-color: #f6edf8;
+  border-left-color: #7d648b;
+}
+.post-body .note.info > i,
+.note.info > i {
+  color: #648b6b;
+}
+.post-body .note.info::before,
+.post-body .note.info::after,
+.note.info::before,
+.note.info::after {
+  background-color: #edf8ed;
+  border-left-color: #648b6b;
+}
 .post-body .note.warning,
 .note.warning {
   background-color: #f8f8ed;
-  border-left-color: #8b8764;
+  border-left-color: #8b7d64;
 }
 .post-body .note.warning > i,
 .note.warning > i {
-  color: #8b8764;
+  color: #8b7d64;
 }
 .post-body .note.warning::before,
 .post-body .note.warning::after,
 .note.warning::before,
 .note.warning::after {
   background-color: #f8f8ed;
-  border-left-color: #8b8764;
+  border-left-color: #8b7d64;
 }
 .post-body .note.danger,
 .note.danger {
-  background-color: #f8eded;
-  border-left-color: #8b6464;
+  background-color: #f8edf1;
+  border-left-color: #725555;
 }
 .post-body .note.danger > i,
 .note.danger > i {
-  color: #8b6464;
+  color: #725555;
 }
 .post-body .note.danger::before,
 .post-body .note.danger::after,
 .note.danger::before,
 .note.danger::after {
-  background-color: #f8eded;
-  border-left-color: #8b6464;
+  background-color: #f8edf1;
+  border-left-color: #725555;
 }
 .post-body .note,
 .note {
