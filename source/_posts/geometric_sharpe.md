@@ -79,9 +79,9 @@ $$
 $$
 \boldsymbol{\Sigma} = \left[\begin{matrix} \mathrm{E}[(\bar{r}-\mu')^2] & \mathrm{E}[(\bar{r}-\mu')(s^2-\sigma^2)] \\[6pt] \mathrm{E}[(\bar{r}-\mu')(s^2-\sigma^2)] & \mathrm{E}[(s^2-\sigma^2)^2] \end{matrix}\right]
 $$
-___
+下面列出矩阵中需要分别计算的三项
 
-矩阵中需要计算的三项分别是
+___
 
 1. 样本均值的方差：
 
@@ -97,13 +97,16 @@ $$
 
    将期望里的内容展开得到
    $$
-   \mathrm{E}[(s^2-\sigma^2)^2] = \frac{1}{(n-1)^2} \left\{ \sum_{i=1}^n \mathrm{E}[(r_i - \mu')^4] + \sum_{i\neq k} \mathrm{E}[(r_i - \mu')^2(r_k - \mu')^2] - 2n\sum_{i=1}^n \mathrm{E}\left[ (r_i - \mu')^2(\bar{r} - \mu')^2 \right] + n^2\mathrm{E}[(\bar{r} - \mu')^4] \right\}- \sigma^4
+   \begin{aligned}
+   \mathrm{E}[(s^2-\sigma^2)^2] = \frac{1}{(n-1)^2} & \left\{ \sum_{i=1}^n \mathrm{E}[(r_i - \mu')^4] + \sum_{i\neq k} \mathrm{E}[(r_i - \mu')^2(r_k - \mu')^2] \right. \\[12pt]
+   & \left. - 2n\sum_{i=1}^n \mathrm{E}\left[ (r_i - \mu')^2(\bar{r} - \mu')^2 \right] + n^2\mathrm{E}[(\bar{r} - \mu')^4] \right\} - \sigma^4
+   \end{aligned}
    $$
    
    四个期望项分别是
-
+   
    - $\mathrm{E}[(r_i - \mu')^4] = \kappa_4\sigma^4$ 
-
+   
    - 对于 $i \neq k$ ，由独立性得出 $\mathrm{E}[(r_i - \mu')^2(r_k - \mu')^2] = \mathrm{E}[(r_i - \mu')^2]\mathrm{E}[(r_k - \mu')^2] = \sigma^4$ ；这样的 $(i,k)$ 一共有 $n(n-1)$ 个
    
    - 同样借由独立性，$\mathrm{E}\left[ (r_i - \mu')^2(\bar{r} - \mu')^2 \right]$ 可以计算如下
@@ -175,7 +178,7 @@ $$
 > **单边 Z 检验**：
 >
 > 1. 做出原假设 $H_0: \mu' \leq r_f$ ，表述上完全等价于 $H_0: \mathcal{S} \leq 0$ 
-> 2. 以 $\hat{V}$ 作为 $V$ 的估计值，按照上述命题构造统计量 $\zeta$ 
+> 2. 按照上述命题构造统计量 $\zeta$ ，这里以 $\hat{V}$ 作为 $V$ 的估计值，并令 $\mathcal{S} = 0$ 
 > 3. 如果 $\zeta$ 大于等于标准正态分布的 $\alpha \%$ 分位数，那么就可以断言：有 $\alpha \%$ 的把握认为原假设不成立，因而证券的期望收益 $\mu'$ 明显超过无风险收益
 
 和正态情况一样，几何 Sharpe 比率越大，把握值 $\alpha \%$ 也越大，越能说明证券具有高的超额收益
