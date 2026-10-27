@@ -8,7 +8,7 @@ permalink: index.html
 
 <p style="color:#64748b; font-size:24px; font-weight:bold">欢迎！这里是 PhecStar 站点首页</p>
 
-首页并没有什么可以放的。因此，窃以蒂迈欧在开篇对苏格拉底等人所作的论述作为首页的引子，这也是最具代表性的唯心主义论述和理性主义论述之一
+首页并没有什么可以放的。因此，窃以蒂迈欧在开篇对苏格拉底等人所作的论述作为首页的引子
 
 ___
 
@@ -21,6 +21,5 @@ The former is graspable by intellect with the aid of reason, being always the sa
 <p style="color:#333333; font-size:17px; font-style:italic; font-weight:bold; text-align:right; font-family: 'Century Schoolbook', 'KaiTi', 'Kaiti SC', '楷体', serif;"> Plato, "Timaeus," 28a. <br>
 (柏拉图，"蒂迈欧篇," 28a.)
 </p>
-
 
 
