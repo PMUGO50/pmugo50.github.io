@@ -55,7 +55,7 @@ $$
 $$
 \frac{\partial L}{\partial \boldsymbol{x}} = 2 \boldsymbol{\Sigma}_R\boldsymbol{x} + \lambda \boldsymbol{\mu}_R = 0 \quad,\quad \frac{\partial L}{\partial \lambda} = \boldsymbol{\mu}_R^T \boldsymbol{x} - \mathrm{E}(R) = 0
 $$
-由第一个方程组解出 $ \boldsymbol{x} = (\lambda/2) \boldsymbol{\Sigma}_R^{-1} \boldsymbol{\mu}_R $ ，常数 $\lambda$ 是一个待定系数，它由 $\sum_{i=1}^n x_i = 1$ 来确定
+由第一个方程组解出 $\boldsymbol{x} = (\lambda/2) \boldsymbol{\Sigma}_R^{-1} \boldsymbol{\mu}_R$ ，常数 $\lambda$ 是一个待定系数，它由 $\sum_{i=1}^n x_i = 1$ 来确定
 
 ## 资本资产定价模型
 

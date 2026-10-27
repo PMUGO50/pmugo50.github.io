@@ -12,7 +12,7 @@ description: 对数收益率与复利收益
 
 {% note primary %}
 
-**命题1（基本不等式）**：如果持有一张证券 $N$ 个交易日，平均的日收益率 $R_\mathrm{Daily} $ 是
+**命题1（基本不等式）**：如果持有一张证券 $N$ 个交易日，平均的日收益率 $R_\mathrm{Daily}$ 是
 $$
 1 + R_\mathrm{Daily} = \left[\prod_{n=1}^N \left( 1 + R_n\right)\right]^{1/N} \leq 1 + \frac{1}{N}\sum_{n=1}^N R_n
 $$
@@ -26,7 +26,7 @@ $ r_n $ 也被称作**对数收益率**。当长期持有时 $ N\rightarrow\inft
 
 {% note primary %}
 
-**命题2（连续复合收益）**：对于长期持有的证券，平均收益率 $ R_\mathrm{Daily} $ 将是
+**命题2（连续复合收益）**：对于长期持有的证券，平均收益率 $R_\mathrm{Daily}$ 将是
 $$
 R_\mathrm{Daily} = e^{ \mu'} - 1 \quad,\quad  \mu' = \mathrm{E}[\ln(1+R)]
 $$
@@ -98,7 +98,7 @@ $$
 \mathrm{E}(R_\mathrm{Annual}) = e^{\mu'N_\mathrm{A} + \sigma^2N_\mathrm{A}/2} \int_{-\infty}^{+\infty} \frac{1}{\sqrt{2\pi N_\mathrm{A}}\sigma}\exp\left[-\frac{(v-\mu'N_\mathrm{A}-\sigma^2N_\mathrm{A})^2}{2\sigma^2N_\mathrm{A}}\right] \mathrm{d}v - 1 = e^{\mu'N_\mathrm{A} + \sigma^2N_\mathrm{A}/2} - 1
 $$
 
-然后就会发现 $ R'_\mathrm{Annual}<\mathrm{E}(R_\mathrm{Annual}) $ ；这是因为连乘不是线性操作，因此先乘后求期望和先求期望后乘的意义不同，具体来说
+然后就会发现 $R'_\mathrm{Annual}<\mathrm{E}(R_\mathrm{Annual})$ ；这是因为连乘不是线性操作，因此先乘后求期望和先求期望后乘的意义不同，具体来说
 
 - $R'_\mathrm{Annual}$ 的计算过程是先估计出单日收益率的均值，然后再在时间轴上连乘积累收益；直观来说，先得出市场每天平均增长多少，然后让一个特定的投资者按照这个方式去累积收益
 - $\mathrm{E}(R_\mathrm{Annual})$ 的计算过程是先在时间轴上“纵向地”连乘积累增益，然后再在周期末对整个系综“横向地”求一次均值；直观来说，先让市场上所有人都投资一年，一年后再将所有人的收益情况都算进来做个平均
