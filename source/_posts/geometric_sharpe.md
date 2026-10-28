@@ -1,12 +1,12 @@
 ---
-title: 对数收益的假设检验
+title: 几何Sharpe比率的渐近分布
 date: 2026-10-28 12:15:40
 categories: 时间序列处理
 mathjax: true
-description: 在不同的分布假设下对对数收益率进行假设检验
+description: 几何Sharpe比率在不同的分布假设下的渐近统计特性
 ---
 
-# 独立正态样本
+# 学生氏检验
 
 仿照简单收益率的 Sharpe 比率，将同样的公式应用于对数收益率，将这个结果称为**几何 Sharpe 比率** ，即
 $$
@@ -48,14 +48,19 @@ $$
 
 显然，几何 Sharpe 比率越大，把握值 $\alpha \%$ 也越大，越能说明证券具有高的超额收益
 
-# 非正态样本的修正
+# 一般的渐近分布
 
-一般的对数收益分布不会是正态分布，往往具有**负的偏度**和**正的超额峰度**。因此需要考虑对几何 Sharpe 比率的概率分布做调整，一个经典的做法是采用 Delta 方法。以下内容是 A. W. Lo 和 E. Mertens 在 2002 年公布的，见 <span style="color:#417FBE; font-style:italic">E. Mertens, "Comments on variance of the IID estimator in Lo (2002)," 2002,</span>  *[https://www.elmarmertens.com/research/workingpapers](https://www.elmarmertens.com/research/workingpapers).* 
+以上简单直接的考量有两个不足之处：
+
+1. 无法给出 $r_f \neq 0$ 时的 Sharpe 比率遵循何种分布
+2. 一般的对数收益分布也不会是正态分布，往往具有**负的偏度**和**正的超额峰度**
+
+因此需要考虑一般情况下几何 Sharpe 比率的统计特性，一个经典的做法是采用 Delta 方法。以下内容是 A. W. Lo 和 E. Mertens 在 2002 年公布的，见 <span style="color:#417FBE; font-style:italic">E. Mertens, "Comments on variance of the IID estimator in Lo (2002)," 2002,</span>  *[https://www.elmarmertens.com/research/workingpapers](https://www.elmarmertens.com/research/workingpapers).* 
 
 Sharpe 比率涉及到两个矩参数，即期望和方差，编排成一个向量 $\theta = [\mu', \sigma^2]$ ，它的估计值自然是 $\hat{\theta} = [\bar{r}, s^2]$ ；由于样本是独立同分布的，因而应用中心极限定理，估计值服从正态分布。进行与[随机游走与矩估计](/2026/10/16/random_walk)中一致的推导，就可以得出
 
-1. $\mathrm{E}(\hat{\theta}) = \theta$ 
-2. 由 Khinchin 大数定律，$\hat{\theta} \rightarrow \theta$ 
+- $\mathrm{E}(\hat{\theta}) = \theta$ 
+- 由 Khinchin 大数定律，$\hat{\theta} \rightarrow \theta$ 
 
 现在几何 Sharpe 比率的估计值 $\hat{\mathcal{S}} = \mathcal{S}(\hat{\theta}) = (\bar{r} - r_f)/s$ 是 $\hat{\theta}$ 的函数，将其在真值 $\theta$ 处 Taylor 展开为
 $$
@@ -173,15 +178,13 @@ $$
 
 {% endnote %}
 
-命题中的 $V^2$ 依赖于真值，因而无法准确得知。但在 $n$ 足够大的时候，大数定律能够保证以估计值计算得到的 $\hat{V}^2$ 收敛于真值。因此，这成为一个 Z 检验问题
+也就是说，通过设置不同的目标 Sharpe 比率 $\mathcal{S}_\mathrm{tar}$ ，上述命题可以构造一个 Z 检验问题
 
 > **单边 Z 检验**：
 >
-> 1. 做出原假设 $H_0: \mu' \leq r_f$ ，表述上完全等价于 $H_0: \mathcal{S} \leq 0$ 
-> 2. 按照上述命题构造统计量 $\zeta$ ，这里以 $\hat{V}$ 作为 $V$ 的估计值，并令 $\mathcal{S} = 0$ 
-> 3. 如果 $\zeta$ 大于等于标准正态分布的 $\alpha \%$ 分位数，那么就可以断言：有 $\alpha \%$ 的把握认为原假设不成立，因而证券的期望收益 $\mu'$ 明显超过无风险收益
+> 1. 做出原假设 $H_0: \mathcal{S} \leq \mathcal{S}_\mathrm{tar}$ 
+> 2. 在 $n$ 足够大的情况下，按照上述命题构造统计量 $\zeta$ （由于原假设认为 $\mathcal{S}$ 的真值不大于 $\mathcal{S}_\mathrm{tar}$ ，所以这里自然以 $\mathcal{S}_\mathrm{tar}$ 来计算 $V^2$ ）
+> 3. 如果 $\zeta$ 大于等于标准正态分布的 $\alpha \%$ 分位数，那么就可以断言：有 $\alpha \%$ 的把握认为原假设不成立，因而证券的几何 Sharpe 比率 $\mathcal{S}$ 明显超过目标比率 $\mathcal{S}_\mathrm{tar}$ 
 
-和正态情况一样，几何 Sharpe 比率越大，把握值 $\alpha \%$ 也越大，越能说明证券具有高的超额收益
-
-但从 $V^2$ 的表达式可以看出，和正态情况下不一样的地方在于：负的偏度（ $\kappa_3<0$ ）和正的超额峰度（ $\kappa_4>3$ ）会抬高 $\hat{V}$ ；这就使得考虑了高阶矩的统计量 $\zeta$ 要比不考虑高阶矩的统计量 $\tau$ 更小，因此落在更靠近概率分布中央的区域，做出 $\mu' > r_f$ 这个断言的把握就会降低
+和正态情况一样，几何 Sharpe 比率越大，把握值 $\alpha \%$ 也越大，越能说明证券具有优秀的收益风险比
 
