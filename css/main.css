@@ -1164,7 +1164,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #ff9cf1;
+  background: #b83cd7;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2394,12 +2394,44 @@ hr {
   border-top: 3px dashed #64748b;
 }
 .post-body p a {
-  color: #465fc7;
+  color: #417fbe;
   border-bottom: none;
 }
 .post-body p a:hover {
-  color: #6eaffa;
-  border-bottom: 1px solid #6eaffa;
+  color: #e6a3b3;
+  border-bottom: 1px solid #e6a3b3;
+}
+/* 1. 常规体 Regular (字重 400，正常体) */
+@font-face {
+  font-family: 'Source Serif 4';
+  src: url("/fonts/source-serif-4-regular.woff2") format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+/* 2. 粗体 Bold (字重 700，正常体) */
+@font-face {
+  font-family: 'Source Serif 4';
+  src: url("/fonts/source-serif-4-bold.woff2") format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+/* 3. 斜体 Italic (字重 400，斜体) */
+@font-face {
+  font-family: 'Source Serif 4';
+  src: url("/fonts/source-serif-4-italic.woff2") format('woff2');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+/* 4. 粗斜体 Bold Italic (字重 700，斜体) */
+@font-face {
+  font-family: 'Source Serif 4';
+  src: url("/fonts/source-serif-4-bold-italic.woff2") format('woff2');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
 }
 .post-body .note,
 .note {
