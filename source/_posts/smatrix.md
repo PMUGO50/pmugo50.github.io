@@ -10,7 +10,8 @@ description: 散射矩阵以及可能的约束
 
 散射矩阵（scattering matrix）是一种描述线性光学系统的很有意思的工具。可以认为它来源于这样一个类比：以波导作为输入输出的光学系统往往有多个端口，对任何一个端口注入光，其它端口可能会有光射出，这就好似散射一样，因为散射正是一束输入光激励出多个输出光的过程
 
-在定常且线性的情况下，考虑单色光，空间中的散射光与入射光的关系可以由下式描述（*M.Born and E.Wolf, "Principles of optics," 7th ed., Chap. 13, Sec. 1.*）
+在定常且线性的情况下，考虑单色光，空间中的散射光与入射光的关系可以由下式描述，见 <span style="color:#417FBE; font-style:italic">M.Born and E.Wolf, "Principles of optics," 7th ed., Chap. 13, Sec. 1.</span> 
+
 $$
 A^{(s)}(\boldsymbol{r}) = g\left( \boldsymbol{m}_0^{(s)}, A^{(i)} \right) e^{-j2\pi m_0r}
 $$
@@ -34,7 +35,7 @@ ___
 
 ## 互易定理
 
-互易性的一个经典表述来源于 H. A. Lorentz ，这个表述的推导参见 *H. Haus, "Waves and Fields in Optoelectronics," Chap. 3, Sec. 1.* 这里可以进行一个简要的复写，写出**惯性系中**没有自由电荷和电流源时 Maxwell 方程组的两个时变方程
+互易性的一个经典表述来源于 H. A. Lorentz ，这个表述的推导参见 <span style="color:#417FBE; font-style:italic">H. Haus, "Waves and Fields in Optoelectronics," Chap. 3, Sec. 1.</span> 这里可以进行一个简要的复写，写出**惯性系中**没有自由电荷和电流源时 Maxwell 方程组的两个时变方程
 
 $$
 \nabla \times \boldsymbol{E} = -\frac{1}{c}\frac{\partial \boldsymbol{B}}{\partial t} \quad,\quad \nabla \times \boldsymbol{B} = \frac{1}{c}\frac{\partial \boldsymbol{E}}{\partial t}
@@ -120,7 +121,8 @@ S = \left[\begin{matrix} 0 & e^{-j2\pi f \tau_r} \\ e^{-j2\pi f \tau_r} & 0 \end
 $$
 这里 $\tau_r = L/c$ ，这确是个对称矩阵。但是当干涉仪相对于惯性系发生转动时，尽管介质仍然是线性定常的，但光路却不再互易，因为与干涉仪固连的参考系是非惯性的。从相对论的角度看，固连系的时空度规将被旋转的角速度调制。尤其是角速度是一个时间导数，在进行时间反演时会反向
 
-在固连系中，沿两束相反方向传播的光将会存在时差（*L.Landau and E.Lifshitz, "The Classical Theory of Fields," 7th ed., Sec. 89.*）
+在固连系中，沿两束相反方向传播的光将会存在时差，见 <span style="color:#417FBE; font-style:italic">L.Landau and E.Lifshitz, "The Classical Theory of Fields," 7th ed., Sec. 89.</span> 
+
 $$
 \Delta \tau = 2\oint \frac{\Omega r^2 \mathrm{d}\varphi}{1-\Omega^2 r^2/c^2} \approx \frac{4\sigma}{c^2}\Omega
 $$

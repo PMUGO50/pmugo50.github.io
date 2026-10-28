@@ -10,12 +10,48 @@
 }
 
 .post-body p a {
-  color: #083789; 
+  color: #417FBE; 
   border-bottom: none;
   &:hover {
-    color: #5ca6fb; 
-    border-bottom: 1px solid #5ca6fb;
+    color: #E6A3B3; 
+    border-bottom: 1px solid #E6A3B3;
   }
+}
+
+/* 1. 常规体 Regular (字重 400，正常体) */
+@font-face {
+  font-family: 'Source Serif 4';
+  src: url('/fonts/source-serif-4-regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* 2. 粗体 Bold (字重 700，正常体) */
+@font-face {
+  font-family: 'Source Serif 4';
+  src: url('/fonts/source-serif-4-bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* 3. 斜体 Italic (字重 400，斜体) */
+@font-face {
+  font-family: 'Source Serif 4';
+  src: url('/fonts/source-serif-4-italic.woff2') format('woff2');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* 4. 粗斜体 Bold Italic (字重 700，斜体) */
+@font-face {
+  font-family: 'Source Serif 4';
+  src: url('/fonts/source-serif-4-bold-italic.woff2') format('woff2');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
 }
 
 // ---------- 基础 ----------

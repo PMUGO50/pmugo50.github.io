@@ -8,7 +8,7 @@ description: 四端口2x2定向耦合器的相矢图
 
 # 相矢图
 
-分析 2x2 定向耦合器的一个简单的方法是用所谓的正交模式法，参照 *R. Youngquist, L. Stokes, and H. Shaw, IEEE J. Quantum Electron., Vol. 19, pp. 1888(1983).* 
+分析 2x2 定向耦合器的一个简单的方法是用所谓的正交模式法，见 <span style="color:#417FBE; font-style:italic">R. Youngquist, L. Stokes, and H. Shaw, IEEE J. Quantum Electron., Vol. 19, pp. 1888(1983).</span> 
 
 这种方法认为耦合器中存在两个模式（准确说是两类），一个是关于两个波导对称的（Even），另一个是关于两个波导反对称的（Odd）。这两个模式的相位差会随空间变化，通过控制耦合区长度来控制这个相位差即可控制耦合的分光比
 

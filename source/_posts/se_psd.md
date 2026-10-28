@@ -42,7 +42,7 @@ $$
 
 ## 谱分解
 
-关于平稳随机信号的谱分解，详细的描述参照 *L. Landau, and E. Lifshitz, "Statistical physics, part 1," 3rd ed., Sec. 122.* 以及 *A. Papoulis, and S. U. Pillai, "Probability, random variables and stochastic processes," 4th ed., Chap. 11, Sec. 4.* 
+关于平稳随机信号的谱分解，详细的描述参照 <span style="color:#417FBE; font-style:italic">L. Landau, and E. Lifshitz, "Statistical physics, part 1," 3rd ed., Sec. 122.</span> 和 <span style="color:#417FBE; font-style:italic">A. Papoulis, and S. U. Pillai, "Probability, random variables and stochastic processes," 4th ed., Chap. 11, Sec. 4.</span> 
 
 在自发辐射中，$e(t)$ 是由大量原子辐射出的无关波列叠加而成的，因而往往是一个随机过程，一般还认为它是**遍历（ergodic）**的，即其任意阶矩的时间平均和数学期望是相等的，这即是说在时间上总能够“遍历”完所有可能的状态
 

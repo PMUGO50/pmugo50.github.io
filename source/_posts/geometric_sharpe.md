@@ -50,7 +50,7 @@ $$
 
 # 非正态样本的修正
 
-一般的对数收益分布不会是正态分布，往往具有**负的偏度**和**正的超额峰度**。因此需要考虑对几何 Sharpe 比率的概率分布做调整，一个经典的做法是采用 Delta 方法完成
+一般的对数收益分布不会是正态分布，往往具有**负的偏度**和**正的超额峰度**。因此需要考虑对几何 Sharpe 比率的概率分布做调整，一个经典的做法是采用 Delta 方法。以下内容是 A. W. Lo 和 E. Mertens 在 2002 年公布的，见 <span style="color:#417FBE; font-style:italic">E. Mertens, "Comments on variance of the IID estimator in Lo (2002)," 2002,</span>  *[https://www.elmarmertens.com/research/workingpapers](https://www.elmarmertens.com/research/workingpapers).* 
 
 Sharpe 比率涉及到两个矩参数，即期望和方差，编排成一个向量 $\theta = [\mu', \sigma^2]$ ，它的估计值自然是 $\hat{\theta} = [\bar{r}, s^2]$ ；由于样本是独立同分布的，因而应用中心极限定理，估计值服从正态分布。进行与[随机游走与矩估计](/2026/10/16/random_walk)中一致的推导，就可以得出
 
