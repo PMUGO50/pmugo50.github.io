@@ -8,7 +8,9 @@ permalink: index.html
 
 <p style="color:#64748b; font-size:24px; font-weight:bold">欢迎！这里是 PhecStar 站点首页</p>
 
-首页并没有什么可以放的。因此，窃以蒂迈欧在开篇对苏格拉底等人所作的论述作为首页的引子
+首页并没有什么可放的。算是临时起意吧，我想起拉斐尔的某一幅名画中，某位哲学家手挟他的一本著作，伴随着身旁阿波罗神的里拉琴声，上指于天
+
+因此，窃以这本著作的主人公在开篇对苏格拉底等人所作的论述作为首页的引子
 
 ___
 
@@ -21,6 +23,4 @@ The former is graspable by intellect with the aid of reason, being always the sa
 <p style="color:#333333; font-size:15px; font-style:normal; font-weight:bold; text-align:right; font-family: 'Source Serif 4', 'Source Han Serif SC', 'Source Han Serif CN', 'Noto Serif CJK SC', 'Noto Serif SC', '思源宋体', serif; line-height: 1.65;">
 Plato, "Timaeus," 28a.
 </p>
-
-
 
