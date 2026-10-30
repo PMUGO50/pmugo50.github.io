@@ -68,10 +68,40 @@ $$
 $$
 \tau = \sqrt{n}\hat{\mathcal{S}} = \sqrt{n}\frac{\bar{r} - \mu'}{s} = \sqrt{n}\left( \frac{\sigma}{s} \right)\frac{\bar{r} - \mu'}{\sigma}
 $$
-考虑到样本方差的计算式是
+按照定义，样本方差的计算式是
 $$
-s^2 = \frac{1}{n-1}\sum_{i=1}^n (r_i - \bar{r})^2 = \left(\frac{n\sigma^2}{n-1}\right) \left[\frac{1}{n}\sum_{i=1}^n \left(\frac{r_i-\mu'}{\sigma}\right)^2 - \left(\frac{\bar{r}-\mu'}{\sigma}\right)^2\right] = \sigma^2\left( 1 + \frac{1}{n-1} \right)\left(\overline{y^2} - \bar{y}^2\right)
+s^2 = \frac{1}{n-1}\sum_{i=1}^n (r_i - \bar{r})^2 = \frac{n\sigma^2}{n-1} \left[ \frac{1}{n}\sum_{i=1}^n \left(\frac{r_i-\mu'}{\sigma}\right)^2 - \left(\frac{\bar{r}-\mu'}{\sigma}\right)^2\right] = \frac{n\sigma^2}{n-1} \left( 1 + \frac{1}{\sqrt{n}}a_n - \frac{1}{n}z_n^2 \right)
 $$
-这里仍然记 $y_i = (r_i - \mu')/\sigma$ ，并将 $y_i^2$ 的样本均值记为 $\overline{y^2}$ 
+___
+
+这里和前面一样仍然记 $z_n = \sqrt{n}(\bar{r}-\mu')/\sigma$ ；那么 $\mathrm{E}(z_n) = 0$ ，$\mathrm{Var}(z_n) = 1$ 以及 $n \rightarrow\infty$ 时 $z_n \sim N(0,1)$ 就都是老生常谈的结果
+
+另外一个辅助量则定义为
+$$
+a_n = \frac{1}{\sqrt{n}} \sum_{i=1}^n \left(y_i^2 - 1\right) \quad,\quad y_i = \frac{r_i-\mu'}{\sigma}
+$$
+利用独立性很快算出它的期望和方差分别是
+$$
+\mathrm{E}(a_n) = 0 \quad,\quad \mathrm{Var}(a_n) = \frac{1}{n} \sum_{i=1}^n \left[ \mathrm{E}(y_i^4) - \mathrm{E}(y_i^2)^2 \right] = \kappa_4 - 1
+$$
+以及毫无疑问 CLT 也能给出 $n \rightarrow\infty$ 时 $a_n \sim N(0,\kappa_4-1)$ 
+
+___
+
+于是就得到
+$$
+\begin{aligned}
+\frac{\sigma}{s} = \sqrt{1-\frac{1}{n}} \left( 1 + \frac{1}{\sqrt{n}}a_n - \frac{1}{n}z_n^2 \right)^{-1/2} &= \left[ 1 - \frac{1}{2n} + o(n^{-1}) \right] \left[ 1 -\frac{1}{2\sqrt{n}}a_n + \frac{1}{2n}z_n + \frac{3}{8n}a_n^2 + o(n^{-1}) \right] \\[12pt]
+&= 1 - \frac{a_n}{2}n^{-1/2} + \left(\frac{z_n}{2} + \frac{3a_n^2}{8} - \frac{1}{2} \right)n^{-1} + o(n^{-1})
+\end{aligned}
+$$
+这样一来将其代入，学生氏统计量就成为
+$$
+\tau = z_n - \frac{z_na_n}{2}n^{-1/2} + \left(\frac{z_n^2}{2} + \frac{3z_na_n^2}{8} - \frac{z_n}{2} \right)n^{-1}  + o(n^{-1})
+$$
+并且来求它的特征函数，就是
+$$
+\mathrm{E}(e^{j\omega\tau}) = \mathrm{E}\left\{ e^{j\omega z_n} \left[1 - j\omega\frac{z_na_n}{2}n^{-1/2} + j\omega\left(\frac{z_n^2}{2} + \frac{3z_na_n^2}{8} - \frac{z_n}{2} \right)n^{-1} -\omega^2\frac{z_n^2a_n^2}{4}n^{-1} + o(n^{-1})\right] \right\}
+$$
 
 ## 累积分布函数
