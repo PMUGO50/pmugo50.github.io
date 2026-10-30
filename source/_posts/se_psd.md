@@ -87,7 +87,7 @@ $$
 
 由于 ACF 与光谱构成 Fourier 变换对，这就意味着它们之间存在类似于量子力学中不确定性关系的约束：光谱越宽，ACF 就越尖锐；反之光谱越窄，ACF 则越平坦
 
-关于不确定性关系的详细推导，参照 *M. Born, and E. Wolf, "Principle of optics," 7th ed., Chap. 10, Sec. 8.* 
+关于不确定性关系的详细推导，参照 <span style="color:#417FBE; font-style:italic">M. Born, and E. Wolf, "Principle of optics," 7th ed., Chap. 10, Sec. 8.</span>
 
 按照方差的形式，可以将光谱和 ACF 的宽度分别定义为
 $$
@@ -107,7 +107,7 @@ $$
 $$
 \tau_\mathrm{co}^2 = \frac{1}{4\pi^2}\frac{ \int_{-\infty}^{+\infty} \left|\mathrm{d}\varGamma^\ast/\mathrm{d}\tau\right|^2 \mathrm{d}f }{ \int_{-\infty}^{+\infty} |\varGamma(\tau)|^2 \mathrm{d}\tau  } \geq \frac{1}{16\pi^2} \frac{ \int_{-\infty}^{+\infty} |\varGamma(\tau)|^2 \mathrm{d}\tau }{ \int_{-\infty}^{+\infty} \tau^2 |\varGamma(\tau)|^2 \mathrm{d}\tau }
 $$
-这个不等号是**量子力学中的对易不等式**，在量子力学相关书目中很容易找到，或者参照 *M. Born, and E. Wolf, "Principle of optics," 7th ed., App. I.* 总之上式立即给出
+这个不等号是**量子力学中的对易不等式**，在量子力学相关书目中很容易找到，或者参照 <span style="color:#417FBE; font-style:italic">M. Born, and E. Wolf, "Principle of optics," 7th ed., App. I.</span> 总之上式立即给出
 $$
 f_\mathrm{b}^2 \tau_\mathrm{co}^2 \geq \frac{1}{16\pi^2}
 $$
@@ -133,7 +133,7 @@ S_\mathrm{I}(f) \delta(f-\nu) &= \mathrm{E}\left\{ \left[\frac{c}{8\pi}\int_{-\i
 &= \frac{c^2}{64\pi^2} \iint_0^\infty \mathrm{E}\left[ E(\alpha)E^\ast(\alpha - f)E^\ast(\alpha')E(\alpha' - \nu) \right]\mathrm{d}\alpha\mathrm{d}\alpha'
 \end{aligned}
 $$
-由于在自发辐射中，对于任意一个频率，发光原子的数目都是巨大的，因此按照**中心极限定理（CLT）**，$E$ 总是一个复值的 Gauss 型随机变量，而针对此存在 Isserlis 定理，详细的叙述与证明参照 B. Alexander, Found. Comput. Math., vol. 7, pp. 229-244. 这里要用到的是该定理的四阶矩推论，它表明对于 复值 Gauss 型随机变量存在 $\mathrm{E}[X_1Y_1X_2^\ast Y_2^\ast] = \mathrm{E}[X_1X_2^\ast]\mathrm{E}[Y_1 Y_2^\ast] + \mathrm{E}[X_1Y_2^\ast]\mathrm{E}[Y_1X_2^\ast]$ ，那么上式就成为
+由于在自发辐射中，对于任意一个频率，发光原子的数目都是巨大的，因此按照**中心极限定理（CLT）**，$E$ 总是一个复值的 Gauss 型随机变量，而针对此存在 Isserlis 定理，详细的叙述与证明参照 <span style="color:#417FBE; font-style:italic">B. Alexander, Found. Comput. Math., vol. 7, pp. 229-244.</span> 这里要用到的是该定理的四阶矩推论，它表明对于 复值 Gauss 型随机变量存在 $\mathrm{E}[X_1Y_1X_2^\ast Y_2^\ast] = \mathrm{E}[X_1X_2^\ast]\mathrm{E}[Y_1 Y_2^\ast] + \mathrm{E}[X_1Y_2^\ast]\mathrm{E}[Y_1X_2^\ast]$ ，那么上式就成为
 $$
 \begin{aligned}
 S_\mathrm{I}(f) \delta(f-\nu) &= \iint_0^\infty \frac{c}{8\pi} \mathrm{E}\left[ E(\alpha)E^\ast(\alpha')\right] \cdot \frac{c}{8\pi}\mathrm{E}\left[ E(\alpha' - \nu)E^\ast(\alpha - f) \right] \mathrm{d}\alpha\mathrm{d}\alpha' \\[12pt]

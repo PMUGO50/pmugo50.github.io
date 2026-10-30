@@ -70,11 +70,8 @@ $$
 $$
 考虑到样本方差的计算式是
 $$
-s^2 = \frac{1}{n-1}\sum_{i=1}^n (r_i - \bar{r})^2 = \left(\frac{n\sigma^2}{n-1}\right) \left[\frac{1}{n}\sum_{i=1}^n \left(\frac{r_i-\mu'}{\sigma}\right)^2 - \left(\frac{\bar{r}-\mu'}{\sigma}\right)^2\right]
+s^2 = \frac{1}{n-1}\sum_{i=1}^n (r_i - \bar{r})^2 = \left(\frac{n\sigma^2}{n-1}\right) \left[\frac{1}{n}\sum_{i=1}^n \left(\frac{r_i-\mu'}{\sigma}\right)^2 - \left(\frac{\bar{r}-\mu'}{\sigma}\right)^2\right] = \sigma^2\left( 1 + \frac{1}{n-1} \right)\left(\overline{y^2} - \bar{y}^2\right)
 $$
-所以就有
-$$
-\frac{\sigma}{s} = \frac{\sqrt{(n-1)/n}}{\sqrt{\sum_{i=1}^n y_i^2/n - \bar{y}^2}}
-$$
+这里仍然记 $y_i = (r_i - \mu')/\sigma$ ，并将 $y_i^2$ 的样本均值记为 $\overline{y^2}$ 
 
 ## 累积分布函数
