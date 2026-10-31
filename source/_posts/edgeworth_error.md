@@ -78,30 +78,32 @@ ___
 
 另外一个辅助量则定义为
 $$
-a_n = \frac{1}{\sqrt{n}} \sum_{i=1}^n \left(y_i^2 - 1\right) \quad,\quad y_i = \frac{r_i-\mu'}{\sigma}
+u_n = \frac{1}{\sqrt{n}} \sum_{i=1}^n \left(y_i^2 - 1\right) \quad,\quad y_i = \frac{r_i-\mu'}{\sigma}
 $$
 利用独立性很快算出它的期望和方差分别是
 $$
-\mathrm{E}(a_n) = 0 \quad,\quad \mathrm{Var}(a_n) = \frac{1}{n} \sum_{i=1}^n \left[ \mathrm{E}(y_i^4) - \mathrm{E}(y_i^2)^2 \right] = \kappa_4 - 1
+\mathrm{E}(u_n) = 0 \quad,\quad \mathrm{Var}(u_n) = \frac{1}{n} \sum_{i=1}^n \left[ \mathrm{E}(y_i^4) - \mathrm{E}(y_i^2)^2 \right] = \kappa_4 - 1
 $$
-以及毫无疑问 CLT 也能给出 $n \rightarrow\infty$ 时 $a_n \sim N(0,\kappa_4-1)$ 
+以及毫无疑问 CLT 也能给出 $n \rightarrow\infty$ 时 $u_n \sim N(0,\kappa_4-1)$ 
 
 ___
 
 于是就得到
 $$
 \begin{aligned}
-\frac{\sigma}{s} = \sqrt{1-\frac{1}{n}} \left( 1 + \frac{1}{\sqrt{n}}a_n - \frac{1}{n}z_n^2 \right)^{-1/2} &= \left[ 1 - \frac{1}{2n} + o(n^{-1}) \right] \left[ 1 -\frac{1}{2\sqrt{n}}a_n + \frac{1}{2n}z_n + \frac{3}{8n}a_n^2 + o(n^{-1}) \right] \\[12pt]
-&= 1 - \frac{a_n}{2}n^{-1/2} + \left(\frac{z_n}{2} + \frac{3a_n^2}{8} - \frac{1}{2} \right)n^{-1} + o(n^{-1})
+\frac{\sigma}{s} = \sqrt{1-\frac{1}{n}} \left( 1 + \frac{1}{\sqrt{n}}u_n - \frac{1}{n}z_n^2 \right)^{-1/2} &= \left[ 1 - \frac{1}{2n} + o(n^{-1}) \right] \left[ 1 -\frac{1}{2\sqrt{n}}u_n + \frac{1}{2n}z_n + \frac{3}{8n}u_n^2 + o(n^{-1}) \right] \\[12pt]
+&= 1 - \frac{a_n}{2}n^{-1/2} + \left(\frac{z_n}{2} + \frac{3u_n^2}{8} - \frac{1}{2} \right)n^{-1} + o(n^{-1})
 \end{aligned}
 $$
 这样一来将其代入，学生氏统计量就成为
 $$
-\tau = z_n - \frac{z_na_n}{2}n^{-1/2} + \left(\frac{z_n^2}{2} + \frac{3z_na_n^2}{8} - \frac{z_n}{2} \right)n^{-1}  + o(n^{-1})
+\tau = z_n - \frac{z_nu_n}{2}n^{-1/2} + \left(\frac{z_n^2}{2} + \frac{3z_nu_n^2}{8} - \frac{z_n}{2} \right)n^{-1}  + o(n^{-1})
 $$
 并且来求它的特征函数，就是
 $$
-\mathrm{E}(e^{j\omega\tau}) = \mathrm{E}\left\{ e^{j\omega z_n} \left[1 - j\omega\frac{z_na_n}{2}n^{-1/2} + j\omega\left(\frac{z_n^2}{2} + \frac{3z_na_n^2}{8} - \frac{z_n}{2} \right)n^{-1} -\omega^2\frac{z_n^2a_n^2}{4}n^{-1} + o(n^{-1})\right] \right\}
+\mathrm{E}(e^{j\omega\tau}) = \mathrm{E}\left\{ e^{j\omega z_n} \left[1 - j\omega\frac{z_nu_n}{2}n^{-1/2} + j\omega\left(\frac{z_n^2}{2} + \frac{3z_nu_n^2}{8} - \frac{z_n}{2} \right)n^{-1} -\omega^2\frac{z_n^2u_n^2}{4}n^{-1} + o(n^{-1})\right] \right\}
 $$
+
+
 
 ## 累积分布函数
