@@ -22,17 +22,17 @@ $$
 $$
 \mathrm{E}(y_i) = 0 \quad,\quad \mathrm{E}(y_i^2) = \mathrm{Var}(y_i) = 1 \quad,\quad \mathrm{E}(y_i^3) = \mathrm{Skew}(r_i) = \kappa_3 \quad,\quad \mathrm{E}(y_i^4) = \mathrm{Kurt}(r_i) = \kappa_4
 $$
-设它的概率密度函数是 $p(y)$ ，那么特征函数是 $M(\omega) = \mathrm{E}[e^{j\omega y}] = \mathcal{F}^{-1}[p(y)]$ ，即概率密度函数的 Fourier（逆）变换。如此一来，利用 $\{y_i\}$ 的独立同分布特性，$z_n = \sqrt{n}\bar{y}$ 的特征函数是
+设它的概率密度函数是 $p(y)$ ，那么特征函数是 $\Phi(\omega) = \mathrm{E}[e^{j\omega y}] = \mathcal{F}^{-1}[p(y)]$ ，即概率密度函数的 Fourier（逆）变换。如此一来，利用 $\{y_i\}$ 的独立同分布特性，$z_n = \sqrt{n}\bar{y}$ 的特征函数是
 $$
-M_z(\omega) = \mathrm{E}\left[ e^{-j\omega \sqrt{n}\bar{y}} \right] = \prod_{i=1}^n \left[ \int_{-\infty}^{+\infty} p(y_i)e^{j\omega y_i/\sqrt{n}} \mathrm{d}y_i \right] = \left[ \int_{-\infty}^{+\infty} p(y)e^{j\omega y/\sqrt{n}} \mathrm{d}y \right]^n
+\Phi_z(\omega) = \mathrm{E}\left[ e^{-j\omega \sqrt{n}\bar{y}} \right] = \prod_{i=1}^n \left[ \int_{-\infty}^{+\infty} p(y_i)e^{j\omega y_i/\sqrt{n}} \mathrm{d}y_i \right] = \left[ \int_{-\infty}^{+\infty} p(y)e^{j\omega y/\sqrt{n}} \mathrm{d}y \right]^n
 $$
 对指数函数部分进行 Taylor 展开，得到
 $$
-M_z(\omega) = \left[ 1 + \sum_{k=1}^\infty \frac{(j\omega)^k}{k!n^{k/2}} \mathrm{E}(y^k) \right]^n = \exp\left[ -\frac{\omega^2}{2} + \frac{(j\omega)^3}{6\sqrt{n}}\kappa_3 + \frac{(j\omega)^4}{24n}\kappa_4 +o(n^{-1})\right]
+\Phi_z(\omega) = \left[ 1 + \sum_{k=1}^\infty \frac{(j\omega)^k}{k!n^{k/2}} \mathrm{E}(y^k) \right]^n = \exp\left[ -\frac{\omega^2}{2} + \frac{(j\omega)^3}{6\sqrt{n}}\kappa_3 + \frac{(j\omega)^4}{24n}\kappa_4 +o(n^{-1})\right]
 $$
 第二个等号是重要极限 $e = \lim_{n\rightarrow\infty}(1+1/n)^n$ 的结果。再将 $e^{-\omega^2/2}$ 提出来，并且进行一次 Taylor 展开得到
 $$
-M_z(\omega) = e^{-\omega^2/2}\left[ 1 + \frac{(j\omega)^3}{6\sqrt{n}}\kappa_3 + \frac{(j\omega)^4}{24n}\kappa_4 + \frac{(j\omega)^6}{72n}\kappa_3^2 + o(n^{-1}) \right]
+\Phi_z(\omega) = e^{-\omega^2/2}\left[ 1 + \frac{(j\omega)^3}{6\sqrt{n}}\kappa_3 + \frac{(j\omega)^4}{24n}\kappa_4 + \frac{(j\omega)^6}{72n}\kappa_3^2 + o(n^{-1}) \right]
 $$
 
 Gauss 函数 $e^{-\omega^2/2}$ 的 Fourier 变换正是标准正态分布的概率密度函数 $\phi(z)$ ；所以如果上式不保留带有 $n$ 的这些余项，就得到了 Lindberg-Lévy CLT. 
@@ -84,7 +84,10 @@ $$
 $$
 \mathrm{E}(u_n) = 0 \quad,\quad \mathrm{Var}(u_n) = \frac{1}{n} \sum_{i=1}^n \left[ \mathrm{E}(y_i^4) - \mathrm{E}(y_i^2)^2 \right] = \kappa_4 - 1
 $$
-以及毫无疑问 CLT 也能给出 $n \rightarrow\infty$ 时 $u_n \sim N(0,\kappa_4-1)$ 
+以及毫无疑问 CLT 也能给出 $n \rightarrow\infty$ 时 $u_n \sim N(0,\kappa_4-1)$ ；既如此 $z_n, u_n$ 趋向于一个联合正态分布，还缺少一个描述这个分布的信息就是协方差，即
+$$
+\mathrm{Cov}(z_n, u_n) = \frac{1}{n} \sum_{i=1}^n \left[\mathrm{E}(y_i^3) - \mathrm{E}(y_i)\right] = \kappa_3
+$$
 
 ___
 
@@ -99,11 +102,13 @@ $$
 $$
 \tau = z_n - \frac{z_nu_n}{2}n^{-1/2} + \left(\frac{z_n^2}{2} + \frac{3z_nu_n^2}{8} - \frac{z_n}{2} \right)n^{-1}  + o(n^{-1})
 $$
-并且来求它的特征函数，就是
+并且来求它的特征函数 $\Phi(\omega) = \mathrm{E}(e^{j\omega\tau})$，就是
 $$
-\mathrm{E}(e^{j\omega\tau}) = \mathrm{E}\left\{ e^{j\omega z_n} \left[1 - j\omega\frac{z_nu_n}{2}n^{-1/2} + j\omega\left(\frac{z_n^2}{2} + \frac{3z_nu_n^2}{8} - \frac{z_n}{2} \right)n^{-1} -\omega^2\frac{z_n^2u_n^2}{4}n^{-1} + o(n^{-1})\right] \right\}
+\Phi(\omega)  = \mathrm{E}\left\{ e^{j\omega z_n} \left[1 - j\omega\frac{z_nu_n}{2}n^{-1/2} + j\omega\left(\frac{z_n^2}{2} + \frac{3z_nu_n^2}{8} - \frac{z_n}{2} \right)n^{-1} -\omega^2\frac{z_n^2u_n^2}{8}n^{-1} + o(n^{-1})\right] \right\}
 $$
 
+## 矩的计算
 
+特征函数的计算依赖于许多形如 $\mathrm{E}( e^{j\omega z_n}z_n^m u_n^q )$ 的项
 
 ## 累积分布函数
