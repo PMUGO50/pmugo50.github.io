@@ -48,143 +48,187 @@ $$
 
 显然，几何 Sharpe 比率越大，把握值 $\alpha \%$ 也越大，越能说明证券具有高的超额收益
 
+# Edgeworth 展开
+
+Edgeworth 展开是对中心极限定理（CLT）的补充，区别只在于它保留了更多的余项。接下来始终假设涉及到的矩都是收敛的，导函数则都是存在的
+
+{% note primary %}
+
+**Lindberg-Lévy 中心极限定理**：对于一个期望为 $\mu'$ ，方差为 $\sigma^2$ 的独立同分布样本序列 $\{r_i\}$ ，随着样本数量 $n$ 增大，样本均值的分布趋向于 $N(\mu',\sigma^2/n)$ ，或者说可以写为
+$$
+\lim_{n \rightarrow \infty} z_n = \frac{\bar{r} - \mu'}{\sigma/\sqrt{n}} \sim N(0,1)
+$$
+{% endnote %}
+
+定理最常见的证明需要用到特征函数。令 $y_i = (r_i-\mu')/\sigma$ ，首先就有
+$$
+\mathrm{E}(y_i) = 0 \quad,\quad \mathrm{E}(y_i^2) = \mathrm{Var}(y_i) = 1 \quad,\quad \mathrm{E}(y_i^3) = \mathrm{Skew}(r_i) = \kappa_3 \quad,\quad \mathrm{E}(y_i^4) = \mathrm{Kurt}(r_i) = \kappa_4
+$$
+设它的概率密度函数是 $p(y)$ ，那么特征函数是 $\varphi(\omega) = \mathrm{E}[e^{-j\omega y}] = \mathcal{F}[p(y)]$ ，即概率密度函数的 Fourier 变换。如此一来，利用 $\{y_i\}$ 的独立同分布特性，$z_n = \sqrt{n}\bar{y}$ 的特征函数是
+$$
+\varphi_z(\omega) = \mathrm{E}\left[ e^{-j\omega \sqrt{n}\bar{y}} \right] = \prod_{i=1}^n \left[ \int_{-\infty}^{+\infty} p(y_i)e^{-j\omega y_i/\sqrt{n}} \mathrm{d}y_i \right] = \left[ \int_{-\infty}^{+\infty} p(y)e^{-j\omega y/\sqrt{n}} \mathrm{d}y \right]^n
+$$
+对指数函数部分进行 Taylor 展开，得到
+$$
+\varphi_z(\omega) = \left[ 1 + \sum_{k=1}^\infty \frac{(-j\omega)^k}{k!n^{k/2}} \mathrm{E}(y^k) \right]^n = \exp\left[ -\frac{\omega^2}{2} - \frac{(j\omega)^3}{6\sqrt{n}}\kappa_3 + \frac{(j\omega)^4}{24n}\kappa_4 +o(n^{-1})\right]
+$$
+第二个等号是重要极限 $e = \lim_{n\rightarrow\infty}(1+1/n)^n$ 的结果。再将 $e^{-\omega^2/2}$ 提出来，并且进行一次 Taylor 展开得到
+$$
+\varphi_z(\omega) = e^{-\omega^2/2}\left[ 1 - \frac{(j\omega)^3}{6\sqrt{n}}\kappa_3 + \frac{(j\omega)^4}{24n}\kappa_4 + \frac{(j\omega)^6}{72n}\kappa_3^2 + o(n^{-1}) \right]
+$$
+
+Gauss 函数 $e^{-\omega^2/2}$ 的 Fourier 变换正是标准正态分布的概率密度函数 $\phi(z)$ ；所以如果上式不保留带有 $n$ 的这些余项，就得到了 Lindberg-Lévy CLT. 
+
+Edgeworth 展开则是继续保留后面的余项，特别地，这里保留到二阶余项。考虑到 Fourier 变换中 $ \mathrm{d}^k\phi/\mathrm{d}z^k \overset{\mathcal{F}}{\longleftrightarrow} (j\omega)^k \mathcal{F}(\phi)$ 的对应关系，保留更多余项后的概率分布函数就是
+$$
+p(z) = \phi(z) - \frac{\kappa_3}{6\sqrt{n}} \frac{\mathrm{d}^3\phi}{\mathrm{d}z^3} + \frac{\kappa_4}{24n} \frac{\mathrm{d}^4\phi}{\mathrm{d}z^4} + \frac{\kappa_3^2}{72n} \frac{\mathrm{d}^6\phi}{\mathrm{d}z^6} + o(n^{-1})
+$$
+至于这些导数，按照定义就是 Hermite 多项式
+$$
+H_k(z) = (-1)^k \frac{1}{\phi}\frac{\mathrm{d}^k\phi}{\mathrm{d}z^k} = (-1)^k e^{z^2/2} \frac{\mathrm{d}^k e^{-z^2/2}}{\mathrm{d}z^k}
+$$
+
+> 在量子力学中，提到 Hermite 多项式时一般约定为 $(-1)^k e^{z^2}(\mathrm{d}^k e^{-z^2}/\mathrm{d}z^k)$ ；统计学中则约定为 $(-1)^k e^{z^2/2}(\mathrm{d}^k e^{-z^2/2}/\mathrm{d}z^k)$ ，二者略有不同，主要都是为了方便
+
+所以如果用 Hermite 多项式来表示，就有
+
+{% note primary %}
+
+**二阶 Edgeworth 展开**：对于一个独立同分布样本序列 $\{r_i\}$ ，记其期望、方差、偏度、峰度分别为 $\mu', \sigma^2, \kappa_3, \kappa_4$ ，那么统计量 $z = \sqrt{n}(\bar{r}-\mu')/\sigma$ 的概率密度函数是
+$$
+p(z) = \phi(z)\left[1 + \frac{\kappa_3}{6\sqrt{n}}H_3(z) + \frac{\kappa_4}{24n}H_4(z) + \frac{\kappa_3^2}{72n}H_6(z) + o(n^{-1})\right]
+$$
+这里 $\phi(z)$ 是标准正态分布的概率密度函数，$H_k(z)$ 是统计学中约定的 Hermite 多项式
+
+{% endnote %}
+
 # 一般的渐近分布
 
-以上简单直接的考量有两个不足之处：
+## 特征函数
 
-1. 无法给出 $r_f \neq 0$ 时的 Sharpe 比率遵循何种分布
-2. 一般的对数收益分布也不会是正态分布，往往具有**负的偏度**和**正的超额峰度**
-
-因此需要考虑一般情况下几何 Sharpe 比率的统计特性，一个经典的做法是采用 Delta 方法。以下内容是 A. W. Lo 和 E. Mertens 在 2002 年公布的，见 <span style="color:#417FBE; font-style:italic">E. Mertens, "Comments on variance of the IID estimator in Lo (2002)," 2002,</span>  *[https://www.elmarmertens.com/research/workingpapers](https://www.elmarmertens.com/research/workingpapers).* 
-
-Sharpe 比率涉及到两个矩参数，即期望和方差，编排成一个向量 $\theta = [\mu', \sigma^2]$ ，它的估计值自然是 $\hat{\theta} = [\bar{r}, s^2]$ ；由于样本是独立同分布的，因而应用中心极限定理，估计值服从正态分布。进行与[随机游走与矩估计](/2026/10/16/random_walk)中一致的推导，就可以得出
-
-- $\mathrm{E}(\hat{\theta}) = \theta$ 
-- 由 Khinchin 大数定律，$\hat{\theta} \rightarrow \theta$ 
-
-现在几何 Sharpe 比率的估计值 $\hat{\mathcal{S}} = \mathcal{S}(\hat{\theta}) = (\bar{r} - r_f)/s$ 是 $\hat{\theta}$ 的函数，将其在真值 $\theta$ 处 Taylor 展开为
+接下来考虑有限样本下，Edgeworth 修正对基于几何 Sharpe 比率的假设检验带来的影响。以下始终作原假设 $H_0: \mu'=r_f$ ，于是学生氏统计量是
 $$
-\mathcal{S}(\hat{\theta}) = \mathcal{S}(\theta) + \frac{\partial \mathcal{S}}{\partial \hat{\theta}} (\hat{\theta} - \theta) + o(|\hat{\theta} - \theta|)
+\tau = \sqrt{n}\hat{\mathcal{S}} = \sqrt{n}\frac{\bar{r} - \mu'}{s} = \sqrt{n}\left( \frac{\sigma}{s} \right)\frac{\bar{r} - \mu'}{\sigma}
 $$
-当样本量 $n \rightarrow \infty$ 时，小量部分成为一阶项的高阶无穷小，这就有
-
-{% note primary %}
-
-**一阶 Delta 方法**：如果一个参数向量 $\theta$ 的估计值是 $\hat{\theta}$ ，它的一个函数是 $\mathcal{S}(\hat{\theta})$ ，且在大数定律下 $\hat{\theta} \rightarrow \theta$ ，以及 $\theta$ 处的 $\partial \mathcal{S}/\partial \hat{\theta} \neq 0$ ，那么
+按照定义，样本方差的计算式是
 $$
-\mathcal{S}(\hat{\theta}) - \mathcal{S}(\theta) \rightarrow \frac{\partial \mathcal{S}}{\partial \hat{\theta}} \cdot(\hat{\theta} - \theta)
+s^2 = \frac{1}{n-1}\sum_{i=1}^n (r_i - \bar{r})^2 = \frac{n\sigma^2}{n-1} \left[ \frac{1}{n}\sum_{i=1}^n \left(\frac{r_i-\mu'}{\sigma}\right)^2 - \left(\frac{\bar{r}-\mu'}{\sigma}\right)^2\right] = \frac{n\sigma^2}{n-1} \left( 1 + \frac{1}{\sqrt{n}}a_n - \frac{1}{n}z_n^2 \right)
 $$
-{% endnote %}
-
-在这里所考虑的情况下有
-$$
-\left.\frac{\partial \mathcal{S}}{\partial \hat{\theta}}\right|_{\hat{\theta}=\theta} = \left[\begin{matrix} 1/\sigma \\ (r_f-\mu')/2\sigma^3 \end{matrix}\right] \quad,\quad \hat{\theta} - \theta \sim N(0, \boldsymbol{\Sigma})
-$$
-这里协方差矩阵 $\boldsymbol{\Sigma}$ 是
-$$
-\boldsymbol{\Sigma} = \left[\begin{matrix} \mathrm{E}[(\bar{r}-\mu')^2] & \mathrm{E}[(\bar{r}-\mu')(s^2-\sigma^2)] \\[6pt] \mathrm{E}[(\bar{r}-\mu')(s^2-\sigma^2)] & \mathrm{E}[(s^2-\sigma^2)^2] \end{matrix}\right]
-$$
-下面列出矩阵中需要分别计算的三项
 
 ___
 
-1. 样本均值的方差：
+这里和前面一样仍然记 $z_n = \sqrt{n}(\bar{r}-\mu')/\sigma$ ；那么 $\mathrm{E}(z_n) = 0$ ，$\mathrm{Var}(z_n) = 1$ 以及 $n \rightarrow\infty$ 时 $z_n \sim N(0,1)$ 就都是老生常谈的结果
 
+另外一个辅助量则定义为
 $$
-\mathrm{E}[(\bar{r}-\mu')^2] = \frac{1}{n^2} \sum_{i=1}^n \mathrm{E} \left[(r_i - \mu')^2\right] = \frac{\sigma^2}{n}
+u_n = \frac{1}{\sqrt{n}} \sum_{i=1}^n x_i \quad,\quad x_i = y_i^2 - 1 \quad,\quad y_i = \frac{r_i-\mu'}{\sigma}
 $$
-
-2. 样本方差的方差：
-
-   $$
-   \mathrm{E}[(s^2-\sigma^2)^2] = \frac{1}{(n-1)^2} \mathrm{E}\left\{ \left[ \sum_{i=1}^n\left( (r_i - \mu') - (\bar{r}-\mu') \right)^2 \right]^2 \right\} - \sigma^4
-   $$
-
-   将期望里的内容展开得到
-   $$
-   \begin{aligned}
-   \mathrm{E}[(s^2-\sigma^2)^2] = \frac{1}{(n-1)^2} & \left\{ \sum_{i=1}^n \mathrm{E}[(r_i - \mu')^4] + \sum_{i\neq k} \mathrm{E}[(r_i - \mu')^2(r_k - \mu')^2] \right. \\[12pt]
-   & \left. - 2n\sum_{i=1}^n \mathrm{E}\left[ (r_i - \mu')^2(\bar{r} - \mu')^2 \right] + n^2\mathrm{E}[(\bar{r} - \mu')^4] \right\} - \sigma^4
-   \end{aligned}
-   $$
-   
-   四个期望项分别是
-   
-   - $\mathrm{E}[(r_i - \mu')^4] = \kappa_4\sigma^4$ 
-   
-   - 对于 $i \neq k$ ，由独立性得出 $\mathrm{E}[(r_i - \mu')^2(r_k - \mu')^2] = \mathrm{E}[(r_i - \mu')^2]\mathrm{E}[(r_k - \mu')^2] = \sigma^4$ ；这样的 $(i,k)$ 一共有 $n(n-1)$ 个
-   
-   - 同样借由独立性，$\mathrm{E}\left[ (r_i - \mu')^2(\bar{r} - \mu')^2 \right]$ 可以计算如下
-     $$
-     \mathrm{E}\left[ (r_i - \mu')^2(\bar{r} - \mu')^2 \right] = \frac{1}{n^2} \left\{ \mathrm{E}\left[ (r_i - \mu')^4 \right] + \sum_{k\neq i}\mathrm{E}\left[ (r_i - \mu')^2(r_k - \mu')^2 \right] \right\} = \frac{\kappa_4 + (n-1)}{n^2}\sigma^4
-     $$
-     
-   - 最后是 $\mathrm{E}[(\bar{r} - \mu')^4]$ ，展开并利用独立性得到
-     $$
-     \mathrm{E}[(\bar{r} - \mu')^4] = \frac{1}{n^4} \left\{ \sum_{i=1}^n \mathrm{E}\left[(r_i - \mu')^4\right] + 3\sum_{i\neq k} \mathrm{E}\left[(r_i - \mu')^2(r_k - \mu')^2\right] \right\} = \frac{\kappa_4}{n^3}\sigma^4 + \frac{3(n-1)}{n^3}\sigma^4
-     $$
-     这里只保留了 $4+0$ 和 $2+2$ 两种拆法，是因为 $3+1$ 这种拆法中一次项的期望值是零，因而没有任何贡献
-   
-   最终得到
-   $$
-   \begin{aligned}
-   \mathrm{E}[(s^2-\sigma^2)^2] &= \frac{\sigma^4}{(n-1)^2} \left[ \left( n-2+\frac{1}{n} \right)(\kappa_4 + 3) + \left( n-2+\frac{3}{n} \right)(n-1) \right]  - \sigma^4 \\[12pt]
-   &= \left[ \frac{\kappa_4}{n} - \frac{n-3}{n(n-1)} \right]\sigma^4
-   \end{aligned}
-   $$
-   
-
-
-3. 样本均值与样本方差的协方差：
-   $$
-   \mathrm{E}[(\bar{r}-\mu')(s^2-\sigma^2)] = \frac{1}{n(n-1)} \sum_{i=1}^n\sum_{k=1}^n \mathrm{E}\left\{ (r_i - \mu') [(r_k - \mu') - (\bar{r}-\mu')]^2 \right\}
-   $$
-   展开就是
-   $$
-   \mathrm{E}[(\bar{r}-\mu')(s^2-\sigma^2)] = \frac{1}{n(n-1)} \left\{ \sum_{i=1}^n\sum_{k=1}^n \mathrm{E}[(r_i - \mu')(r_k - \mu')^2] - n\sum_{i=1}^n\mathrm{E}[(r_i - \mu')(\bar{r} - \mu')^2] \right\}
-   $$
-   第一项中显然只能保留 $i=k$ 的项；第二项中将 $\bar{r} - \mu'$ 展开后只能保留 $3+0$ 这种拆法（理由和上面一样，$2+1$ 这种拆法的期望是零），因而计算化简后
-   $$
-   \mathrm{E}[(\bar{r}-\mu')(s^2-\sigma^2)] = \frac{\kappa_3\sigma^3}{n}
-   $$
+利用独立性很快算出它的期望和方差分别是
+$$
+\mathrm{E}(u_n) = \mathrm{E}(x_i) = 0 \quad,\quad \mathrm{Var}(u_n) = \mathrm{Var}(x_i) = \left[ \mathrm{E}(y_i^4) - \mathrm{E}(y_i^2)^2 \right] = \kappa_4 - 1
+$$
+以及毫无疑问 CLT 也能给出 $n \rightarrow\infty$ 时 $u_n \sim N(0,\kappa_4-1)$ ；既如此 $z_n, u_n$ 趋向于一个联合正态分布，还缺少一个描述这个分布的信息就是协方差，即
+$$
+\mathrm{Cov}(z_n, u_n) = \mathrm{Cov}(y_i, x_i) = \frac{1}{n} \sum_{i=1}^n \left[\mathrm{E}(y_i^3) - \mathrm{E}(y_i)\right] = \kappa_3
+$$
 
 ___
 
-于是协方差矩阵最终是
+于是就得到
 $$
-\boldsymbol{\Sigma} = \frac{1}{n}\left[\begin{matrix} \sigma^2 & \kappa_3\sigma^3 \\[6pt] \kappa_3\sigma^3 & [\kappa_4 - (n-3)/(n-1)]\sigma^4 \end{matrix}\right]
+\begin{aligned}
+\frac{\sigma}{s} = \sqrt{1-\frac{1}{n}} \left( 1 + \frac{1}{\sqrt{n}}u_n - \frac{1}{n}z_n^2 \right)^{-1/2} &= \left[ 1 - \frac{1}{2n} + o(n^{-1}) \right] \left[ 1 -\frac{1}{2\sqrt{n}}u_n + \frac{1}{2n}z_n^2 + \frac{3}{8n}u_n^2 + o(n^{-1}) \right] \\[12pt]
+&= 1 - \frac{u_n}{2}n^{-1/2} + \left(\frac{z_n^2}{2} + \frac{3u_n^2}{8} - \frac{1}{2} \right)n^{-1} + o(n^{-1})
+\end{aligned}
 $$
-如此一来，当 $n \rightarrow \infty$ 时，由一阶 Delta 方法得出 $\mathcal{S}(\hat{\theta}) - \mathcal{S}(\theta) \sim N\left( \mathrm{E}[\mathcal{S}(\hat{\theta})], \mathrm{Var}[\mathcal{S}(\hat{\theta})] \right)$ ，这里期望是
+这样一来将其代入，学生氏统计量就成为
 $$
-\mathrm{E}(\hat{\mathcal{S}}) \rightarrow \mathcal{S}(\theta) + \frac{\partial \mathcal{S}}{\partial \hat{\theta}} \cdot\mathrm{E}\left[ (\hat{\theta} - \theta) \right] = \mathcal{S}(\theta)
+\tau = z_n - \frac{z_nu_n}{2}n^{-1/2} + \left(\frac{z_n^3}{2} + \frac{3z_nu_n^2}{8} - \frac{z_n}{2} \right)n^{-1}  + o(n^{-1})
 $$
-而方差是
+并且来求它的特征函数 $\varphi_t(\omega) = \mathrm{E}(e^{-j\omega\tau})$，就是
 $$
-\mathrm{Var}(\hat{\mathcal{S}}) \rightarrow \left( \frac{\partial \mathcal{S}}{\partial \hat{\theta}} \right)^T \mathrm{E}\left[ (\hat{\theta} - \theta)(\hat{\theta} - \theta)^T \right]\left( \frac{\partial \mathcal{S}}{\partial \hat{\theta}} \right) = \left( \frac{\partial \mathcal{S}}{\partial \hat{\theta}} \right)^T \boldsymbol{\Sigma} \left( \frac{\partial \mathcal{S}}{\partial \hat{\theta}} \right)
+\varphi_t(\omega)  = \mathrm{E}\left\{ e^{-j\omega z_n} \left[1 + j\omega\frac{z_nu_n}{2}n^{-1/2} - j\omega\left(\frac{z_n^3}{2} + \frac{3z_nu_n^2}{8} - \frac{z_n}{2} \right)n^{-1} -\omega^2\frac{z_n^2u_n^2}{8}n^{-1} + o(n^{-1})\right] \right\}
 $$
-代入协方差矩阵，并考虑到此时 $(n-3)/(n-1) \rightarrow 1$ ，即得到
-$$
-\mathrm{Var}(\hat{\mathcal{S}}) \rightarrow \frac{1}{n} \left[ 1 - \kappa_3\frac{\mu' - r_f}{\sigma} + \frac{\kappa_4-1}{4}\left( \frac{\mu' - r_f}{\sigma} \right)^2 \right]
-$$
-考虑到真值 $\mathcal{S}(\theta) = (\mu' - r_f)/\sigma$ ，以及一般采用年化值，就得到
 
-{% note primary %}
+## 统计矩的计算
 
-**独立非正态样本的几何 Sharpe 比率**：如果证券的对数收益样本序列是独立变量，记其年化几何 Sharpe 比率的估计值为 $\hat{\mathcal{S}}$ ，一年包含的样本数为 $n_\mathrm{A}$ ，那么当样本数量 $n \rightarrow \infty$ 时有
+特征函数的计算依赖于许多形如 $\mathrm{E}( e^{-j\omega z_n}z_n^k u_n^m )$ 的项，可以通过联合的特征函数来求这个期望，也就是说令 $x_i = y_i^2 - 1$ ，然后利用独立性可以构造出
 $$
-\zeta = \sqrt{\frac{n}{n_\mathrm{A}}} \frac{\hat{\mathcal{S}} - \mathcal{S}}{V} \sim N \left( 0, 1 \right) \quad,\quad V^2 = 1 - \kappa_3\frac{\mathcal{S}}{\sqrt{n_\mathrm{A}}} + \frac{\kappa_4-1}{4}\cdot\frac{\mathcal{S}^2}{n_\mathrm{A}}
+\varphi(\omega_x, \omega_y) = \mathrm{E}\left[ e^{-j(\omega_x z_n + \omega_y u_n)} \right] = \prod_{i=1}^n \mathrm{E}\left[ e^{-j(\omega_x x_i + \omega_y y_i)/\sqrt{n}} \right] = \mathrm{E}\left[ e^{-j(\omega_x x_i + \omega_y y_i)/\sqrt{n}} \right]^n
 $$
-这里 $\kappa_3$ 是样本分布的偏度，$\kappa_4$ 是分布的峰度，$\mathcal{S}$ 是年化几何 Sharpe 比率的真值
+然后利用二元 Fourier 变换的性质 $(-jx)^m(-jy)^k\phi \overset{\mathcal{F}}{\longleftrightarrow} \partial^{k+m}\mathcal{F}(\phi)/\partial \omega_x^m\partial \omega_y^k$ ，于是立刻得到
+$$
+\mathrm{E}( e^{-j\omega z_n}z_n^k u_n^m ) = \iint_{\mathbb{R}^2} z_n^k u_n^m p(z_n, u_n) e^{-j\omega z_n} \mathrm{d}z_n\mathrm{d}u_n = \left. j^{k+m} \frac{\partial^{k+m}}{\partial\omega_x^m \partial \omega_y^k}\mathrm{E}\left[ e^{-j(\omega_x x_i + \omega_y y_i)/\sqrt{n}} \right]^n \right|_{\omega_x=0, \omega_y=\omega}
+$$
+和之前一样地，用 Taylor 展开将期望中的这个复指数展开，然后利用 $\mathrm{E}(x_i)=\mathrm{E}(y_i)=0$ ，$\mathrm{Var}(x_i)=\kappa_4-1$ ，$\mathrm{Var}(y_i)=1$ ，以及 $\mathrm{Cov}(x_i,y_i) = \kappa_3$ ，还有重要极限，最终就有
+$$
+\begin{aligned}
+\mathrm{E}\left[ e^{-j(\omega_x x_i + \omega_y y_i)/\sqrt{n}} \right]^n = \exp & \left\{ -\frac{1}{2}\left[\omega_y^2 + (\kappa_4-1)\omega_x^2 + 2\kappa_3\omega_x\omega_y\right] \right. \\[12pt]
+& \left. - \frac{j^3}{6\sqrt{n}} \mathrm{E}[(\omega_x x_i + \omega_y y_i)^3] + \frac{j^4}{24n}\mathrm{E}[(\omega_x x_i + \omega_y y_i)^4] + o(n^{-1}) \right\}
+\end{aligned}
+$$
+当然，也和之前一样，再进行一次 Taylor 展开得到
+$$
+\begin{aligned}
+\mathrm{E}\left[ e^{-j(\omega_x x_i + \omega_y y_i)/\sqrt{n}} \right]^n = & e^{-\left[\omega_y^2 + (\kappa_4-1)\omega_x^2 + 2\kappa_3\omega_x\omega_y\right]/2} \left\{ 1 - \frac{j^3}{6\sqrt{n}} \mathrm{E}[(\omega_x x_i + \omega_y y_i)^3] \right.\\[12pt]
+& \left.  + \frac{j^4}{24n}\mathrm{E}[(\omega_x x_i + \omega_y y_i)^4] + \frac{j^6}{72n}\mathrm{E}[(\omega_x x_i + \omega_y y_i)^3]^2 + o(n^{-1}) \right\}
+\end{aligned}
+$$
+但由于在 $\varphi_t(\omega)$ 中出现的 $\mathrm{E}( e^{-j\omega z_n}z_n u_n )$ 已经乘上了 $n^{-1/2}$ 这个系数，因此对这一项的计算只需要保留到 $n^{-1/2}$ ；而 $\mathrm{E}( e^{-j\omega z_n}z_n )$ ，  $\mathrm{E}( e^{-j\omega z_n}z_n^2 )$ ， $\mathrm{E}( e^{-j\omega z_n}z_n u_n^2 )$ ， $\mathrm{E}( e^{-j\omega z_n}z_n^2 u_n^2 )$ 四项前则已经乘上了 $n^{-1}$ ，因此对它们的计算只需要保留到 $n^0$ 
 
-{% endnote %}
+那么就来展开计算
 
-也就是说，通过设置不同的目标 Sharpe 比率 $\mathcal{S}_\mathrm{tar}$ ，上述命题可以构造一个 Z 检验问题
+1. 先来看 $\mathrm{E}( e^{-j\omega z_n}z_n u_n )$ ，考虑到最终取 $\omega_x = 0$ ，因此求导后含有 $\omega_x$ 的项最终都是零（*即使如此也挺麻烦的，交给 sympy 或者 AI 会快得多*）
+   $$
+   \mathrm{E}( e^{-j\omega z_n}z_n u_n ) = \left[\kappa_3(1-\omega^2) - \frac{\kappa_3^2}{6}\left( 4(j\omega)^3 + (j\omega)^5 \right)n^{-1/2} - \frac{\kappa_4-1}{2}\left( (j\omega)^3 + 2j\omega \right)n^{-1/2} \right]e^{-\omega^2/2} + o(n^{-1/2})
+   $$
 
-> **单边 Z 检验**：
->
-> 1. 做出原假设 $H_0: \mathcal{S} \leq \mathcal{S}_\mathrm{tar}$ 
-> 2. 在 $n$ 足够大的情况下，按照上述命题构造统计量 $\zeta$ （由于原假设认为 $\mathcal{S}$ 的真值不大于 $\mathcal{S}_\mathrm{tar}$ ，所以这里自然以 $\mathcal{S}_\mathrm{tar}$ 来计算 $V^2$ ）
-> 3. 如果 $\zeta$ 大于等于标准正态分布的 $\alpha \%$ 分位数，那么就可以断言：有 $\alpha \%$ 的把握认为原假设不成立，因而证券的几何 Sharpe 比率 $\mathcal{S}$ 明显超过目标比率 $\mathcal{S}_\mathrm{tar}$ 
+2. 然后是 $\mathrm{E}( e^{-j\omega z_n}z_n )$ ，它只需要对 $\omega_y$ 求一次偏导
+   $$
+   \mathrm{E}( e^{-j\omega z_n}z_n ) = -j\omega e^{-\omega^2/2} + o(1)
+   $$
 
-和正态情况一样，几何 Sharpe 比率越大，把握值 $\alpha \%$ 也越大，越能说明证券具有优秀的收益风险比
+3. $\mathrm{E}( e^{-j\omega z_n}z_n^3 )$ ，它需要对 $\omega_y$ 求三次偏导
+   $$
+   \mathrm{E}( e^{-j\omega z_n}z_n^3 ) = -[(j\omega)^3 + 3j\omega]e^{-\omega^2/2} + o(1)
+   $$
 
+4. $\mathrm{E}( e^{-j\omega z_n}z_n u_n^2 )$ ，它需要先对 $\omega_x$ 求两次偏导，然后对 $\omega_y$ 求一次偏导
+   $$
+   \mathrm{E}( e^{-j\omega z_n}z_n u_n^2 ) = -\left[ \kappa_3^2(j\omega)^3 + (\kappa_4-1+2\kappa_3^2)j\omega \right]e^{-\omega^2/2} + o(1)
+   $$
+
+5. $\mathrm{E}( e^{-j\omega z_n}z_n^2 u_n^2 )$ ，它需要先对 $\omega_x$ 求两次偏导，然后对 $\omega_y$ 求两次偏导
+   $$
+   \mathrm{E}( e^{-j\omega z_n}z_n^2 u_n^2 ) = \left[ (\kappa_4-1)(1 - \omega^2) + \kappa_3( \omega^4 - 5\omega^2 + 2) \right]e^{-\omega^2/2} + o(1)
+   $$
+
+6. 最后实际上还有 $\mathrm{E}( e^{-j\omega z_n} )$ ，它不用求导，是最简单的一个，但要保留到 $n^{-1}$ 
+   $$
+   \mathrm{E}( e^{-j\omega z_n} ) = \left[ 1 - \frac{\kappa_3(j\omega)^3}{6}n^{-1/2} + \frac{\kappa_4(j\omega)^4}{24}n^{-1} + \frac{\kappa_3^2(j\omega)^6}{72}n^{-1} \right]e^{-\omega^2/2} + o(n^{-1})
+   $$
+
+于是代入，最后得到的特征函数将是（*这一连串暴算过程太麻烦了*）
+$$
+\begin{aligned}
+\varphi_t(\omega) = e^{-\omega^2/2} &\left\{ 1 + \frac{\kappa_3}{6} \left[3j\omega + 2(j\omega)^3\right]n^{-1/2} \right. \\[12pt]
+& + \left.\left[ -(1+\kappa_3^2)\omega^2 + \left( \frac{1}{4} - \frac{\kappa_4-3}{12} + \frac{2\kappa_3}{3} \right)\omega^4 - \frac{\kappa_3^2}{18}\omega^6 \right]n^{-1} + o(n^{-1}) \right\}
+\end{aligned}
+$$
+
+## 累积分布函数
+
+既然有了 $\varphi_t(\omega)$ ，那么学生氏统计量 $\tau$ 的概率密度函数 $p(\tau) = \mathcal{F}^{-1}[\varphi_t(\omega)]$ 也就确定了。不过在假设检验中，实际上一般关心的是落在某个值左侧或右侧的概率是多少，因此如果得出累积分布函数——即概率密度函数的积分——是更好的
+
+利用 Fourier 变换的关系 $\int\phi(\tau)\mathrm{d}\tau \overset{\mathcal{F}}{\longleftrightarrow} (j\omega)^{-1} \mathcal{F}(\phi)$ ，累积分布函数 $F(\tau)$ 的 Fourier 变换将是
+$$
+\mathcal{F}[F(\tau)] = \mathcal{F}\left[ \int_{-\infty}^{\tau} p(\xi) \mathrm{d}\xi\right] = \frac{\varphi_t(\omega)}{j\omega}
+$$
+自然，将上面 $\varphi_t(\omega)$ 的表达式代入之后，再逐项 Fourier 反演回来就有
+$$
+\begin{aligned}
+F(\tau) = & \int_{-\infty}^\tau \phi(\xi)\mathrm{d}\xi + \frac{\kappa_3}{6}\left( 3 + 2\frac{\mathrm{d}^2\phi}{\mathrm{d}\tau^2} \right)n^{-1/2} \\[12pt]
+&+ \left[ (1+\kappa_3^2)\frac{\mathrm{d}\phi}{\mathrm{d}\tau} + \left( \frac{1}{4} - \frac{\kappa_4-3}{12} + \frac{2\kappa_3}{3} \right)\frac{\mathrm{d}^3\phi}{\mathrm{d}\tau^3} - \frac{\kappa_3^2}{18}\frac{\mathrm{d}^6\phi}{\mathrm{d}\tau^6} \right] n^{-1} + o(n^{-1})
+\end{aligned}
+$$
+自然，这里又可以用 Hermitian 多项式来表达
