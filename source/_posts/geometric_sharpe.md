@@ -1,5 +1,5 @@
 ---
-title: 几何Sharpe比率的渐近分布
+title: 学生氏统计量的渐近分布
 date: 2026-10-28 12:15:40
 categories: 时间序列处理
 mathjax: true
@@ -106,7 +106,9 @@ $$
 
 ## 特征函数
 
-接下来考虑有限样本下，Edgeworth 修正对基于几何 Sharpe 比率的假设检验带来的影响。以下始终作原假设 $H_0: \mu'=r_f$ ，于是学生氏统计量是
+接下来考虑有限样本下，Edgeworth 修正对学生氏检验带来的影响，这部分内容参照 <span style="color:#417FBE; font-style:italic">M. Nkurunziza and L. Vermeire, "A Review on Approximation Approach for the Distribution of the Studentized Mean," Appl. Math. Sci., vol. 17, pp. 297(2023).</span> 
+
+以下始终作原假设 $H_0: \mu'=r_f$ ，于是学生氏统计量是
 $$
 \tau = \sqrt{n}\hat{\mathcal{S}} = \sqrt{n}\frac{\bar{r} - \mu'}{s} = \sqrt{n}\left( \frac{\sigma}{s} \right)\frac{\bar{r} - \mu'}{\sigma}
 $$
@@ -176,7 +178,7 @@ $$
 $$
 但由于在 $\varphi_t(\omega)$ 中出现的 $\mathrm{E}( e^{-j\omega z_n}z_n u_n )$ 已经乘上了 $n^{-1/2}$ 这个系数，因此对这一项的计算只需要保留到 $n^{-1/2}$ ；而 $\mathrm{E}( e^{-j\omega z_n}z_n )$ ，  $\mathrm{E}( e^{-j\omega z_n}z_n^2 )$ ， $\mathrm{E}( e^{-j\omega z_n}z_n u_n^2 )$ ， $\mathrm{E}( e^{-j\omega z_n}z_n^2 u_n^2 )$ 四项前则已经乘上了 $n^{-1}$ ，因此对它们的计算只需要保留到 $n^0$ 
 
-那么就来展开计算
+那么就来展开计算这几项，有关这些项的计算，参照 <span style="color:#417FBE; font-style:italic">P. Hall, "The Bootstrap and Edgeworth Expansion."</span> 
 
 1. 先来看 $\mathrm{E}( e^{-j\omega z_n}z_n u_n )$ ，考虑到最终取 $\omega_x = 0$ ，因此求导后含有 $\omega_x$ 的项最终都是零（*即使如此也挺麻烦的，交给 sympy 或者 AI 会快得多*）
    $$
@@ -200,7 +202,7 @@ $$
 
 5. $\mathrm{E}( e^{-j\omega z_n}z_n^2 u_n^2 )$ ，它需要先对 $\omega_x$ 求两次偏导，然后对 $\omega_y$ 求两次偏导
    $$
-   \mathrm{E}( e^{-j\omega z_n}z_n^2 u_n^2 ) = \left[ (\kappa_4-1)(1 - \omega^2) + \kappa_3( \omega^4 - 5\omega^2 + 2) \right]e^{-\omega^2/2} + o(1)
+   \mathrm{E}( e^{-j\omega z_n}z_n^2 u_n^2 ) = \left[ (\kappa_4-1)(1 - \omega^2) + \kappa_3^2( \omega^4 - 5\omega^2 + 2) \right]e^{-\omega^2/2} + o(1)
    $$
 
 6. 最后实际上还有 $\mathrm{E}( e^{-j\omega z_n} )$ ，它不用求导，是最简单的一个，但要保留到 $n^{-1}$ 
@@ -212,7 +214,7 @@ $$
 $$
 \begin{aligned}
 \varphi_t(\omega) = e^{-\omega^2/2} &\left\{ 1 + \frac{\kappa_3}{6} \left[3j\omega + 2(j\omega)^3\right]n^{-1/2} \right. \\[12pt]
-& + \left.\left[ -(1+\kappa_3^2)\omega^2 + \left( \frac{1}{4} - \frac{\kappa_4-3}{12} + \frac{2\kappa_3}{3} \right)\omega^4 - \frac{\kappa_3^2}{18}\omega^6 \right]n^{-1} + o(n^{-1}) \right\}
+& + \left.\left[ -(1+\kappa_3^2)\omega^2 + \left( \frac{1}{2} - \frac{\kappa_4}{12} + \frac{2\kappa_3^2}{3} \right)\omega^4 - \frac{\kappa_3^2}{18}\omega^6 \right]n^{-1} + o(n^{-1}) \right\}
 \end{aligned}
 $$
 
@@ -224,11 +226,56 @@ $$
 $$
 \mathcal{F}[F(\tau)] = \mathcal{F}\left[ \int_{-\infty}^{\tau} p(\xi) \mathrm{d}\xi\right] = \frac{\varphi_t(\omega)}{j\omega}
 $$
-自然，将上面 $\varphi_t(\omega)$ 的表达式代入之后，再逐项 Fourier 反演回来就有
+将上面 $\varphi_t(\omega)$ 的表达式代入之后，再逐项 Fourier 反演回来就有
 $$
 \begin{aligned}
-F(\tau) = & \int_{-\infty}^\tau \phi(\xi)\mathrm{d}\xi + \frac{\kappa_3}{6}\left( 3 + 2\frac{\mathrm{d}^2\phi}{\mathrm{d}\tau^2} \right)n^{-1/2} \\[12pt]
-&+ \left[ (1+\kappa_3^2)\frac{\mathrm{d}\phi}{\mathrm{d}\tau} + \left( \frac{1}{4} - \frac{\kappa_4-3}{12} + \frac{2\kappa_3}{3} \right)\frac{\mathrm{d}^3\phi}{\mathrm{d}\tau^3} - \frac{\kappa_3^2}{18}\frac{\mathrm{d}^6\phi}{\mathrm{d}\tau^6} \right] n^{-1} + o(n^{-1})
+F(\tau) = & \int_{-\infty}^\tau \phi(\xi)\mathrm{d}\xi + \frac{\kappa_3}{6}\left[ 3\phi(\tau) + 2\frac{\mathrm{d}^2\phi}{\mathrm{d}\tau^2} \right]n^{-1/2} \\[12pt]
+&+ \left[ (1+\kappa_3^2)\frac{\mathrm{d}\phi}{\mathrm{d}\tau} + \left( \frac{1}{2} - \frac{\kappa_4}{12} + \frac{2\kappa_3^2}{3} \right)\frac{\mathrm{d}^3\phi}{\mathrm{d}\tau^3} + \frac{\kappa_3^2}{18}\frac{\mathrm{d}^5\phi}{\mathrm{d}\tau^5} \right] n^{-1} + o(n^{-1})
 \end{aligned}
 $$
-自然，这里又可以用 Hermitian 多项式来表达
+自然，这里又可以用 Hermite 多项式来表达，这就有
+
+{% note primary %}
+
+**学生氏统计量的渐近分布**：对于一个独立同分布样本序列 $\{r_i\}$ ，记其期望、方差、偏度、峰度分别为 $\mu', \sigma^2, \kappa_3, \kappa_4$ ，那么学生氏统计量 $\tau = \sqrt{n}(\bar{r}-\mu')/s$ 的累积分布函数是
+$$
+F(\tau) = \Phi(\tau) + \left[q_{-1/2}(\tau)n^{-1/2} + q_{-1}(\tau)n^{-1}\right]\phi(\tau)  + o(n^{-1})
+$$
+这里 $\phi(\tau)$ 是标准正态分布的概率密度函数，$\Phi(\tau)$ 是标准正态分布的累积分布函数，两个多项式分别是
+$$
+q_{-1/2}(\tau) = \frac{\kappa_3}{6}\left[ 3 + 2H_2(\tau) \right] \quad,\quad q_{-1}(\tau) = - \left[ (1+\kappa_3^2)H_1(\tau) + \left( \frac{1}{2} - \frac{\kappa_4}{12} + \frac{2\kappa_3^2}{3} \right)H_3(\tau) + \frac{\kappa_3^2}{18}H_5(\tau) \right]
+$$
+$H_k(\tau)$ 是统计学中约定的 Hermite 多项式
+
+{% endnote %}
+
+或者可以代入前几阶 Hermite 多项式的具体形式
+$$
+\begin{aligned}
+& H_1(\tau) = \tau \quad,\quad H_2(\tau) = \tau^2 - 1 \quad,\quad H_3(\tau) = \tau^3-3\tau \\[6pt]
+& H_4(\tau) = \tau^4 - 6\tau^2 + 3 \quad,\quad H_5(\tau) = \tau^5 - 10\tau^3 + 15\tau \quad,\quad \cdots
+\end{aligned}
+$$
+得到
+$$
+q_{-1/2}(\tau) = \frac{\kappa_3}{6}\left( 2\tau^2 - 1 \right) \quad,\quad q_{-1}(\tau) = -\frac{1}{2}(\tau^3 - \tau) +\frac{\kappa_4}{12}(\tau^3 - 3\tau) - \frac{\kappa_3^2}{18}(\tau^5 + 2\tau^3 - 3\tau)
+$$
+于是假设检验的过程成为
+
+> **有限样本下单边学生氏检验的修正**：
+>
+> 1. 做出原假设 $H_0: \mu' \leq r_f$ 
+> 2. 统计 $\bar{r}, s^2, \kappa_3, \kappa_4$ ，计算 $\tau = \sqrt{n/n_\mathrm{A}} \hat{\mathcal{S}}$ 以及累积分布函数 $F$ 
+> 3. 如果 $F(\tau) \geq \alpha\%$ ，那么就可以断言：有 $\alpha \%$ 的把握认为原假设不成立，因而证券的期望收益 $\mu'$ 明显超过无风险收益
+
+最后，来验证两个特殊情况：
+
+- 样本来自于正态分布，即 $\kappa_3=0, \kappa_4=3$ ，此时 $\tau \sim t(n-1)$ ，它的累积分布函数是
+
+  $$
+  F(\tau) = \Phi(\tau) - \left[H_1(\tau) + \frac{H_3(\tau)}{4} \right]\phi(\tau)n^{-1} + o(n^{-1}) = \Phi(\tau) - \frac{1}{4}(\tau^3+\tau)\phi(\tau)n^{-1} + o(n^{-1})
+  $$
+
+- 样本数量趋于无穷，即 $n \rightarrow \infty$ ，此时 $\tau$ 当然趋向于一个正态分布；不过特别地，这里考虑一下它的方差
+
+   
