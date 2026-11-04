@@ -18,14 +18,14 @@ $$
 
 对于总数为 $n$ 的独立正态对数收益样本序列，它的学生氏统计量是
 $$
-\tau = \frac{\bar{r} - \mu'}{s/\sqrt{n}} \sim t(n-1) \rightarrow N(0,1)
+\mathcal{T} = \frac{\bar{r} - \mu'}{s/\sqrt{n}} \sim t(n-1) \rightarrow N(0,1)
 $$
 
 极限在 $n \rightarrow \infty$ 时取到，这是学生氏分布的性质
 
 举个例子，样本序列是 $\{ r_i\}$ ，一年中有 $n_\mathrm{A}$ 个样本，那么年化 Sharpe 比率的估计值是
 $$
-\hat{\mathcal{S}} = \sqrt{n_\mathrm{A}}\frac{\bar{r} - r_f}{s} = \sqrt{\frac{n_\mathrm{A}}{n}}\frac{\bar{r} - r_f}{s/\sqrt{n}} = \sqrt{\frac{n_\mathrm{A}}{n}}\tau \quad\mathrm{when}\quad \mu' = r_f
+\hat{\mathcal{S}} = \sqrt{n_\mathrm{A}}\frac{\bar{r} - r_f}{s} = \sqrt{\frac{n_\mathrm{A}}{n}}\frac{\bar{r} - r_f}{s/\sqrt{n}} = \sqrt{\frac{n_\mathrm{A}}{n}}\mathcal{T} \quad\mathrm{when}\quad \mu' = r_f
 $$
 也就是说
 
@@ -33,7 +33,7 @@ $$
 
 **独立正态样本的几何 Sharpe 比率**：如果证券的对数收益样本序列是独立的正态变量，且其期望与无风险收益相等 $\mu' = r_{f}$ ，记其年化的几何 Sharpe 比率估计值为 $\hat{\mathcal{S}}$ ，一年包含的样本数为 $n_\mathrm{A}$ ，那么
 $$
-\tau = \sqrt{\frac{n}{n_\mathrm{A}}} \hat{\mathcal{S}} \sim t(n-1)
+\mathcal{T} = \sqrt{\frac{n}{n_\mathrm{A}}} \hat{\mathcal{S}} \sim t(n-1)
 $$
 {% endnote %}
 
@@ -42,8 +42,8 @@ $$
 > **单边学生氏检验**：
 >
 > 1. 做出原假设 $H_0: \mu' \leq r_f$ 
-> 2. 按照上述命题计算 $\tau$ 值
-> 3. 如果 $\tau$ 大于等于学生氏分布的 $\alpha \%$ 分位数，那么就可以断言：有 $\alpha \%$ 的把握认为原假设不成立，因而证券的期望收益 $\mu'$ 明显超过无风险收益
+> 2. 按照上述命题计算 $\mathcal{T}$ 值
+> 3. 如果 $\mathcal{T}$ 大于等于学生氏分布的 $\alpha \%$ 分位数，那么就可以断言：有 $\alpha \%$ 的把握认为原假设不成立，因而证券的期望收益 $\mu'$ 明显超过无风险收益
 >
 
 显然，几何 Sharpe 比率越大，把握值 $\alpha \%$ 也越大，越能说明证券具有高的超额收益
@@ -104,118 +104,87 @@ $$
 
 # 一般的渐近分布
 
-## 特征函数
+## Delta 方法
 
-接下来考虑有限样本下，Edgeworth 修正对学生氏检验带来的影响，这部分内容参照 <span style="color:#417FBE; font-style:italic">M. Nkurunziza and L. Vermeire, "A Review on Approximation Approach for the Distribution of the Studentized Mean," Appl. Math. Sci., vol. 17, pp. 297(2023).</span> 
+接下来考虑有限样本下，Edgeworth 修正对学生氏检验带来的影响，这部分内容参照 <span style="color:#417FBE; font-style:italic">P. Hall, "The Bootstrap and Edgeworth Expansion," Chap. 2, Sec. 6.</span> 以及后来的 <span style="color:#417FBE; font-style:italic">M. Nkurunziza and L. Vermeire, "A Review on Approximation Approach for the Distribution of the Studentized Mean," Appl. Math. Sci., vol. 17, pp. 297(2023).</span> 
 
 以下始终作原假设 $H_0: \mu'=r_f$ ，于是学生氏统计量是
 $$
-\tau = \sqrt{n}\hat{\mathcal{S}} = \sqrt{n}\frac{\bar{r} - \mu'}{s} = \sqrt{n}\left( \frac{\sigma}{s} \right)\frac{\bar{r} - \mu'}{\sigma}
+\mathcal{T} = \sqrt{n}\hat{\mathcal{S}} = \sqrt{n}\frac{\bar{r} - \mu'}{s}
 $$
 按照定义，样本方差的计算式是
 $$
-s^2 = \frac{1}{n-1}\sum_{i=1}^n (r_i - \bar{r})^2 = \frac{n\sigma^2}{n-1} \left[ \frac{1}{n}\sum_{i=1}^n \left(\frac{r_i-\mu'}{\sigma}\right)^2 - \left(\frac{\bar{r}-\mu'}{\sigma}\right)^2\right] = \frac{n\sigma^2}{n-1} \left( 1 + \frac{1}{\sqrt{n}}a_n - \frac{1}{n}z_n^2 \right)
+s^2 = \frac{1}{n-1}\sum_{i=1}^n (r_i - \bar{r})^2 = \frac{n\sigma^2}{n-1} \left[ \frac{1}{n}\sum_{i=1}^n \left(\frac{r_i-\mu'}{\sigma}\right)^2 - \left(\frac{\bar{r}-\mu'}{\sigma}\right)^2\right] = \frac{n\sigma^2}{n-1} \left( 1 + \bar{x} - \bar{y}^2 \right)
 $$
+
+这里和前面一样定义了 $y_i = (r_i-\mu')/\sigma$ ，与此同时还有 $x_i = y_i^2 - 1$​ 
 
 ___
 
-这里和前面一样仍然记 $z_n = \sqrt{n}(\bar{r}-\mu')/\sigma$ ；那么 $\mathrm{E}(z_n) = 0$ ，$\mathrm{Var}(z_n) = 1$ 以及 $n \rightarrow\infty$ 时 $z_n \sim N(0,1)$ 就都是老生常谈的结果
+构造辅助统计量 $z_n = \sqrt{n}\bar{y}$ 以及 $v_n = \sqrt{n}\bar{x}$ ；那么 $\mathrm{E}(z_n) = 0$ ，$\mathrm{Var}(z_n) = 1$ 以及 $n \rightarrow\infty$ 时 $z_n \sim N(0,1)$ 就都是老生常谈的结果
 
-另外一个辅助量则定义为
+至于 $v_n$ ，利用独立性很快算出它的期望和方差分别是
 $$
-u_n = \frac{1}{\sqrt{n}} \sum_{i=1}^n x_i \quad,\quad x_i = y_i^2 - 1 \quad,\quad y_i = \frac{r_i-\mu'}{\sigma}
+\mathrm{E}(v_n) = \mathrm{E}(x_i) = 0 \quad,\quad \mathrm{Var}(v_n) = \mathrm{Var}(x_i) = \left[ \mathrm{E}(y_i^4) - \mathrm{E}(y_i^2)^2 \right] = \kappa_4 - 1
 $$
-利用独立性很快算出它的期望和方差分别是
+以及毫无疑问 CLT 也能给出 $n \rightarrow\infty$ 时 $v_n \sim N(0,\kappa_4-1)$ ；既如此 $z_n, v_n$ 趋向于一个联合正态分布，还缺少一个描述这个分布的信息就是协方差，即
 $$
-\mathrm{E}(u_n) = \mathrm{E}(x_i) = 0 \quad,\quad \mathrm{Var}(u_n) = \mathrm{Var}(x_i) = \left[ \mathrm{E}(y_i^4) - \mathrm{E}(y_i^2)^2 \right] = \kappa_4 - 1
+\mathrm{Cov}(z_n, v_n) = \mathrm{Cov}(y_i, x_i) = \frac{1}{n} \sum_{i=1}^n \left[\mathrm{E}(y_i^3) - \mathrm{E}(y_i)\right] = \kappa_3
 $$
-以及毫无疑问 CLT 也能给出 $n \rightarrow\infty$ 时 $u_n \sim N(0,\kappa_4-1)$ ；既如此 $z_n, u_n$ 趋向于一个联合正态分布，还缺少一个描述这个分布的信息就是协方差，即
-$$
-\mathrm{Cov}(z_n, u_n) = \mathrm{Cov}(y_i, x_i) = \frac{1}{n} \sum_{i=1}^n \left[\mathrm{E}(y_i^3) - \mathrm{E}(y_i)\right] = \kappa_3
-$$
+
+更高阶的矩也可以用独立性和相关性展开即可求得
 
 ___
 
-于是就得到
+这样一来学生氏统计量是
 $$
-\begin{aligned}
-\frac{\sigma}{s} = \sqrt{1-\frac{1}{n}} \left( 1 + \frac{1}{\sqrt{n}}u_n - \frac{1}{n}z_n^2 \right)^{-1/2} &= \left[ 1 - \frac{1}{2n} + o(n^{-1}) \right] \left[ 1 -\frac{1}{2\sqrt{n}}u_n + \frac{1}{2n}z_n^2 + \frac{3}{8n}u_n^2 + o(n^{-1}) \right] \\[12pt]
-&= 1 - \frac{u_n}{2}n^{-1/2} + \left(\frac{z_n^2}{2} + \frac{3u_n^2}{8} - \frac{1}{2} \right)n^{-1} + o(n^{-1})
-\end{aligned}
+\mathcal{T} = \frac{\sigma}{s}z_n = z_n \left( 1-\frac{1}{n} \right)^{-1/2} \left( 1 + \frac{v_n}{\sqrt{n}} - \frac{z_n^2}{n} \right)^{-1/2}
 $$
-这样一来将其代入，学生氏统计量就成为
+Taylor 展开并保留到 $n^{-1}$ 之后就有
 $$
-\tau = z_n - \frac{z_nu_n}{2}n^{-1/2} + \left(\frac{z_n^3}{2} + \frac{3z_nu_n^2}{8} - \frac{z_n}{2} \right)n^{-1}  + o(n^{-1})
+\mathcal{T} = z_n - \frac{z_nv_n}{2}n^{-1/2} + \left(\frac{z_n^3}{2} + \frac{3z_nv_n^2}{8} - \frac{z_n}{2} \right)n^{-1} + o(n^{-1}) \triangleq U + o(n^{-1})
 $$
-并且来求它的特征函数 $\varphi_t(\omega) = \mathrm{E}(e^{-j\omega\tau})$，就是
-$$
-\varphi_t(\omega)  = \mathrm{E}\left\{ e^{-j\omega z_n} \left[1 + j\omega\frac{z_nu_n}{2}n^{-1/2} - j\omega\left(\frac{z_n^3}{2} + \frac{3z_nu_n^2}{8} - \frac{z_n}{2} \right)n^{-1} -\omega^2\frac{z_n^2u_n^2}{8}n^{-1} + o(n^{-1})\right] \right\}
-$$
+由于 $P(\mathcal{T} \leq \tau) = P(U \leq \tau-o(n^{-1}))$ ，也就是说 $\mathcal{T}$ 和 $U$ 的累积分布函数最多差一个 $o(n^{-1})$ 余项，所以在 $n^{-1}$ 这个精度下只需要计算 $U$ 的特征函数，并反演回概率密度函数或者累积分布函数即可。事实上这就是 **Delta 方法** 
 
-## 统计矩的计算
+## 特征函数的计算
 
-特征函数的计算依赖于许多形如 $\mathrm{E}( e^{-j\omega z_n}z_n^k u_n^m )$ 的项，可以通过联合的特征函数来求这个期望，也就是说令 $x_i = y_i^2 - 1$ ，然后利用独立性可以构造出
-$$
-\varphi(\omega_x, \omega_y) = \mathrm{E}\left[ e^{-j(\omega_x z_n + \omega_y u_n)} \right] = \prod_{i=1}^n \mathrm{E}\left[ e^{-j(\omega_x x_i + \omega_y y_i)/\sqrt{n}} \right] = \mathrm{E}\left[ e^{-j(\omega_x x_i + \omega_y y_i)/\sqrt{n}} \right]^n
-$$
-然后利用二元 Fourier 变换的性质 $(-jx)^m(-jy)^k\phi \overset{\mathcal{F}}{\longleftrightarrow} \partial^{k+m}\mathcal{F}(\phi)/\partial \omega_x^m\partial \omega_y^k$ ，于是立刻得到
-$$
-\mathrm{E}( e^{-j\omega z_n}z_n^k u_n^m ) = \iint_{\mathbb{R}^2} z_n^k u_n^m p(z_n, u_n) e^{-j\omega z_n} \mathrm{d}z_n\mathrm{d}u_n = \left. j^{k+m} \frac{\partial^{k+m}}{\partial\omega_x^m \partial \omega_y^k}\mathrm{E}\left[ e^{-j(\omega_x x_i + \omega_y y_i)/\sqrt{n}} \right]^n \right|_{\omega_x=0, \omega_y=\omega}
-$$
-和之前一样地，用 Taylor 展开将期望中的这个复指数展开，然后利用 $\mathrm{E}(x_i)=\mathrm{E}(y_i)=0$ ，$\mathrm{Var}(x_i)=\kappa_4-1$ ，$\mathrm{Var}(y_i)=1$ ，以及 $\mathrm{Cov}(x_i,y_i) = \kappa_3$ ，还有重要极限，最终就有
-$$
-\begin{aligned}
-\mathrm{E}\left[ e^{-j(\omega_x x_i + \omega_y y_i)/\sqrt{n}} \right]^n = \exp & \left\{ -\frac{1}{2}\left[\omega_y^2 + (\kappa_4-1)\omega_x^2 + 2\kappa_3\omega_x\omega_y\right] \right. \\[12pt]
-& \left. - \frac{j^3}{6\sqrt{n}} \mathrm{E}[(\omega_x x_i + \omega_y y_i)^3] + \frac{j^4}{24n}\mathrm{E}[(\omega_x x_i + \omega_y y_i)^4] + o(n^{-1}) \right\}
-\end{aligned}
-$$
-当然，也和之前一样，再进行一次 Taylor 展开得到
-$$
-\begin{aligned}
-\mathrm{E}\left[ e^{-j(\omega_x x_i + \omega_y y_i)/\sqrt{n}} \right]^n = & e^{-\left[\omega_y^2 + (\kappa_4-1)\omega_x^2 + 2\kappa_3\omega_x\omega_y\right]/2} \left\{ 1 - \frac{j^3}{6\sqrt{n}} \mathrm{E}[(\omega_x x_i + \omega_y y_i)^3] \right.\\[12pt]
-& \left.  + \frac{j^4}{24n}\mathrm{E}[(\omega_x x_i + \omega_y y_i)^4] + \frac{j^6}{72n}\mathrm{E}[(\omega_x x_i + \omega_y y_i)^3]^2 + o(n^{-1}) \right\}
-\end{aligned}
-$$
-但由于在 $\varphi_t(\omega)$ 中出现的 $\mathrm{E}( e^{-j\omega z_n}z_n u_n )$ 已经乘上了 $n^{-1/2}$ 这个系数，因此对这一项的计算只需要保留到 $n^{-1/2}$ ；而 $\mathrm{E}( e^{-j\omega z_n}z_n )$ ，  $\mathrm{E}( e^{-j\omega z_n}z_n^2 )$ ， $\mathrm{E}( e^{-j\omega z_n}z_n u_n^2 )$ ， $\mathrm{E}( e^{-j\omega z_n}z_n^2 u_n^2 )$ 四项前则已经乘上了 $n^{-1}$ ，因此对它们的计算只需要保留到 $n^0$ 
+为了知道 $U$ 的特征函数，并在 Edgeworth 展开中保留到 $n^{-1}$ ，需要计算 $U$ 的前四阶原点矩 $\mathrm{E}(U^k)$ 
 
-那么就来展开计算这几项，有关这些项的计算，参照 <span style="color:#417FBE; font-style:italic">P. Hall, "The Bootstrap and Edgeworth Expansion."</span> 
-
-1. 先来看 $\mathrm{E}( e^{-j\omega z_n}z_n u_n )$ ，考虑到最终取 $\omega_x = 0$ ，因此求导后含有 $\omega_x$ 的项最终都是零（*即使如此也挺麻烦的，交给 sympy 或者 AI 会快得多*）
+1. 一阶中心矩：这里涉及到 $\mathrm{E}(z_n^3) = \kappa_3n^{-1/2}$ ，计算得到
    $$
-   \mathrm{E}( e^{-j\omega z_n}z_n u_n ) = \left[\kappa_3(1-\omega^2) - \frac{\kappa_3^2}{6}\left( 4(j\omega)^3 + (j\omega)^5 \right)n^{-1/2} - \frac{\kappa_4-1}{2}\left( (j\omega)^3 + 2j\omega \right)n^{-1/2} \right]e^{-\omega^2/2} + o(n^{-1/2})
+   \mathrm{E}(U) = -\frac{\kappa_3}{2}n^{-1/2} + o(n^{-1})
    $$
 
-2. 然后是 $\mathrm{E}( e^{-j\omega z_n}z_n )$ ，它只需要对 $\omega_y$ 求一次偏导
+2. 二阶中心矩：首先考虑保留的阶数，展开得到
    $$
-   \mathrm{E}( e^{-j\omega z_n}z_n ) = -j\omega e^{-\omega^2/2} + o(1)
+   \mathrm{E}(U^2) = \mathrm{E}\left[ z_n^2 - z_n^2v_n n^{-1/2} + \left(z_n^4 + z_n^2v_n^2 - z_n^2 \right)n^{-1} \right] + o(n^{-1})
    $$
-
-3. $\mathrm{E}( e^{-j\omega z_n}z_n^3 )$ ，它需要对 $\omega_y$ 求三次偏导
+   这里涉及到 $\mathrm{E}(z_n^4) = 3 + (\kappa_4-3)n^{-1}$ ，$\mathrm{E}(z_n^2v_n) = (\kappa_4-1)n^{-1/2}$ ，以及 $\mathrm{E}(z_n^2v_n^2) = (\kappa_4-1) + 2\kappa_3^2 + o(1)$ ，如此一来得到
    $$
-   \mathrm{E}( e^{-j\omega z_n}z_n^3 ) = -[(j\omega)^3 + 3j\omega]e^{-\omega^2/2} + o(1)
-   $$
-
-4. $\mathrm{E}( e^{-j\omega z_n}z_n u_n^2 )$ ，它需要先对 $\omega_x$ 求两次偏导，然后对 $\omega_y$ 求一次偏导
-   $$
-   \mathrm{E}( e^{-j\omega z_n}z_n u_n^2 ) = -\left[ \kappa_3^2(j\omega)^3 + (\kappa_4-1+2\kappa_3^2)j\omega \right]e^{-\omega^2/2} + o(1)
+   \mathrm{E}(U^2) = \left[ 1 + 2(1+\kappa_3^2)n^{-1} \right] + o(n^{-1})
    $$
 
-5. $\mathrm{E}( e^{-j\omega z_n}z_n^2 u_n^2 )$ ，它需要先对 $\omega_x$ 求两次偏导，然后对 $\omega_y$ 求两次偏导
+3. 三阶中心矩：同样，先考虑保留的阶数，展开得到
    $$
-   \mathrm{E}( e^{-j\omega z_n}z_n^2 u_n^2 ) = \left[ (\kappa_4-1)(1 - \omega^2) + \kappa_3^2( \omega^4 - 5\omega^2 + 2) \right]e^{-\omega^2/2} + o(1)
+   \mathrm{E}(U^3) = \mathrm{E}\left[ z_n^3 - \frac{3}{2}z_n^3v_n n^{-1/2} + \left(\frac{3}{2}z_n^5 + \frac{7}{8}z_n^3v_n^2 - \frac{3}{2}z_n^3 \right)n^{-1} \right] + o(n^{-1})
+   $$
+   对 $n^{-1}$ 项的系数取期望后都是 $o(1)$ 的，所以这一项没有贡献，要考虑的只有 $\mathrm{E}(z_n^3v_n) = 3\kappa_3 + o(n^{-1/2})$ ，得到
+   $$
+   \mathrm{E}(U^3) = -\frac{7}{2}\kappa_3 n^{-1/2} + o(n^{-1})
    $$
 
-6. 最后实际上还有 $\mathrm{E}( e^{-j\omega z_n} )$ ，它不用求导，是最简单的一个，但要保留到 $n^{-1}$ 
+4. 四阶中心矩：考虑保留的阶数，展开得到
    $$
-   \mathrm{E}( e^{-j\omega z_n} ) = \left[ 1 - \frac{\kappa_3(j\omega)^3}{6}n^{-1/2} + \frac{\kappa_4(j\omega)^4}{24}n^{-1} + \frac{\kappa_3^2(j\omega)^6}{72}n^{-1} \right]e^{-\omega^2/2} + o(n^{-1})
+   \mathrm{E}(U^4) = \mathrm{E}\left[ z_n^4 - 2z_n^4v_n n^{-1/2} + 2\left(z_n^6 + z_n^4v_n^2 - z_n^4 \right)n^{-1}\right] + o(n^{-1})
+   $$
+   这里涉及到 $\mathrm{E}(z_n^4v_n) = [4\kappa_3^2 + 6(\kappa_4-1)]n^{-1/2} + o(n^{-1})$ ，$\mathrm{E}(z_n^4v_n^2) = 3(\kappa_4-1) + 12\kappa_3^2 + o(1)$ ，以及 $\mathrm{E}(z_n^6) = 15 + o(n^{-1/2})$ ，于是
+   $$
+   \mathrm{E}(U^4) = \left[ 3+\left(27 -5\kappa_4 + 16\kappa_3^2 \right)n^{-1}\right] + o(n^{-1})
    $$
 
-于是代入，最后得到的特征函数将是（*这一连串暴算过程太麻烦了*）
+得到特征函数是
 $$
-\begin{aligned}
-\varphi_t(\omega) = e^{-\omega^2/2} &\left\{ 1 + \frac{\kappa_3}{6} \left[3j\omega + 2(j\omega)^3\right]n^{-1/2} \right. \\[12pt]
-& + \left.\left[ -(1+\kappa_3^2)\omega^2 + \left( \frac{1}{2} - \frac{\kappa_4}{12} + \frac{2\kappa_3^2}{3} \right)\omega^4 - \frac{\kappa_3^2}{18}\omega^6 \right]n^{-1} + o(n^{-1}) \right\}
-\end{aligned}
+\varphi_t(\omega) = \varphi_u(\omega) + o(n^{-1})
 $$
 
 ## 累积分布函数
@@ -276,6 +245,4 @@ $$
   F(\tau) = \Phi(\tau) - \left[H_1(\tau) + \frac{H_3(\tau)}{4} \right]\phi(\tau)n^{-1} + o(n^{-1}) = \Phi(\tau) - \frac{1}{4}(\tau^3+\tau)\phi(\tau)n^{-1} + o(n^{-1})
   $$
 
-- 样本数量趋于无穷，即 $n \rightarrow \infty$ ，此时 $\tau$ 当然趋向于一个正态分布；不过特别地，这里考虑一下它的方差
-
-   
+- 样本数量趋于无穷，即 $n \rightarrow \infty$ ，此时 $\tau$ 当然趋向于 $N(0,1)$ ，它的累积分布函数是 $F(\tau) = \Phi(\tau)$ 
