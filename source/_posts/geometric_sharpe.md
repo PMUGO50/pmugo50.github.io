@@ -37,18 +37,17 @@ $$
 $$
 {% endnote %}
 
-如此一来，可以利用该值进行
+如此一来，可以利用该值进行**单边学生氏检验**。并且显然几何 Sharpe 比率越大，置信度也越大，越能说明证券具有高的超额收益。不过这里有一个问题：
 
-> **单边学生氏检验**：
->
-> 1. 做出原假设 $H_0: \mu' \leq r_f$ 
-> 2. 按照上述命题计算 $\mathcal{T}$ 值
-> 3. 如果 $\mathcal{T}$ 大于等于学生氏分布的 $\alpha \%$ 分位数，那么就可以断言：有 $\alpha \%$ 的把握认为原假设不成立，因而证券的期望收益 $\mu'$ 明显超过无风险收益
->
+- **收益率的样本往往不服从正态分布，而是具有负的偏度和正的超额峰度**
 
-显然，几何 Sharpe 比率越大，把握值 $\alpha \%$ 也越大，越能说明证券具有高的超额收益
+当样本数足够大时，样本均值和样本方差都服从正态分布，学生氏统计量 $\mathcal{T}$ 作为它们的函数按照 Delta 方法也服从正态分布，因而检验问题退化为 Z 检验。但问题就在于：对于需要精准把控的置信度来说，样本量往往是不够大的（10 年也就才 3000 多天，更不用说许多证券上市可能甚至就几周）
 
-# Edgeworth 展开
+这时就需要考虑 $\mathcal{T}$ 实际的渐近分布，这分为两步进行：首先考虑方差 $\sigma^2$ 能先验获得的情况，这时学生氏统计量退化为 Z 统计量；然后考虑用样本方差 $s^2$ 估计真实方差的情况
+
+# Z 统计量的渐近分布
+
+## Edgeworth 展开
 
 Edgeworth 展开是对中心极限定理（CLT）的补充，区别只在于它保留了更多的余项。接下来始终假设涉及到的矩都是收敛的，导函数则都是存在的
 
@@ -102,7 +101,31 @@ $$
 
 {% endnote %}
 
-# 一般的渐近分布
+## 累积生成函数
+
+累积生成函数（CGF）是特征函数的自然对数 $K(\omega) = \ln \varphi(\omega)$ ，这里 $\varphi(\omega) = \mathrm{E}(e^{-j\omega y}) = \mathcal{F}[p(y)]$ 是特征函数，即概率密度函数 $p(y)$ 的 Fourier变换。将变换进行两次 Taylor 展开，得到
+$$
+K(\omega) = \ln \left[\int_{-\infty}^{+\infty} p(y) e^{-j\omega y}\mathrm{d}y\right] = \ln \left[1 + \sum_{k=1}^\infty \frac{(-j\omega)^k}{k!} \mathrm{E}(z^k) \right] = \sum_{m=1}^\infty \frac{(-1)^{m-1}}{m}\left[\sum_{k=1}^\infty \frac{(-j\omega)^k}{k!} \mathrm{E}(z^k) \right]^m
+$$
+
+CGF 最终展开的系数 $c_k$ 也被称为**累积量**，即
+$$
+K(\omega) = \sum_{k=1}^\infty \frac{c_k}{k!} (-j\omega)^k
+$$
+来考虑比较常用的前四阶累积量，用组合数的方式可以得出它们分别是
+$$
+\begin{aligned}
+& c_1 = E(y) \quad,\quad c_2 = E(y^2) - E(y)^2 \\[6pt]
+& c_3 = E(y^3) - 3E(y^2)E(y) +2E(y)^3 \quad,\quad c_4 = E(y^4) - 4E(y^3)E(y) - 6E(y^2)^2 + 12E(y^2)E(y)^2 - 6E(y)^4
+\end{aligned}
+$$
+由于 CLT ，样本均值总会收敛到正态分布。而正如 Edgeworth 展开所表现的，这时它的特征函数表现为 $\varphi(\omega) = r_n(\omega)e^{-\omega^2/2}$ ，那么 CGF 就是
+$$
+K(\omega) = -\frac{\omega^2}{2} + \ln r_n(\omega)
+$$
+要估计它与标准正态分布之间的分布差异，只需要得出 $\ln r_n(\omega)$ 就可以了，而它可以由前几阶累积量进行估计
+
+# 学生氏估计的渐近分布
 
 ## Delta 方法
 
@@ -138,13 +161,9 @@ ___
 
 这样一来学生氏统计量是
 $$
-\mathcal{T} = \frac{\sigma}{s}z_n = z_n \left( 1-\frac{1}{n} \right)^{-1/2} \left( 1 + \frac{v_n}{\sqrt{n}} - \frac{z_n^2}{n} \right)^{-1/2}
+\mathcal{T} = z_n \left( 1-\frac{1}{n} \right)^{1/2} \left( 1 + \frac{v_n}{\sqrt{n}} - \frac{z_n^2}{n} \right)^{-1/2} = z_n - \frac{z_nv_n}{2}n^{-1/2} + \left(\frac{z_n^3}{2} + \frac{3z_nv_n^2}{8} - \frac{z_n}{2} \right)n^{-1} + o(n^{-1})
 $$
-Taylor 展开并保留到 $n^{-1}$ 之后就有
-$$
-\mathcal{T} = z_n - \frac{z_nv_n}{2}n^{-1/2} + \left(\frac{z_n^3}{2} + \frac{3z_nv_n^2}{8} - \frac{z_n}{2} \right)n^{-1} + o(n^{-1}) \triangleq U + o(n^{-1})
-$$
-由于 $P(\mathcal{T} \leq \tau) = P(U \leq \tau-o(n^{-1}))$ ，也就是说 $\mathcal{T}$ 和 $U$ 的累积分布函数最多差一个 $o(n^{-1})$ 余项，所以在 $n^{-1}$ 这个精度下只需要计算 $U$ 的特征函数，并反演回概率密度函数或者累积分布函数即可。事实上这就是 **Delta 方法** 
+将上式记为记 $\mathcal{T} = U + o(n^{-1})$ ，由于 $P(\mathcal{T} \leq \tau) = P(U \leq \tau-o(n^{-1}))$ ，所以在 $n^{-1}$ 这个精度下只需要计算 $U$ 的特征函数，并反演回概率密度函数或者累积分布函数即可。事实上这就是 **Delta 方法** 
 
 ## 特征函数的计算
 
@@ -182,9 +201,13 @@ $$
    \mathrm{E}(U^4) = \left[ 3+\left(27 -5\kappa_4 + 16\kappa_3^2 \right)n^{-1}\right] + o(n^{-1})
    $$
 
-得到特征函数是
+接下来先计算累积量，然后得到 CGF ，前四阶累积量是
+
 $$
-\varphi_t(\omega) = \varphi_u(\omega) + o(n^{-1})
+\begin{aligned}
+& c_1 = -\frac{\kappa_3}{2}n^{-1/2} + o(n^{-1}) \quad,\quad c_2 = \left[ 1 -\frac{\kappa_3}{2}n^{-1/2} + 2(1+\kappa_3^2)n^{-1} \right] + o(n^{-1}) \\[12pt]
+& c_3 = -2\kappa_3 n^{-1/2} + \frac{\kappa_3^2}{2}n^{-1} + o(n^{-1}) \quad,\quad c_4 = E(y^4) - 4E(y^3)E(y) - 6E(y^2)^2 + 12E(y^2)E(y)^2 - 6E(y)^4
+\end{aligned}
 $$
 
 ## 累积分布函数
