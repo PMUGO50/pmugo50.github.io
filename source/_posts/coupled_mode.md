@@ -12,7 +12,7 @@ description: 对Maxwell方程组应用WKB近似得到耦合模方程
 $$
 \nabla \times (\nabla \times \boldsymbol{E}) + \frac{\varepsilon}{c^2}\frac{\partial^2 \boldsymbol{E}}{\partial t^2} = 0
 $$
-在理想情况下，通过谐振腔的边界约束可以解出一系列正交的本征模式 $\boldsymbol{E}_i(\boldsymbol{r},t) = a_i e^{-j\omega_i t} \boldsymbol{e}_i(\boldsymbol{r})$ ，所谓正交是指方向向量满足
+在理想情况下，通过谐振腔的边界约束可以解出一系列正交的本征模式 $\boldsymbol{E}_i(\boldsymbol{r},t) = b_i e^{-j\omega_i t} \boldsymbol{e}_i(\boldsymbol{r})$ ，所谓正交是指方向向量满足
 $$
 \int_V \boldsymbol{e}^\ast_k(\boldsymbol{r}) \cdot \varepsilon\boldsymbol{e}_i(\boldsymbol{r}) \mathrm{d}V = \delta_{ik}
 $$
@@ -20,6 +20,8 @@ $$
 $$
 \nabla \times (\nabla \times \boldsymbol{e}_i) - \frac{\varepsilon\omega_i^2}{c^2}\boldsymbol{e}_i = 0
 $$
+
+同样地，在全空间中只有热池光而没有谐振腔的情况下，热池光可以写为 $\boldsymbol{E}_b(\boldsymbol{r},t) = a e^{-j\omega t} \boldsymbol{e}_b(\boldsymbol{r})$ ，而且 $\boldsymbol{e}_b$ 同样也满足上式
 
 # 施加微扰
 

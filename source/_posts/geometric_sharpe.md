@@ -43,7 +43,7 @@ $$
 
 当样本数足够大时，样本均值和样本方差都服从正态分布，学生氏统计量 $\mathcal{T}$ 作为它们的函数按照 Delta 方法也服从正态分布，因而检验问题退化为 Z 检验。但问题就在于：对于需要精准把控的置信度来说，样本量往往是不够大的（10 年也就才 3000 多天，更不用说许多证券上市可能甚至就几周）
 
-这时就需要考虑 $\mathcal{T}$ 实际的渐近分布，这分为两步进行：首先考虑方差 $\sigma^2$ 能先验获得的情况，这时学生氏统计量退化为 Z 统计量；然后考虑用样本方差 $s^2$ 估计真实方差的情况
+这时就需要考虑 $\mathcal{T}$ 实际的渐近分布，这分为两步进行：首先考虑方差 $\sigma^2$ 能先验获得的情况，这时学生氏统计量退化为 Z 统计量；然后考虑用样本方差 $s^2$ 估计真实方差的情况。下面的内容均可参照 <span style="color:#417FBE; font-style:italic">P. Hall, "The Bootstrap and Edgeworth Expansion," Chap. 2, Sec. 6.</span> 以及后来的 <span style="color:#417FBE; font-style:italic">M. Nkurunziza and L. Vermeire, "A Review on Approximation Approach for the Distribution of the Studentized Mean," Appl. Math. Sci., vol. 17, pp. 297(2023).</span> 
 
 # Z 统计量的渐近分布
 
@@ -101,6 +101,8 @@ $$
 
 {% endnote %}
 
+Edgeworth 给出了 Z 统计量的渐近分布，利用同样的思路——即对样本数量 $n$ 做级数展开——也可以得到学生氏统计量的渐近分布
+
 ## 累积生成函数
 
 累积生成函数（CGF）是特征函数的自然对数 $K(\omega) = \ln \varphi(\omega)$ ，这里 $\varphi(\omega) = \mathrm{E}(e^{-j\omega y}) = \mathcal{F}[p(y)]$ 是特征函数，即概率密度函数 $p(y)$ 的 Fourier变换。将变换进行两次 Taylor 展开，得到
@@ -116,7 +118,7 @@ $$
 $$
 \begin{aligned}
 & c_1 = E(y) \quad,\quad c_2 = E(y^2) - E(y)^2 \\[6pt]
-& c_3 = E(y^3) - 3E(y^2)E(y) +2E(y)^3 \quad,\quad c_4 = E(y^4) - 4E(y^3)E(y) - 6E(y^2)^2 + 12E(y^2)E(y)^2 - 6E(y)^4
+& c_3 = E(y^3) - 3E(y^2)E(y) +2E(y)^3 \quad,\quad c_4 = E(y^4) - 4E(y^3)E(y) - 3E(y^2)^2 + 12E(y^2)E(y)^2 - 6E(y)^4
 \end{aligned}
 $$
 由于 CLT ，样本均值总会收敛到正态分布。而正如 Edgeworth 展开所表现的，这时它的特征函数表现为 $\varphi(\omega) = r_n(\omega)e^{-\omega^2/2}$ ，那么 CGF 就是
@@ -129,9 +131,8 @@ $$
 
 ## Delta 方法
 
-接下来考虑有限样本下，Edgeworth 修正对学生氏检验带来的影响，这部分内容参照 <span style="color:#417FBE; font-style:italic">P. Hall, "The Bootstrap and Edgeworth Expansion," Chap. 2, Sec. 6.</span> 以及后来的 <span style="color:#417FBE; font-style:italic">M. Nkurunziza and L. Vermeire, "A Review on Approximation Approach for the Distribution of the Studentized Mean," Appl. Math. Sci., vol. 17, pp. 297(2023).</span> 
+接下来考虑有限样本下，Edgeworth 修正对学生氏检验带来的影响。以下始终作原假设 $H_0: \mu'=r_f$ ，于是学生氏统计量是
 
-以下始终作原假设 $H_0: \mu'=r_f$ ，于是学生氏统计量是
 $$
 \mathcal{T} = \sqrt{n}\hat{\mathcal{S}} = \sqrt{n}\frac{\bar{r} - \mu'}{s}
 $$
@@ -185,7 +186,7 @@ $$
 
 3. 三阶中心矩：同样，先考虑保留的阶数，展开得到
    $$
-   \mathrm{E}(U^3) = \mathrm{E}\left[ z_n^3 - \frac{3}{2}z_n^3v_n n^{-1/2} + \left(\frac{3}{2}z_n^5 + \frac{7}{8}z_n^3v_n^2 - \frac{3}{2}z_n^3 \right)n^{-1} \right] + o(n^{-1})
+   \mathrm{E}(U^3) = \mathrm{E}\left[ z_n^3 - \frac{3}{2}z_n^3v_n n^{-1/2} + \left(\frac{3}{2}z_n^5 + \frac{15}{8}z_n^3v_n^2 - \frac{3}{2}z_n^3 \right)n^{-1} \right] + o(n^{-1})
    $$
    对 $n^{-1}$ 项的系数取期望后都是 $o(1)$ 的，所以这一项没有贡献，要考虑的只有 $\mathrm{E}(z_n^3v_n) = 3\kappa_3 + o(n^{-1/2})$ ，得到
    $$
@@ -194,19 +195,35 @@ $$
 
 4. 四阶中心矩：考虑保留的阶数，展开得到
    $$
-   \mathrm{E}(U^4) = \mathrm{E}\left[ z_n^4 - 2z_n^4v_n n^{-1/2} + 2\left(z_n^6 + z_n^4v_n^2 - z_n^4 \right)n^{-1}\right] + o(n^{-1})
+   \mathrm{E}(U^4) = \mathrm{E}\left[ z_n^4 - 2z_n^4v_n n^{-1/2} + \left(2z_n^6 + 3z_n^4v_n^2 - 2z_n^4 \right)n^{-1}\right] + o(n^{-1})
    $$
    这里涉及到 $\mathrm{E}(z_n^4v_n) = [4\kappa_3^2 + 6(\kappa_4-1)]n^{-1/2} + o(n^{-1})$ ，$\mathrm{E}(z_n^4v_n^2) = 3(\kappa_4-1) + 12\kappa_3^2 + o(1)$ ，以及 $\mathrm{E}(z_n^6) = 15 + o(n^{-1/2})$ ，于是
    $$
-   \mathrm{E}(U^4) = \left[ 3+\left(27 -5\kappa_4 + 16\kappa_3^2 \right)n^{-1}\right] + o(n^{-1})
+   \mathrm{E}(U^4) = \left[ 3+\left(24 - 2\kappa_4 + 28\kappa_3^2 \right)n^{-1}\right] + o(n^{-1})
    $$
 
 接下来先计算累积量，然后得到 CGF ，前四阶累积量是
 
 $$
 \begin{aligned}
-& c_1 = -\frac{\kappa_3}{2}n^{-1/2} + o(n^{-1}) \quad,\quad c_2 = \left[ 1 -\frac{\kappa_3}{2}n^{-1/2} + 2(1+\kappa_3^2)n^{-1} \right] + o(n^{-1}) \\[12pt]
-& c_3 = -2\kappa_3 n^{-1/2} + \frac{\kappa_3^2}{2}n^{-1} + o(n^{-1}) \quad,\quad c_4 = E(y^4) - 4E(y^3)E(y) - 6E(y^2)^2 + 12E(y^2)E(y)^2 - 6E(y)^4
+& c_1 = -\frac{\kappa_3}{2}n^{-1/2} + o(n^{-1}) \quad,\quad c_2 = \left[ 1 + \left(2 + \frac{7}{4}\kappa_3^2 \right)n^{-1} \right] + o(n^{-1}) \\[12pt]
+& c_3 = -2\kappa_3 n^{-1/2} + o(n^{-1}) \quad,\quad c_4 = \left(12 -2\kappa_4 + 12\kappa_3^2\right)n^{-1} + o(n^{-1})
+\end{aligned}
+$$
+
+如此一来，CGF 就是
+$$
+K_t(\omega) = -\frac{\omega^2}{2} + \left[ \frac{j\omega}{2} +\frac{(j\omega)^3}{3}  \right] \kappa_3 n^{-1/2} + \left[ -\left(1 + \frac{7}{8}\kappa_3^2 \right)\omega^2 + \left(\frac{1}{2} - \frac{\kappa_4}{12} +\frac{\kappa_3^2}{2}\right)\omega^4 \right] n^{-1} + o(n^{-1})
+$$
+只要对 CGF 取指数就可以得到特征函数 $\varphi_t(\omega) = \exp[K_t(\omega)]$ ；并且在这里先将对应标准正态的部分 $e^{-\omega^2/2}$ 提出来，将余下的部分记作 $k_{-1/2}(\omega)n^{-1/2} + k_{-1}(\omega)n^{-1} + o(n^{-1})$ 并 Taylor 展开就有
+$$
+\varphi_t(\omega) = e^{-\omega^2/2} \left[ 1 + k_{-1/2}(\omega)n^{-1/2} + k_{-1}(\omega)n^{-1} + \frac{1}{2}k_{-1/2}(\omega)^2n^{-1} \right] + o(n^{-1})
+$$
+代入合并，得到最终的特征函数
+$$
+\begin{aligned}
+\varphi_t(\omega) = e^{-\omega^2/2} & \left\{ 1 + \frac{\kappa_3}{6}\left[  3j\omega + 2(j\omega)^3 \right]n^{-1/2} \right. \\[12pt]
+&+\left. \left[-\left(1 + \kappa_3^2 \right)\omega^2  + \left(\frac{1}{2} - \frac{\kappa_4}{12} +\frac{2\kappa_3^2}{3}\right)\omega^4 - \frac{\kappa_3^2}{18} \omega^6\right] n^{-1} \right\} + o(n^{-1})
 \end{aligned}
 $$
 
@@ -252,13 +269,13 @@ $$
 $$
 q_{-1/2}(\tau) = \frac{\kappa_3}{6}\left( 2\tau^2 - 1 \right) \quad,\quad q_{-1}(\tau) = -\frac{1}{2}(\tau^3 - \tau) +\frac{\kappa_4}{12}(\tau^3 - 3\tau) - \frac{\kappa_3^2}{18}(\tau^5 + 2\tau^3 - 3\tau)
 $$
-于是假设检验的过程成为
+于是就有数量有限、任意样本分布下的学生氏检验
 
-> **有限样本下单边学生氏检验的修正**：
+> **单边学生氏检验**：
 >
 > 1. 做出原假设 $H_0: \mu' \leq r_f$ 
 > 2. 统计 $\bar{r}, s^2, \kappa_3, \kappa_4$ ，计算 $\tau = \sqrt{n/n_\mathrm{A}} \hat{\mathcal{S}}$ 以及累积分布函数 $F$ 
-> 3. 如果 $F(\tau) \geq \alpha\%$ ，那么就可以断言：有 $\alpha \%$ 的把握认为原假设不成立，因而证券的期望收益 $\mu'$ 明显超过无风险收益
+> 3. 如果 $F(\tau) \geq \alpha\%$ ，那么就可以断言：有 $\alpha \%$ 的置信度认为原假设不成立，因而证券的期望收益 $\mu'$ 明显超过无风险收益
 
 最后，来验证两个特殊情况：
 
