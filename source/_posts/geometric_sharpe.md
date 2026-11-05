@@ -39,11 +39,13 @@ $$
 
 如此一来，可以利用该值进行**单边学生氏检验**。并且显然几何 Sharpe 比率越大，置信度也越大，越能说明证券具有高的超额收益。不过这里有一个问题：
 
-- **收益率的样本往往不服从正态分布，而是具有负的偏度和正的超额峰度**
+**收益率的样本往往不服从正态分布，而是具有负的偏度和正的超额峰度**
 
 当样本数足够大时，样本均值和样本方差都服从正态分布，学生氏统计量 $\mathcal{T}$ 作为它们的函数按照 Delta 方法也服从正态分布，因而检验问题退化为 Z 检验。但问题就在于：对于需要精准把控的置信度来说，样本量往往是不够大的（10 年也就才 3000 多天，更不用说许多证券上市可能甚至就几周）
 
-这时就需要考虑 $\mathcal{T}$ 实际的渐近分布，这分为两步进行：首先考虑方差 $\sigma^2$ 能先验获得的情况，这时学生氏统计量退化为 Z 统计量；然后考虑用样本方差 $s^2$ 估计真实方差的情况。下面的内容均可参照 <span style="color:#417FBE; font-style:italic">P. Hall, "The Bootstrap and Edgeworth Expansion," Chap. 2, Sec. 6.</span> 以及后来的 <span style="color:#417FBE; font-style:italic">M. Nkurunziza and L. Vermeire, "A Review on Approximation Approach for the Distribution of the Studentized Mean," Appl. Math. Sci., vol. 17, pp. 297(2023).</span> 
+这时就需要考虑 $\mathcal{T}$ 实际的渐近分布，这分为两步进行：首先考虑方差 $\sigma^2$ 能先验获得的情况，这时学生氏统计量退化为 Z 统计量；然后考虑用样本方差 $s^2$ 估计真实方差的情况
+
+下面的内容均可参照 <span style="color:#417FBE; font-style:italic">P. Hall, "The Bootstrap and Edgeworth Expansion," Chap. 2, Sec. 6.</span> 以及后来的 <span style="color:#417FBE; font-style:italic">M. Nkurunziza and L. Vermeire, "A Review on Approximation Approach for the Distribution of the Studentized Mean," Appl. Math. Sci., vol. 17, pp. 297(2023).</span> 
 
 # Z 统计量的渐近分布
 
