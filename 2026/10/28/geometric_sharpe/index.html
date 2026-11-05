@@ -28,7 +28,7 @@
 <meta property="og:description" content="几何Sharpe比率在不同的分布假设下的渐近统计特性">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-10-28T04:15:40.000Z">
-<meta property="article:modified_time" content="2026-11-05T13:38:53.855Z">
+<meta property="article:modified_time" content="2026-11-05T13:47:08.228Z">
 <meta property="article:author" content="Choral">
 <meta name="twitter:card" content="summary">
 
@@ -302,7 +302,7 @@ mjx-container[display="true"] + br {
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2026-11-05 21:38:53" itemprop="dateModified" datetime="2026-11-05T21:38:53+08:00">2026-11-05</time>
+                <time title="修改时间：2026-11-05 21:47:08" itemprop="dateModified" datetime="2026-11-05T21:47:08+08:00">2026-11-05</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -346,9 +346,7 @@ Sharpe 比率的估计值直接构成一个学生氏检验问题</p>
 <p>如此一来，可以利用该值进行<strong>单边学生氏检验</strong>。并且显然几何
 Sharpe
 比率越大，置信度也越大，越能说明证券具有高的超额收益。不过这里有一个问题：</p>
-<ul>
-<li><strong>收益率的样本往往不服从正态分布，而是具有负的偏度和正的超额峰度</strong></li>
-</ul>
+<p><strong>收益率的样本往往不服从正态分布，而是具有负的偏度和正的超额峰度</strong></p>
 <p>当样本数足够大时，样本均值和样本方差都服从正态分布，学生氏统计量
 <span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.154ex;" xmlns="http://www.w3.org/2000/svg" width="1.885ex" height="1.776ex" role="img" focusable="false" viewbox="0 -717 833 785"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="TeXAtom" data-mjx-texclass="ORD"><g data-mml-node="mi"><path data-c="54" d="M49 475Q34 475 34 490Q34 552 106 611T261 681Q272 683 507 683H742Q790 717 816 717Q833 717 833 708Q833 682 795 653T714 615Q691 610 588 609Q490 609 490 607L483 580Q476 554 462 496T435 392Q410 289 395 231T363 116T335 34T309 -15T279 -47T242 -64Q231 -68 218 -68Q203 -68 203 -57Q203 -52 211 -38Q224 -7 234 20T251 66T268 123T283 179T304 261T328 360Q342 415 360 488Q380 567 384 582T397 605Q400 607 401 609H302H244Q200 609 188 607T167 596Q145 572 145 541Q145 520 109 498T49 475Z"/></g></g></g></g></svg></mjx-container></span> 作为它们的函数按照
 Delta 方法也服从正态分布，因而检验问题退化为 Z
@@ -357,11 +355,13 @@ Delta 方法也服从正态分布，因而检验问题退化为 Z
 <p>这时就需要考虑 <span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.154ex;" xmlns="http://www.w3.org/2000/svg" width="1.885ex" height="1.776ex" role="img" focusable="false" viewbox="0 -717 833 785"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="TeXAtom" data-mjx-texclass="ORD"><g data-mml-node="mi"><path data-c="54" d="M49 475Q34 475 34 490Q34 552 106 611T261 681Q272 683 507 683H742Q790 717 816 717Q833 717 833 708Q833 682 795 653T714 615Q691 610 588 609Q490 609 490 607L483 580Q476 554 462 496T435 392Q410 289 395 231T363 116T335 34T309 -15T279 -47T242 -64Q231 -68 218 -68Q203 -68 203 -57Q203 -52 211 -38Q224 -7 234 20T251 66T268 123T283 179T304 261T328 360Q342 415 360 488Q380 567 384 582T397 605Q400 607 401 609H302H244Q200 609 188 607T167 596Q145 572 145 541Q145 520 109 498T49 475Z"/></g></g></g></g></svg></mjx-container></span>
 实际的渐近分布，这分为两步进行：首先考虑方差 <span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.025ex;" xmlns="http://www.w3.org/2000/svg" width="2.28ex" height="1.912ex" role="img" focusable="false" viewbox="0 -833.9 1007.6 844.9"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msup"><g data-mml-node="mi"><path data-c="1D70E" d="M184 -11Q116 -11 74 34T31 147Q31 247 104 333T274 430Q275 431 414 431H552Q553 430 555 429T559 427T562 425T565 422T567 420T569 416T570 412T571 407T572 401Q572 357 507 357Q500 357 490 357T476 358H416L421 348Q439 310 439 263Q439 153 359 71T184 -11ZM361 278Q361 358 276 358Q152 358 115 184Q114 180 114 178Q106 141 106 117Q106 67 131 47T188 26Q242 26 287 73Q316 103 334 153T356 233T361 278Z"/></g><g data-mml-node="mn" transform="translate(604,363) scale(0.707)"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"/></g></g></g></g></svg></mjx-container></span>
 能先验获得的情况，这时学生氏统计量退化为 Z 统计量；然后考虑用样本方差
-<span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.023ex;" xmlns="http://www.w3.org/2000/svg" width="2.049ex" height="1.909ex" role="img" focusable="false" viewbox="0 -833.9 905.6 843.9"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msup"><g data-mml-node="mi"><path data-c="1D460" d="M131 289Q131 321 147 354T203 415T300 442Q362 442 390 415T419 355Q419 323 402 308T364 292Q351 292 340 300T328 326Q328 342 337 354T354 372T367 378Q368 378 368 379Q368 382 361 388T336 399T297 405Q249 405 227 379T204 326Q204 301 223 291T278 274T330 259Q396 230 396 163Q396 135 385 107T352 51T289 7T195 -10Q118 -10 86 19T53 87Q53 126 74 143T118 160Q133 160 146 151T160 120Q160 94 142 76T111 58Q109 57 108 57T107 55Q108 52 115 47T146 34T201 27Q237 27 263 38T301 66T318 97T323 122Q323 150 302 164T254 181T195 196T148 231Q131 256 131 289Z"/></g><g data-mml-node="mn" transform="translate(502,363) scale(0.707)"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"/></g></g></g></g></svg></mjx-container></span>
-估计真实方差的情况。下面的内容均可参照 <span style="color:#417FBE; font-style:italic">P. Hall, “The Bootstrap and
-Edgeworth Expansion,” Chap. 2, Sec. 6.</span> 以及后来的 <span style="color:#417FBE; font-style:italic">M. Nkurunziza and L. Vermeire,
-“A Review on Approximation Approach for the Distribution of the
-Studentized Mean,” Appl. Math. Sci., vol. 17, pp. 297(2023).</span></p>
+<span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.023ex;" xmlns="http://www.w3.org/2000/svg" width="2.049ex" height="1.909ex" role="img" focusable="false" viewbox="0 -833.9 905.6 843.9"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msup"><g data-mml-node="mi"><path data-c="1D460" d="M131 289Q131 321 147 354T203 415T300 442Q362 442 390 415T419 355Q419 323 402 308T364 292Q351 292 340 300T328 326Q328 342 337 354T354 372T367 378Q368 378 368 379Q368 382 361 388T336 399T297 405Q249 405 227 379T204 326Q204 301 223 291T278 274T330 259Q396 230 396 163Q396 135 385 107T352 51T289 7T195 -10Q118 -10 86 19T53 87Q53 126 74 143T118 160Q133 160 146 151T160 120Q160 94 142 76T111 58Q109 57 108 57T107 55Q108 52 115 47T146 34T201 27Q237 27 263 38T301 66T318 97T323 122Q323 150 302 164T254 181T195 196T148 231Q131 256 131 289Z"/></g><g data-mml-node="mn" transform="translate(502,363) scale(0.707)"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"/></g></g></g></g></svg></mjx-container></span> 估计真实方差的情况</p>
+<p>下面的内容均可参照 <span style="color:#417FBE; font-style:italic">P.
+Hall, “The Bootstrap and Edgeworth Expansion,” Chap. 2, Sec. 6.</span>
+以及后来的 <span style="color:#417FBE; font-style:italic">M. Nkurunziza
+and L. Vermeire, “A Review on Approximation Approach for the
+Distribution of the Studentized Mean,” Appl. Math. Sci., vol. 17,
+pp. 297(2023).</span></p>
 <h1 id="z-统计量的渐近分布">Z 统计量的渐近分布</h1>
 <h2 id="edgeworth-展开">Edgeworth 展开</h2>
 <p>Edgeworth
