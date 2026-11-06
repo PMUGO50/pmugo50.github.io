@@ -1,5 +1,5 @@
 ---
-title: autumn1593
+title: 1593年秋
 date: 2024-10-20 22:37:36
 categories: 架空记录
 mathjax: false

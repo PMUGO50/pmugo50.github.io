@@ -1,5 +1,5 @@
 ---
-title: autumn1255
+title: 1255年秋
 date: 2025-07-13 22:37:05
 categories: 架空记录
 mathjax: false
