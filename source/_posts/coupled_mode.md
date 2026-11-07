@@ -72,7 +72,13 @@ $$
 \tag{2}
 $$
 
-> **振幅缓变近似**：记 $b_k(t) = B_k(t)e^{-j\omega_k t}$ ，那么 $|\partial^2 B_k/\partial t^2| \ll |\omega_k \partial B_k/\partial t|$ ，即振幅相对于相位是缓变的
+{% note danger %}
+
+**振幅缓变近似**：记一个收到微扰的模式为 $b_k(t) = B_k(t)e^{-j\omega_k t}$ ，那么其各阶导数的振幅相对于相位都是缓变的，特别地对于前两阶导数有
+$$
+\left| \frac{\partial B_k}{\partial t} \right| \ll \left| \omega_k B_k \right| \quad,\quad \left| \frac{\partial^2 B_k}{\partial t^2} \right| \ll \left| \omega_k \frac{\partial B_k}{\partial t} \right|
+$$
+{% endnote %}
 
 在振幅缓变近似下将二阶时间偏导展开得到
 $$
@@ -89,8 +95,17 @@ $$
 
 利用正交性定义 $\int_V \boldsymbol{e}^\ast_i \cdot (1+\chi_b)\boldsymbol{e}_k \mathrm{d}V = \delta_{ik}$ 得到
 $$
-\sum_k \left[2j\omega_k\frac{\partial b_k}{\partial t} \left( \delta_{ik} + \int_V \boldsymbol{e}^\ast_i \cdot \chi_a\boldsymbol{e}_k \mathrm{d}V \right) - \omega_k^2 b_k\left( 2\delta_{ik} + \int_V \boldsymbol{e}^\ast_i \cdot \chi_a\boldsymbol{e}_k \mathrm{d}V \right) \right] = \int_V \boldsymbol{e}^\ast_i \cdot \chi_b\boldsymbol{E}_a \mathrm{d}V
-\tag{3}
+\sum_k \left[2j\omega_k\frac{\partial b_k}{\partial t} \left( \delta_{ik} + \int_V \boldsymbol{e}^\ast_i \cdot \chi_a\boldsymbol{e}_k \mathrm{d}V \right) - \omega_k^2 b_k\left( 2\delta_{ik} + \int_V \boldsymbol{e}^\ast_i \cdot \chi_a\boldsymbol{e}_k \mathrm{d}V \right) \right] = \int_V \boldsymbol{e}^\ast_i \cdot \chi_b\boldsymbol{E}_a \mathrm{d}V
+$$
+
+将 $i = k$ 的项单独提出来就有
+$$
+\frac{\partial b_i}{\partial t} + j\omega_ib_i + \sum_{k \neq i} \left( \int_V \boldsymbol{e}^\ast_i \cdot \chi_a\boldsymbol{e}_k \mathrm{d}V \right) \left(\frac{\omega_k}{\omega_i}\frac{\partial b_k}{\partial t} - \frac{\omega_k^2}{j2\omega_i}b_k\right) = \frac{1}{j2\omega_i}\int_V \boldsymbol{e}^\ast_i \cdot \chi_b\boldsymbol{E}_a \mathrm{d}V
+$$
+最后，再利用一次振幅缓变近似 $\partial b_k/\partial t = -j\omega_k b_k + (\partial B_k/\partial t) e^{-j\omega_k t} \approx -j\omega_k b_k$ ，就可以得到最终的形式
+$$
+\frac{\partial b_i}{\partial t} + j\omega_ib_i - j\sum_{k \neq i} \left( \int_V \boldsymbol{e}^\ast_i \cdot \chi_a\boldsymbol{e}_k \mathrm{d}V \right) \frac{\omega_k^2}{2\omega_i}b_k = \frac{1}{j2\omega_i}\int_V \boldsymbol{e}^\ast_i \cdot \chi_b\boldsymbol{E}_a \mathrm{d}V
+\tag{Cavity}
 $$
 
 ## 耦回过程
