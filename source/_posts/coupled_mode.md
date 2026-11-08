@@ -30,7 +30,7 @@ $$
 
 同样地，在全空间中只有热池光而没有谐振腔的情况下，热池光可以写为
 $$
-\boldsymbol{E}_a(\boldsymbol{r},t) = a(\omega) e^{-j\omega t} \boldsymbol{e}_a(\omega,\boldsymbol{r})
+\boldsymbol{E}_a(\boldsymbol{r},t) = \int_0^\infty a(\omega) e^{-j\omega t} \boldsymbol{e}_a(\boldsymbol{r}) \mathrm{d}\omega
 $$
 自然它也要满足波方程，也就是说 $\boldsymbol{e}_a$ 同样也满足
 $$
@@ -66,15 +66,19 @@ $$
 \nabla \times (\nabla \times \boldsymbol{E}_b) + \frac{1 + \chi_b + \chi_a}{c^2}\frac{\partial^2 \boldsymbol{E}_b}{\partial t^2} = -\frac{\chi_b}{c^2}\frac{\partial^2 \boldsymbol{E}_a}{\partial t^2}
 \tag{1}
 $$
-将扰动下的谐振模式写为 $\boldsymbol{E}_k(\boldsymbol{r},t) = b_k(t) \boldsymbol{e}_k(\boldsymbol{r})$ ，将这一结果代入，并利用 $\nabla \times (\nabla \times \boldsymbol{e}_k) - \omega_k^2(1+\chi_b)\boldsymbol{e}_k/c^2 = 0$ 得到
+将扰动下的谐振模式和热池光分别写为
 $$
-\sum_k \left[(1+\chi_b)\omega_k^2b_k(t) + (1 + \chi_b + \chi_a)\frac{\partial^2 b_k}{\partial t^2}\right]\boldsymbol{e}_k(\boldsymbol{r}) = -\chi_b \boldsymbol{E}_a(\omega,\boldsymbol{r})
+\boldsymbol{E}_k(\boldsymbol{r},t) = b_k(t) \boldsymbol{e}_k(\boldsymbol{r}) \quad,\quad \boldsymbol{E}_a(\boldsymbol{r},t) = \int_0^\infty a(\omega, t) \boldsymbol{e}_a(\boldsymbol{r}) \mathrm{d}\omega
+$$
+将这一结果代入，并利用 $\nabla \times (\nabla \times \boldsymbol{e}_k) - \omega_k^2(1+\chi_b)\boldsymbol{e}_k/c^2 = 0$ 得到
+$$
+\sum_k \left[(1+\chi_b)\omega_k^2b_k(t) + (1 + \chi_b + \chi_a)\frac{\partial^2 b_k}{\partial t^2}\right]\boldsymbol{e}_k(\boldsymbol{r}) = -\chi_b \int_0^\infty\frac{\partial^2 a}{\partial t^2}\boldsymbol{e}_a(\boldsymbol{r}) \mathrm{d}\omega
 \tag{2}
 $$
 
 {% note danger %}
 
-**振幅缓变近似**：记一个收到微扰的模式为 $b_k(t) = B_k(t)e^{-j\omega_k t}$ ，那么其各阶导数的振幅相对于相位都是缓变的，特别地对于前两阶导数有
+**振幅缓变近似**：记一个收到微扰的简谐振动为 $b_k(t) = B_k(t)e^{-j\omega_k t}$ ，那么其各阶导数的振幅相对于相位都是缓变的，特别地对于前两阶导数有
 $$
 \left| \frac{\partial B_k}{\partial t} \right| \ll \left| \omega_k B_k \right| \quad,\quad \left| \frac{\partial^2 B_k}{\partial t^2} \right| \ll \left| \omega_k \frac{\partial B_k}{\partial t} \right|
 $$
@@ -90,21 +94,21 @@ $$
 $$
 将这个结果代回式 (2) 之后，并对方程两侧同时对 $\boldsymbol{e}_i$ 作内积，就可以得到
 $$
-\sum_k \left[2j\omega_k\frac{\partial b_k}{\partial t}\int_V \boldsymbol{e}^\ast_i \cdot (1 + \chi_b + \chi_a)\boldsymbol{e}_k \mathrm{d}V - \omega_k^2 b_k\int_V \boldsymbol{e}^\ast_i \cdot [2(1+\chi_b)+\chi_a]\boldsymbol{e}_k \mathrm{d}V\right] = \int_V \boldsymbol{e}^\ast_i \cdot \chi_b\boldsymbol{E}_a \mathrm{d}V
+\sum_k \left[2j\omega_k\frac{\partial b_k}{\partial t}\int_V \boldsymbol{e}^\ast_i \cdot (1 + \chi_b + \chi_a)\boldsymbol{e}_k \mathrm{d}V - \omega_k^2 b_k\int_V \boldsymbol{e}^\ast_i \cdot [2(1+\chi_b)+\chi_a]\boldsymbol{e}_k \mathrm{d}V\right] = -\int_0^\infty\frac{\partial^2 a}{\partial t^2} \left(\int_V \boldsymbol{e}^\ast_i \cdot \chi_b\boldsymbol{e}_a \mathrm{d}V\right) \mathrm{d}\omega
 $$
 
 利用正交性定义 $\int_V \boldsymbol{e}^\ast_i \cdot (1+\chi_b)\boldsymbol{e}_k \mathrm{d}V = \delta_{ik}$ 得到
 $$
-\sum_k \left[2j\omega_k\frac{\partial b_k}{\partial t} \left( \delta_{ik} + \int_V \boldsymbol{e}^\ast_i \cdot \chi_a\boldsymbol{e}_k \mathrm{d}V \right) - \omega_k^2 b_k\left( 2\delta_{ik} + \int_V \boldsymbol{e}^\ast_i \cdot \chi_a\boldsymbol{e}_k \mathrm{d}V \right) \right] = \int_V \boldsymbol{e}^\ast_i \cdot \chi_b\boldsymbol{E}_a \mathrm{d}V
+\sum_k \left[2j\omega_k\frac{\partial b_k}{\partial t} \left( \delta_{ik} + \int_V \boldsymbol{e}^\ast_i \cdot \chi_a\boldsymbol{e}_k \mathrm{d}V \right) - \omega_k^2 b_k\left( 2\delta_{ik} + \int_V \boldsymbol{e}^\ast_i \cdot \chi_a\boldsymbol{e}_k \mathrm{d}V \right) \right] = -\int_0^\infty\frac{\partial^2 a}{\partial t^2} \left(\int_V \boldsymbol{e}^\ast_i \cdot \chi_b\boldsymbol{e}_a \mathrm{d}V\right) \mathrm{d}\omega
 $$
 
 将 $i = k$ 的项单独提出来就有
 $$
-\frac{\partial b_i}{\partial t} + j\omega_ib_i + \sum_{k \neq i} \left( \int_V \boldsymbol{e}^\ast_i \cdot \chi_a\boldsymbol{e}_k \mathrm{d}V \right) \left(\frac{\omega_k}{\omega_i}\frac{\partial b_k}{\partial t} - \frac{\omega_k^2}{j2\omega_i}b_k\right) = \frac{1}{j2\omega_i}\int_V \boldsymbol{e}^\ast_i \cdot \chi_b\boldsymbol{E}_a \mathrm{d}V
+\frac{\partial b_i}{\partial t} + j\omega_ib_i + \sum_{k \neq i} \left( \int_V \boldsymbol{e}^\ast_i \cdot \chi_a\boldsymbol{e}_k \mathrm{d}V \right) \left(\frac{\omega_k}{\omega_i}\frac{\partial b_k}{\partial t} - \frac{\omega_k^2}{j2\omega_i}b_k\right) = -\frac{1}{j2\omega_i}\int_0^\infty\frac{\partial^2 a}{\partial t^2} \left(\int_V \boldsymbol{e}^\ast_i \cdot \chi_b\boldsymbol{e}_a \mathrm{d}V\right) \mathrm{d}\omega
 $$
 最后，再利用一次振幅缓变近似 $\partial b_k/\partial t = -j\omega_k b_k + (\partial B_k/\partial t) e^{-j\omega_k t} \approx -j\omega_k b_k$ ，就可以得到最终的形式
 $$
-\frac{\partial b_i}{\partial t} + j\omega_ib_i - j\sum_{k \neq i} \left( \int_V \boldsymbol{e}^\ast_i \cdot \chi_a\boldsymbol{e}_k \mathrm{d}V \right) \frac{\omega_k^2}{2\omega_i}b_k = \frac{1}{j2\omega_i}\int_V \boldsymbol{e}^\ast_i \cdot \chi_b\boldsymbol{E}_a \mathrm{d}V
+\frac{\partial b_i}{\partial t} + j\omega_ib_i - j\sum_{k \neq i} \left( \int_V \boldsymbol{e}^\ast_i \cdot \chi_a\boldsymbol{e}_k \mathrm{d}V \right) \frac{\omega_k^2}{2\omega_i}b_k = -\frac{1}{j2\omega_i}\int_0^\infty\frac{\partial^2 a}{\partial t^2} \left(\int_V \boldsymbol{e}^\ast_i \cdot \chi_b\boldsymbol{e}_a \mathrm{d}V\right) \mathrm{d}\omega
 \tag{Cavity}
 $$
 
@@ -114,7 +118,45 @@ $$
 $$
 \nabla \times (\nabla \times \boldsymbol{E}_a) + \frac{1 + \chi_b + \chi_a}{c^2}\frac{\partial^2 \boldsymbol{E}_a}{\partial t^2} = -\frac{\chi_a}{c^2}\frac{\partial^2 \boldsymbol{E}_b}{\partial t^2}
 $$
-同样地，将热池光写为 $\boldsymbol{E}_a(\boldsymbol{r},t) = a(\omega, t)\boldsymbol{e}_a(\omega,\boldsymbol{r})$ ，进行和上面完全一样的操作，与 $\boldsymbol{e}_a$ 做内积就得到
+同样地，选定 $\omega$ 之后，进行和上面完全一样的操作，与 $\boldsymbol{e}_a$ 做内积就得到
 $$
-2j\omega\frac{\partial a}{\partial t}\left( 1 + \int_V \boldsymbol{e}^\ast_a \cdot \chi_b \boldsymbol{e}_a \mathrm{d}V \right) - \omega^2 a \left( 2 + \int_V \boldsymbol{e}^\ast_a \cdot \chi_b \boldsymbol{e}_a \mathrm{d}V \right)  = \int_V \boldsymbol{e}^\ast_a \cdot \chi_a\boldsymbol{E}_b \mathrm{d}V
+2j\omega\frac{\partial a}{\partial t}\left( 1 + \int_V \boldsymbol{e}^\ast_a \cdot \chi_b \boldsymbol{e}_a \mathrm{d}V \right) - \omega^2 a \left( 2 + \int_V \boldsymbol{e}^\ast_a \cdot \chi_b \boldsymbol{e}_a \mathrm{d}V \right)  = -\int_V \boldsymbol{e}^\ast_a \cdot \chi_a\frac{\partial^2 \boldsymbol{E}_b}{\partial t^2} \mathrm{d}V
 $$
+这是一个一阶微分方程，所以将 $\boldsymbol{E}_b$ 展开，并利用常数变易法或者通解公式即可得到
+$$
+a(\omega, t) = e^{-j\omega' t}\left[ a_\mathrm{in}(\omega) - \frac{1}{j2\omega}\sum_{k}\left(\int_V \boldsymbol{e}^\ast_a \cdot \chi_a\boldsymbol{e}_k \mathrm{d}V\right) \int_0^t \frac{\partial^2 b_k}{\partial \tau^2}e^{j\omega' \tau}  \mathrm{d}\tau \right]
+$$
+这里 $\omega'$ 是 $\omega$ 的函数，并很接近 $\omega$ 本身
+$$
+\omega' = \frac{2 + \int_V \boldsymbol{e}^\ast_a \cdot \chi_b \boldsymbol{e}_a \mathrm{d}V}{2 + 2\int_V \boldsymbol{e}^\ast_a \cdot \chi_b \boldsymbol{e}_a \mathrm{d}V}\omega \approx \omega
+$$
+代入之前利用振幅缓变近似得到的两个结果，上式成为
+$$
+a(\omega, t) = e^{-j\omega' t}\left[ a_\mathrm{in}(\omega) + \frac{1}{j2\omega}\sum_{k} \left(\int_V \boldsymbol{e}^\ast_a \cdot \chi_a\boldsymbol{e}_k \mathrm{d}V\right) \int_0^t \omega_k^2 b_ke^{j\omega' \tau}  \mathrm{d}\tau \right]
+\tag{Bath}
+$$
+___
+
+将式 (Bath) 代回 (Cavity) ，重点就落在了对 $\partial a^2/\partial t^2$ 的计算上。这只需要按部就班即可，事实上一阶导直接由常微分方程本身给出
+$$
+\frac{\partial a}{\partial t} = -j\omega'a(\omega, t) + \frac{1}{2j\omega} \sum_k \frac{\int_V \boldsymbol{e}^\ast_a \cdot \chi_a \boldsymbol{e}_k \mathrm{d}V}{1 + \int_V \boldsymbol{e}^\ast_a \cdot \chi_b \boldsymbol{e}_a \mathrm{d}V} \omega_k^2 b_k
+$$
+所以二阶导就是对上式求一次导数，然后将 $\partial a/\partial t$ 再代入即可
+$$
+\frac{\partial^2 a}{\partial t^2} = -\omega'^2 a - \frac{\omega_k^2(\omega_k+\omega')}{2\omega} \sum_k \frac{\int_V \boldsymbol{e}^\ast_a \cdot \chi_a \boldsymbol{e}_k \mathrm{d}V}{1 + \int_V \boldsymbol{e}^\ast_a \cdot \chi_b \boldsymbol{e}_a \mathrm{d}V} b_k
+$$
+___
+
+将上式代回 (Cavity) 得到一个庞大的方程
+$$
+\begin{aligned}
+& \frac{\partial b_i}{\partial t}
++ j\omega_i\left[1 + \frac{\omega_i+\omega'}{4\omega}\frac{\left(\int_V \boldsymbol{e}^\ast_i \cdot \chi_b \boldsymbol{e}_a \mathrm{d}V \right) \left(\int_V \boldsymbol{e}^\ast_a \cdot \chi_a \boldsymbol{e}_i \mathrm{d}V \right)}{1 + \int_V \boldsymbol{e}^\ast_a \cdot \chi_b \boldsymbol{e}_a \mathrm{d}V}\right] b_i \\[12pt]
++& \int_0^\infty \frac{\omega'^2}{4\omega_i\omega} \left(\int_V \boldsymbol{e}^\ast_i \cdot \chi_b\boldsymbol{e}_a \mathrm{d}V\right)\left(\int_V \boldsymbol{e}^\ast_a \cdot \chi_a\boldsymbol{e}_i \mathrm{d}V\right) \omega_i^2 b_i e^{-j\omega'(t-\tau)}\mathrm{d}\omega \\[12pt]
+-& j\sum_{k \neq i} \left( \int_V \boldsymbol{e}^\ast_i \cdot \chi_a\boldsymbol{e}_k \mathrm{d}V \right) \frac{\omega_k^2}{2\omega_i}\left[ 1 - \frac{\omega_k-\omega'}{2\omega}\frac{\left( \int_V \boldsymbol{e}^\ast_i \cdot \chi_b\boldsymbol{e}_a \mathrm{d}V \right) \left( \int_V \boldsymbol{e}^\ast_a \cdot \chi_a \boldsymbol{e}_k \mathrm{d}V \right)}{1 + \int_V \boldsymbol{e}^\ast_a \cdot \chi_b \boldsymbol{e}_a \mathrm{d}V} \right] b_k \\[12pt]
++& \sum_{k \neq i} \int_0^\infty \frac{\omega'^2}{4\omega_i\omega} \left(\int_V \boldsymbol{e}^\ast_i \cdot \chi_b\boldsymbol{e}_a \mathrm{d}V\right) \left(\int_V \boldsymbol{e}^\ast_a \cdot \chi_a\boldsymbol{e}_k \mathrm{d}V\right) \omega_k^2 b_k e^{-j\omega'(t-\tau)}\mathrm{d}\omega \\[12pt]
+=& \int_0^\infty \frac{\omega'^2}{j2\omega_i} \left(\int_V \boldsymbol{e}^\ast_i \cdot \chi_b\boldsymbol{e}_a \mathrm{d}V\right) a_\mathrm{in}(\omega) e^{-j\omega' t}\mathrm{d}\omega
+\end{aligned}
+$$
+
+# 标准形式化
