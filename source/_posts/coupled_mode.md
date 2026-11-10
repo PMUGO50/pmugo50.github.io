@@ -8,15 +8,15 @@ description: 对Maxwell方程组应用WKB近似得到耦合模方程
 
 # 正交本征模
 
-以下全程采用 Gauss 单位制，因而真空介电常数和真空磁导率都是 1 
+以下全程采用 Gauss 单位制，因而真空介电常数和真空磁导率都是 1 ，所有过程都可以参照  <span style="color:#417FBE; font-style:italic">M. Gorodetsky and V. Ilchenko, "Optical microsphere resonators: optimal coupling to high-Q whispering-gallery modes," J. Opt. Soc. Am. B, vol. 16, pp. 147(1999).</span> 
 
 忽略非线性效应和折射率的时变，即只考虑**互易定理得到满足**的情况。将 Maxwell 方程组的第三式（Faraday 电磁感应定律）和第四式（Ampere-Maxwell 环路定律）互相代入，并利用无源条件下的第一式（Gauss 定律），就得到波方程
 $$
 \nabla \times (\nabla \times \boldsymbol{E}) + \frac{\varepsilon}{c^2}\frac{\partial^2 \boldsymbol{E}}{\partial t^2} = 0
 $$
-在理想情况下，通过谐振腔的边界约束可以解出一系列正交的本征模式 $\boldsymbol{E}_i(\boldsymbol{r},t) = b_i e^{-j\omega_i t} \boldsymbol{e}_i(\boldsymbol{r})$ ，所谓正交是指方向向量满足
+在理想情况下，通过谐振腔的边界约束可以解出一系列正交的本征模式 $\boldsymbol{E}_i(\boldsymbol{r},t) = b_i e^{-j\omega_i t} \boldsymbol{e}_i(\boldsymbol{r})$ ，并且由于是驻波，所以所有的 $\boldsymbol{e}_i$ 都可以是实的。至于所谓正交是指方向向量满足
 $$
-\int_V \boldsymbol{e}^\ast_k(\boldsymbol{r}) \cdot \varepsilon_b\boldsymbol{e}_i(\boldsymbol{r}) \mathrm{d}V = \delta_{ik}
+\int_V \boldsymbol{e}_k(\boldsymbol{r}) \cdot \varepsilon_b\boldsymbol{e}_i(\boldsymbol{r}) \mathrm{d}V = \delta_{ik}
 $$
 
 这里 $\varepsilon_b(\boldsymbol{r}) = 1 + \chi_b(\boldsymbol{r})$ 是只有腔时的介电常数分布，$\chi_b$ 是腔的极化率分布
@@ -30,15 +30,15 @@ $$
 
 同样地，在全空间中只有热池光而没有谐振腔的情况下，热池光可以写为
 $$
-\boldsymbol{E}_a(\boldsymbol{r},t) = \int_0^\infty a(\omega) e^{-j\omega t} \boldsymbol{e}_a(\boldsymbol{r}) \mathrm{d}\omega
+\boldsymbol{E}_a(\boldsymbol{r},t) = \int_0^\infty a(\omega) e^{-j(\omega t-\beta x)} \boldsymbol{e}_a(\boldsymbol{r}) \mathrm{d}\omega
 $$
-自然它也要满足波方程，也就是说 $\boldsymbol{e}_a$ 同样也满足
+这里行波的意义由 $e^{j\beta x}$ 表出，所以 $\boldsymbol{e}_a$ 也是实的。另外它也要满足波方程，也就是说 $\boldsymbol{e}_a$ 同样也满足
 $$
 \nabla \times (\nabla \times \boldsymbol{e}_a) - \frac{\varepsilon_a\omega^2}{c^2}\boldsymbol{e}_a = 0
 $$
  $\varepsilon_a(\boldsymbol{r}) = 1 + \chi_a(\boldsymbol{r})$ 是只有热池时的介电常数分布，$\chi_a$ 是热池的极化率分布。另外同样地，设置其满足归一化条件
 $$
-\int_V \boldsymbol{e}^\ast_a(\boldsymbol{r}) \cdot \varepsilon_a\boldsymbol{e}_a(\boldsymbol{r}) \mathrm{d}V = 1
+\int_S \boldsymbol{e}_a(\boldsymbol{r}) \cdot \varepsilon_a\boldsymbol{e}_a(\boldsymbol{r}) \mathrm{d}S = 1
 $$
 
 # 耦合扰动
@@ -66,13 +66,13 @@ $$
 \nabla \times (\nabla \times \boldsymbol{E}_b) + \frac{1 + \chi_b + \chi_a}{c^2}\frac{\partial^2 \boldsymbol{E}_b}{\partial t^2} = -\frac{\chi_b}{c^2}\frac{\partial^2 \boldsymbol{E}_a}{\partial t^2}
 \tag{1}
 $$
-将扰动下的谐振模式和热池光分别写为
+在扰动下，谐振模式和热池光分别写为
 $$
-\boldsymbol{E}_k(\boldsymbol{r},t) = b_k(t) \boldsymbol{e}_k(\boldsymbol{r}) \quad,\quad \boldsymbol{E}_a(\boldsymbol{r},t) = \int_0^\infty a(\omega, t) \boldsymbol{e}_a(\boldsymbol{r}) \mathrm{d}\omega
+\boldsymbol{E}_k(\boldsymbol{r},t) = b_k(t) \boldsymbol{e}_k(\boldsymbol{r}) \quad,\quad \boldsymbol{E}_a(\boldsymbol{r},t) = \int_0^\infty a(\omega, t)e^{j\beta x} \boldsymbol{e}_a(\boldsymbol{r}) \mathrm{d}\omega
 $$
 将这一结果代入，并利用 $\nabla \times (\nabla \times \boldsymbol{e}_k) - \omega_k^2(1+\chi_b)\boldsymbol{e}_k/c^2 = 0$ 得到
 $$
-\sum_k \left[(1+\chi_b)\omega_k^2b_k(t) + (1 + \chi_b + \chi_a)\frac{\partial^2 b_k}{\partial t^2}\right]\boldsymbol{e}_k(\boldsymbol{r}) = -\chi_b \int_0^\infty\frac{\partial^2 a}{\partial t^2}\boldsymbol{e}_a(\boldsymbol{r}) \mathrm{d}\omega
+\sum_k \left[(1+\chi_b)\omega_k^2b_k(t) + (1 + \chi_b + \chi_a)\frac{\partial^2 b_k}{\partial t^2}\right]\boldsymbol{e}_k(\boldsymbol{r}) = -\chi_b \int_0^\infty\frac{\partial^2 a}{\partial t^2} e^{j\beta x}\boldsymbol{e}_a(\boldsymbol{r}) \mathrm{d}\omega
 \tag{2}
 $$
 
@@ -94,21 +94,21 @@ $$
 $$
 将这个结果代回式 (2) 之后，并对方程两侧同时对 $\boldsymbol{e}_i$ 作内积，就可以得到
 $$
-\sum_k \left[2j\omega_k\frac{\partial b_k}{\partial t}\int_V \boldsymbol{e}^\ast_i \cdot (1 + \chi_b + \chi_a)\boldsymbol{e}_k \mathrm{d}V - \omega_k^2 b_k\int_V \boldsymbol{e}^\ast_i \cdot [2(1+\chi_b)+\chi_a]\boldsymbol{e}_k \mathrm{d}V\right] = -\int_0^\infty\frac{\partial^2 a}{\partial t^2} \left(\int_V \boldsymbol{e}^\ast_i \cdot \chi_b\boldsymbol{e}_a \mathrm{d}V\right) \mathrm{d}\omega
+\sum_k \left[2j\omega_k\frac{\partial b_k}{\partial t}\int_V \boldsymbol{e}_i \cdot (1 + \chi_b + \chi_a)\boldsymbol{e}_k \mathrm{d}V - \omega_k^2 b_k\int_V \boldsymbol{e}_i \cdot [2(1+\chi_b)+\chi_a]\boldsymbol{e}_k \mathrm{d}V\right] = -\int_0^\infty\frac{\partial^2 a}{\partial t^2} \left(\int_V \boldsymbol{e}_i \cdot \chi_be^{j\beta x}\boldsymbol{e}_a \mathrm{d}V\right) \mathrm{d}\omega
 $$
 
-利用正交性定义 $\int_V \boldsymbol{e}^\ast_i \cdot (1+\chi_b)\boldsymbol{e}_k \mathrm{d}V = \delta_{ik}$ 得到
+利用正交性定义 $\int_V \boldsymbol{e}_i \cdot (1+\chi_b)\boldsymbol{e}_k \mathrm{d}V = \delta_{ik}$ 得到
 $$
-\sum_k \left[2j\omega_k\frac{\partial b_k}{\partial t} \left( \delta_{ik} + \int_V \boldsymbol{e}^\ast_i \cdot \chi_a\boldsymbol{e}_k \mathrm{d}V \right) - \omega_k^2 b_k\left( 2\delta_{ik} + \int_V \boldsymbol{e}^\ast_i \cdot \chi_a\boldsymbol{e}_k \mathrm{d}V \right) \right] = -\int_0^\infty\frac{\partial^2 a}{\partial t^2} \left(\int_V \boldsymbol{e}^\ast_i \cdot \chi_b\boldsymbol{e}_a \mathrm{d}V\right) \mathrm{d}\omega
+\sum_k \left[2j\omega_k\frac{\partial b_k}{\partial t} \left( \delta_{ik} + \int_V \boldsymbol{e}_i \cdot \chi_a\boldsymbol{e}_k \mathrm{d}V \right) - \omega_k^2 b_k\left( 2\delta_{ik} + \int_V \boldsymbol{e}_i \cdot \chi_a\boldsymbol{e}_k \mathrm{d}V \right) \right] = -\int_0^\infty\frac{\partial^2 a}{\partial t^2} \left(\int_V \boldsymbol{e}_i \cdot \chi_b e^{j\beta x}\boldsymbol{e}_a \mathrm{d}V\right) \mathrm{d}\omega
 $$
 
 将 $i = k$ 的项单独提出来就有
 $$
-\frac{\partial b_i}{\partial t} + j\omega_ib_i + \sum_{k \neq i} \left( \int_V \boldsymbol{e}^\ast_i \cdot \chi_a\boldsymbol{e}_k \mathrm{d}V \right) \left(\frac{\omega_k}{\omega_i}\frac{\partial b_k}{\partial t} - \frac{\omega_k^2}{j2\omega_i}b_k\right) = -\frac{1}{j2\omega_i}\int_0^\infty\frac{\partial^2 a}{\partial t^2} \left(\int_V \boldsymbol{e}^\ast_i \cdot \chi_b\boldsymbol{e}_a \mathrm{d}V\right) \mathrm{d}\omega
+\frac{\partial b_i}{\partial t} + j\omega_ib_i + \sum_{k \neq i} \left( \int_V \boldsymbol{e}_i \cdot \chi_a\boldsymbol{e}_k \mathrm{d}V \right) \left(\frac{\omega_k}{\omega_i}\frac{\partial b_k}{\partial t} - \frac{\omega_k^2}{j2\omega_i}b_k\right) = -\frac{1}{j2\omega_i}\int_0^\infty\frac{\partial^2 a}{\partial t^2} \left(\int_V \boldsymbol{e}_i \cdot \chi_b e^{j\beta x}\boldsymbol{e}_a \mathrm{d}V\right) \mathrm{d}\omega
 $$
 最后，再利用一次振幅缓变近似 $\partial b_k/\partial t = -j\omega_k b_k + (\partial B_k/\partial t) e^{-j\omega_k t} \approx -j\omega_k b_k$ ，就可以得到最终的形式
 $$
-\frac{\partial b_i}{\partial t} + j\omega_ib_i - j\sum_{k \neq i} \left( \int_V \boldsymbol{e}^\ast_i \cdot \chi_a\boldsymbol{e}_k \mathrm{d}V \right) \frac{\omega_k^2}{2\omega_i}b_k = -\frac{1}{j2\omega_i}\int_0^\infty\frac{\partial^2 a}{\partial t^2} \left(\int_V \boldsymbol{e}^\ast_i \cdot \chi_b\boldsymbol{e}_a \mathrm{d}V\right) \mathrm{d}\omega
+\frac{\partial b_i}{\partial t} + j\omega_ib_i - j\sum_{k \neq i} \left( \int_V \boldsymbol{e}_i \cdot \chi_a\boldsymbol{e}_k \mathrm{d}V \right) \frac{\omega_k^2}{2\omega_i}b_k = -\frac{1}{j2\omega_i}\int_0^\infty\frac{\partial^2 a}{\partial t^2} \left(\int_V \boldsymbol{e}_i \cdot \chi_b e^{j\beta x}\boldsymbol{e}_a \mathrm{d}V\right) \mathrm{d}\omega
 \tag{Cavity}
 $$
 
@@ -118,32 +118,32 @@ $$
 $$
 \nabla \times (\nabla \times \boldsymbol{E}_a) + \frac{1 + \chi_b + \chi_a}{c^2}\frac{\partial^2 \boldsymbol{E}_a}{\partial t^2} = -\frac{\chi_a}{c^2}\frac{\partial^2 \boldsymbol{E}_b}{\partial t^2}
 $$
-同样地，选定 $\omega$ 之后，进行和上面完全一样的操作，与 $\boldsymbol{e}_a$ 做内积就得到
+同样地，选定 $\omega$ 之后，进行和上面完全一样的操作，与 $e^{j\beta x}\boldsymbol{e}_a$ 做内积就得到
 $$
-2j\omega\frac{\partial a}{\partial t}\left( 1 + \int_V \boldsymbol{e}^\ast_a \cdot \chi_b \boldsymbol{e}_a \mathrm{d}V \right) - \omega^2 a \left( 2 + \int_V \boldsymbol{e}^\ast_a \cdot \chi_b \boldsymbol{e}_a \mathrm{d}V \right)  = -\int_V \boldsymbol{e}^\ast_a \cdot \chi_a\frac{\partial^2 \boldsymbol{E}_b}{\partial t^2} \mathrm{d}V
+2j\omega\frac{\partial a}{\partial t}\left( 1 + \int_V \boldsymbol{e}_a \cdot \chi_b \boldsymbol{e}_a \mathrm{d}V \right) - \omega^2 a \left( 2 + \int_V \boldsymbol{e}_a \cdot \chi_b \boldsymbol{e}_a \mathrm{d}V \right)  = -\int_V e^{-j\beta x}\boldsymbol{e}_a \cdot \chi_a\frac{\partial^2 \boldsymbol{E}_b}{\partial t^2} \mathrm{d}V
 $$
 这是一个一阶微分方程，所以将 $\boldsymbol{E}_b$ 展开，并利用常数变易法或者通解公式即可得到
 $$
-a(\omega, t) = e^{-j\omega' t}\left[ a_\mathrm{in}(\omega) - \frac{1}{j2\omega}\sum_{k}\left(\int_V \boldsymbol{e}^\ast_a \cdot \chi_a\boldsymbol{e}_k \mathrm{d}V\right) \int_0^t \frac{\partial^2 b_k}{\partial \tau^2}e^{j\omega' \tau}  \mathrm{d}\tau \right]
+a(\omega, t) = e^{-j\omega' t}\left[ a_\mathrm{in}(\omega) - \frac{1}{j2\omega}\sum_{k}\left(\int_V e^{-j\beta x}\boldsymbol{e}_a \cdot \chi_a\boldsymbol{e}_k \mathrm{d}V\right) \int_0^t \frac{\partial^2 b_k}{\partial \tau^2}e^{j\omega' \tau}  \mathrm{d}\tau \right]
 $$
 这里 $\omega'$ 是 $\omega$ 的函数，并很接近 $\omega$ 本身
 $$
-\omega' = \frac{2 + \int_V \boldsymbol{e}^\ast_a \cdot \chi_b \boldsymbol{e}_a \mathrm{d}V}{2 + 2\int_V \boldsymbol{e}^\ast_a \cdot \chi_b \boldsymbol{e}_a \mathrm{d}V}\omega \approx \omega
+\omega' = \frac{2 + \int_V \boldsymbol{e}_a \cdot \chi_b \boldsymbol{e}_a \mathrm{d}V}{2 + 2\int_V \boldsymbol{e}_a \cdot \chi_b \boldsymbol{e}_a \mathrm{d}V}\omega \approx \omega
 $$
 代入之前利用振幅缓变近似得到的两个结果，上式成为
 $$
-a(\omega, t) = e^{-j\omega' t}\left[ a_\mathrm{in}(\omega) + \frac{1}{j2\omega}\sum_{k} \left(\int_V \boldsymbol{e}^\ast_a \cdot \chi_a\boldsymbol{e}_k \mathrm{d}V\right) \int_0^t \omega_k^2 b_ke^{j\omega' \tau}  \mathrm{d}\tau \right]
+a(\omega, t) = e^{-j\omega' t}\left[ a_\mathrm{in}(\omega) + \frac{1}{j2\omega}\sum_{k} \left(\int_V e^{-j\beta x}\boldsymbol{e}_a \cdot \chi_a\boldsymbol{e}_k \mathrm{d}V\right) \int_0^t \omega_k^2 b_ke^{j\omega' \tau}  \mathrm{d}\tau \right]
 \tag{Bath}
 $$
 ___
 
 将式 (Bath) 代回 (Cavity) ，重点就落在了对 $\partial a^2/\partial t^2$ 的计算上。这只需要按部就班即可，事实上一阶导直接由常微分方程本身给出
 $$
-\frac{\partial a}{\partial t} = -j\omega'a(\omega, t) + \frac{1}{2j\omega} \sum_k \frac{\int_V \boldsymbol{e}^\ast_a \cdot \chi_a \boldsymbol{e}_k \mathrm{d}V}{1 + \int_V \boldsymbol{e}^\ast_a \cdot \chi_b \boldsymbol{e}_a \mathrm{d}V} \omega_k^2 b_k
+\frac{\partial a}{\partial t} = -j\omega'a(\omega, t) + \frac{1}{2j\omega} \sum_k \frac{\int_V e^{-j\beta x}\boldsymbol{e}_a \cdot \chi_a \boldsymbol{e}_k \mathrm{d}V}{1 + \int_V \boldsymbol{e}_a \cdot \chi_b \boldsymbol{e}_a \mathrm{d}V} \omega_k^2 b_k
 $$
 所以二阶导就是对上式求一次导数，然后将 $\partial a/\partial t$ 再代入即可
 $$
-\frac{\partial^2 a}{\partial t^2} = -\omega'^2 a - \frac{\omega_k^2(\omega_k+\omega')}{2\omega} \sum_k \frac{\int_V \boldsymbol{e}^\ast_a \cdot \chi_a \boldsymbol{e}_k \mathrm{d}V}{1 + \int_V \boldsymbol{e}^\ast_a \cdot \chi_b \boldsymbol{e}_a \mathrm{d}V} b_k
+\frac{\partial^2 a}{\partial t^2} = -\omega'^2 a - \frac{\omega_k^2(\omega_k+\omega')}{2\omega} \sum_k \frac{\int_V e^{-j\beta x}\boldsymbol{e}_a \cdot \chi_a \boldsymbol{e}_k \mathrm{d}V}{1 + \int_V \boldsymbol{e}_a \cdot \chi_b \boldsymbol{e}_a \mathrm{d}V} b_k
 $$
 ___
 
@@ -151,12 +151,14 @@ ___
 $$
 \begin{aligned}
 & \frac{\partial b_i}{\partial t}
-+ j\omega_i\left[1 + \frac{\omega_i+\omega'}{4\omega}\frac{\left(\int_V \boldsymbol{e}^\ast_i \cdot \chi_b \boldsymbol{e}_a \mathrm{d}V \right) \left(\int_V \boldsymbol{e}^\ast_a \cdot \chi_a \boldsymbol{e}_i \mathrm{d}V \right)}{1 + \int_V \boldsymbol{e}^\ast_a \cdot \chi_b \boldsymbol{e}_a \mathrm{d}V}\right] b_i \\[12pt]
-+& \int_0^\infty \frac{\omega'^2}{4\omega_i\omega} \left(\int_V \boldsymbol{e}^\ast_i \cdot \chi_b\boldsymbol{e}_a \mathrm{d}V\right)\left(\int_V \boldsymbol{e}^\ast_a \cdot \chi_a\boldsymbol{e}_i \mathrm{d}V\right) \omega_i^2 b_i e^{-j\omega'(t-\tau)}\mathrm{d}\omega \\[12pt]
--& j\sum_{k \neq i} \left( \int_V \boldsymbol{e}^\ast_i \cdot \chi_a\boldsymbol{e}_k \mathrm{d}V \right) \frac{\omega_k^2}{2\omega_i}\left[ 1 - \frac{\omega_k-\omega'}{2\omega}\frac{\left( \int_V \boldsymbol{e}^\ast_i \cdot \chi_b\boldsymbol{e}_a \mathrm{d}V \right) \left( \int_V \boldsymbol{e}^\ast_a \cdot \chi_a \boldsymbol{e}_k \mathrm{d}V \right)}{1 + \int_V \boldsymbol{e}^\ast_a \cdot \chi_b \boldsymbol{e}_a \mathrm{d}V} \right] b_k \\[12pt]
-+& \sum_{k \neq i} \int_0^\infty \frac{\omega'^2}{4\omega_i\omega} \left(\int_V \boldsymbol{e}^\ast_i \cdot \chi_b\boldsymbol{e}_a \mathrm{d}V\right) \left(\int_V \boldsymbol{e}^\ast_a \cdot \chi_a\boldsymbol{e}_k \mathrm{d}V\right) \omega_k^2 b_k e^{-j\omega'(t-\tau)}\mathrm{d}\omega \\[12pt]
-=& \int_0^\infty \frac{\omega'^2}{j2\omega_i} \left(\int_V \boldsymbol{e}^\ast_i \cdot \chi_b\boldsymbol{e}_a \mathrm{d}V\right) a_\mathrm{in}(\omega) e^{-j\omega' t}\mathrm{d}\omega
++ j\omega_i\left[1 + \frac{\omega_i+\omega'}{4\omega}\frac{\left(\int_V \boldsymbol{e}_i \cdot \chi_b e^{j\beta x}\boldsymbol{e}_a \mathrm{d}V \right) \left(\int_V e^{-j\beta x}\boldsymbol{e}_a \cdot \chi_a \boldsymbol{e}_i \mathrm{d}V \right)}{1 + \int_V \boldsymbol{e}_a \cdot \chi_b \boldsymbol{e}_a \mathrm{d}V}\right] b_i \\[12pt]
++& \int_0^\infty \frac{\omega'^2}{4\omega_i\omega} \left(\int_V \boldsymbol{e}_i \cdot \chi_b e^{j\beta x}\boldsymbol{e}_a \mathrm{d}V \right) \left(\int_V e^{-j\beta x}\boldsymbol{e}_a \cdot \chi_a \boldsymbol{e}_i \mathrm{d}V \right) \int_0^t  \omega_i^2 b_i e^{-j\omega'(t-\tau)} \mathrm{d}\tau \mathrm{d}\omega \\[12pt]
+-& j\sum_{k \neq i} \left( \int_V \boldsymbol{e}_i \cdot \chi_a\boldsymbol{e}_k \mathrm{d}V \right) \frac{\omega_k^2}{2\omega_i}\left[ 1 - \frac{\omega_k+\omega'}{2\omega}\frac{\left(\int_V \boldsymbol{e}_i \cdot \chi_b e^{j\beta x}\boldsymbol{e}_a \mathrm{d}V \right) \left(\int_V e^{-j\beta x}\boldsymbol{e}_a \cdot \chi_a \boldsymbol{e}_k \mathrm{d}V \right)}{1 + \int_V \boldsymbol{e}_a \cdot \chi_b \boldsymbol{e}_a \mathrm{d}V} \right] b_k \\[12pt]
++& \sum_{k \neq i} \int_0^\infty \frac{\omega'^2}{4\omega_i\omega} \left(\int_V \boldsymbol{e}_i \cdot \chi_b e^{j\beta x}\boldsymbol{e}_a \mathrm{d}V \right) \left(\int_V e^{-j\beta x}\boldsymbol{e}_a \cdot \chi_a \boldsymbol{e}_k \mathrm{d}V \right) \int_0^t \omega_k^2 b_k e^{-j\omega'(t-\tau)} \mathrm{d}\tau \mathrm{d}\omega \\[12pt]
+=& \int_0^\infty \frac{\omega'^2}{j2\omega_i} \left(\int_V \boldsymbol{e}_i \cdot \chi_b e^{j\beta x}\boldsymbol{e}_a \mathrm{d}V\right) a_\mathrm{in}(\omega) e^{-j\omega' t}\mathrm{d}\omega
 \end{aligned}
 $$
 
 # 标准形式化
+
+## 互易近似
