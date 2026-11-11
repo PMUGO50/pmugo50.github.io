@@ -8,7 +8,7 @@ description: 对Maxwell方程组应用WKB近似得到耦合模方程
 
 # 正交本征模
 
-以下全程采用 Gauss 单位制，因而真空介电常数和真空磁导率都是 1 ，所有过程都可以参照  <span style="color:#417FBE; font-style:italic">M. Gorodetsky and V. Ilchenko, "Optical microsphere resonators: optimal coupling to high-Q whispering-gallery modes," J. Opt. Soc. Am. B, vol. 16, pp. 147(1999).</span> 
+以下全程采用 Gauss 单位制，因而真空介电常数和真空磁导率都是 1 ，所有过程都可以参照 <span style="color:#417FBE; font-style:italic">M. Gorodetsky and V. Ilchenko, "Optical microsphere resonators: optimal coupling to high-Q whispering-gallery modes," J. Opt. Soc. Am. B, vol. 16, pp. 147(1999).</span> 
 
 忽略非线性效应和折射率的时变，即只考虑**互易定理得到满足**的情况。将 Maxwell 方程组的第三式（Faraday 电磁感应定律）和第四式（Ampere-Maxwell 环路定律）互相代入，并利用无源条件下的第一式（Gauss 定律），就得到波方程
 $$
@@ -32,7 +32,7 @@ $$
 $$
 \boldsymbol{E}_a(\boldsymbol{r},t) = \int_0^\infty a(\omega) e^{-j(\omega t-\beta x)} \boldsymbol{e}_a(\boldsymbol{r}) \mathrm{d}\omega
 $$
-这里行波的意义由 $e^{j\beta x}$ 表出，所以 $\boldsymbol{e}_a$ 也是实的。另外它也要满足波方程，也就是说 $\boldsymbol{e}_a$ 同样也满足
+这里设定了光传播方向为 $x$ ，行波的意义由 $e^{j\beta x}$ 表出，所以 $\boldsymbol{e}_a$ 也是实的。另外它也要满足波方程，也就是说 $\boldsymbol{e}_a$ 同样也满足
 $$
 \nabla \times (\nabla \times \boldsymbol{e}_a) - \frac{\varepsilon_a\omega^2}{c^2}\boldsymbol{e}_a = 0
 $$
@@ -162,3 +162,49 @@ $$
 # 标准形式化
 
 ## 互易近似
+
+上面出现的两个积分可以重新写为
+$$
+\begin{aligned}
+& \int_V \boldsymbol{e}_i \cdot \chi_b e^{j\beta x}\boldsymbol{e}_a \mathrm{d}V = \int_{-\infty}^{+\infty} \left(\int_{S(x)} \boldsymbol{e}_i \cdot \chi_b \boldsymbol{e}_a \mathrm{d}S\right)e^{j\beta x} \mathrm{d}x \\[12pt]
+& \int_V e^{-j\beta x}\boldsymbol{e}_a \cdot \chi_a \boldsymbol{e}_k \mathrm{d}V = \int_{-\infty}^{+\infty} \left(\int_{S(x)} \boldsymbol{e}_a \cdot \chi_a \boldsymbol{e}_k \mathrm{d}S\right)e^{-j\beta x} \mathrm{d}x
+\end{aligned}
+$$
+在一定的条件下它们几乎是共轭的。为此要用到“广义互易定理”，以下这部分见 <span style="color:#417FBE; font-style:italic">S. Chuang, "A coupled mode formulation by reciprocity and a variational principle," J. Lightw. Technol., vol. 5, pp. 5(1987).</span> 
+
+考虑两个特殊情况：在空间中只有腔时，腔内只存在一个模式 $\boldsymbol{E}_b = b_ke^{-j\omega_k t}\boldsymbol{e}_k$ ；在空间中只有热池时，热池中只有单色光 $\boldsymbol{E}_a = a(\omega_k)e^{-j(\omega_k t-\beta_k x)} \boldsymbol{e}_a$ ；现在写出互易关系式，就有
+$$
+\begin{aligned}
+& \nabla \cdot \left( \boldsymbol{E}_a \times \boldsymbol{H}_b - \boldsymbol{E}_b \times \boldsymbol{H}_a \right) \\[12pt]
+=& \left(\nabla \times \boldsymbol{E}_a\right) \cdot \boldsymbol{H}_b - \left(\nabla \times \boldsymbol{H}_b\right) \cdot \boldsymbol{E}_a - \left(\nabla \times \boldsymbol{E}_b\right) \cdot \boldsymbol{H}_a + \left(\nabla \times \boldsymbol{H}_a\right) \cdot \boldsymbol{E}_b
+\end{aligned}
+$$
+应用 Maxwell 方程组的第三式和第四式，并考虑到在目前两束光都是同频、单色的情况下，对时间的偏导成为 $-j\omega_k$ 的数乘。另外，从一开始就假定了折射率是非时变的，所以不参与对时间求导，上式就成为
+
+{% note primary %}
+
+**广义互易定理**：记两束光（以 $a,b$ 标记）的频率都是 $\omega_k$ ，它们分别感应到 $\chi_a, \chi_b$ 的极化率，那么它们始终服从
+$$
+\nabla \cdot \left( \boldsymbol{E}_a \times \boldsymbol{H}_b - \boldsymbol{E}_b \times \boldsymbol{H}_a \right) = -j\omega_k(\chi_a-\chi_b)\boldsymbol{E}_a \cdot \boldsymbol{E}_b
+$$
+{% endnote %}
+
+对这个定理两侧取 $yz$ 平面上的积分，就有
+$$
+\frac{\partial}{\partial x} \int_{S(x)} \left( \boldsymbol{E}_a \times \boldsymbol{H}_b - \boldsymbol{E}_b \times \boldsymbol{H}_a \right) \cdot \hat{\boldsymbol{x}}\mathrm{d}S = -j\omega_k a(\omega_k)b_ke^{j\beta_k x} \left( \int_{S(x)} \boldsymbol{e}_a \cdot \chi_a \boldsymbol{e}_k \mathrm{d}S - \int_{S(x)} \boldsymbol{e}_k \cdot \chi_b \boldsymbol{e}_a \mathrm{d}S \right)
+$$
+如此一来要是左式为零，也就是说左式中的积分沿着热池光的传播方向守恒，那么右式中的两个积分就将相等。至于左式中这个积分为何能（至少在所关心的耦合区域内）守恒，个人感觉可以用光功率守恒的角度解释
+
+{% note danger %}
+
+**互易近似**：记腔和热池单独存在时的电场分布分别是 $\boldsymbol{E}_b = b_ke^{-j\omega_k t}\boldsymbol{e}_k$ ，$\boldsymbol{E}_a = a(\omega_k)e^{-j(\omega_k t-\beta_k x)} \boldsymbol{e}_a$ ，它们分别感应到 $\chi_a, \chi_b$ 的极化率，假设沿着 $x$ 始终有守恒关系
+$$
+\frac{\partial}{\partial x} \int_{S(x)} \left( \boldsymbol{E}_a \times \boldsymbol{H}_b - \boldsymbol{E}_b \times \boldsymbol{H}_a \right) \cdot \hat{\boldsymbol{x}}\mathrm{d}S = 0
+$$
+那么就存在
+$$
+\int_{S(x)} \boldsymbol{e}_a \cdot \chi_a \boldsymbol{e}_k \mathrm{d}S = \int_{S(x)} \boldsymbol{e}_k \cdot \chi_b \boldsymbol{e}_a \mathrm{d}S
+$$
+{% endnote %}
+
+总之，在使用互易近似之后，
