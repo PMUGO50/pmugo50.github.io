@@ -94,7 +94,10 @@ $$
 $$
 将这个结果代回式 (2) 之后，并对方程两侧同时对 $\boldsymbol{e}_i$ 作内积，就可以得到
 $$
-\sum_k \left[2j\omega_k\frac{\partial b_k}{\partial t}\int_V \boldsymbol{e}_i \cdot (1 + \chi_b + \chi_a)\boldsymbol{e}_k \mathrm{d}V - \omega_k^2 b_k\int_V \boldsymbol{e}_i \cdot [2(1+\chi_b)+\chi_a]\boldsymbol{e}_k \mathrm{d}V\right] = -\int_0^\infty\frac{\partial^2 a}{\partial t^2} \left(\int_V \boldsymbol{e}_i \cdot \chi_be^{j\beta x}\boldsymbol{e}_a \mathrm{d}V\right) \mathrm{d}\omega
+\begin{aligned}
+& \sum_k \left[2j\omega_k\frac{\partial b_k}{\partial t}\int_V \boldsymbol{e}_i \cdot (1 + \chi_b + \chi_a)\boldsymbol{e}_k \mathrm{d}V - \omega_k^2 b_k\int_V \boldsymbol{e}_i \cdot [2(1+\chi_b)+\chi_a]\boldsymbol{e}_k \mathrm{d}V\right] \\[12pt]
+=& -\int_0^\infty\frac{\partial^2 a}{\partial t^2} \left(\int_V \boldsymbol{e}_i \cdot \chi_be^{j\beta x}\boldsymbol{e}_a \mathrm{d}V\right) \mathrm{d}\omega
+\end{aligned}
 $$
 
 利用正交性定义 $\int_V \boldsymbol{e}_i \cdot (1+\chi_b)\boldsymbol{e}_k \mathrm{d}V = \delta_{ik}$ 得到
