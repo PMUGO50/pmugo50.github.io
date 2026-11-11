@@ -147,13 +147,13 @@ $$
 $$
 ___
 
-将上式代回 (Cavity) 得到一个庞大的方程
+将上式代回 (Cavity) 得到一个庞大的**耦合方程**
 $$
 \begin{aligned}
 & \frac{\partial b_i}{\partial t}
 + j\omega_i\left[1 + \frac{\omega_i+\omega'}{4\omega}\frac{\left(\int_V \boldsymbol{e}_i \cdot \chi_b e^{j\beta x}\boldsymbol{e}_a \mathrm{d}V \right) \left(\int_V e^{-j\beta x}\boldsymbol{e}_a \cdot \chi_a \boldsymbol{e}_i \mathrm{d}V \right)}{1 + \int_V \boldsymbol{e}_a \cdot \chi_b \boldsymbol{e}_a \mathrm{d}V}\right] b_i \\[12pt]
 +& \int_0^\infty \frac{\omega'^2}{4\omega_i\omega} \left(\int_V \boldsymbol{e}_i \cdot \chi_b e^{j\beta x}\boldsymbol{e}_a \mathrm{d}V \right) \left(\int_V e^{-j\beta x}\boldsymbol{e}_a \cdot \chi_a \boldsymbol{e}_i \mathrm{d}V \right) \int_0^t  \omega_i^2 b_i e^{-j\omega'(t-\tau)} \mathrm{d}\tau \mathrm{d}\omega \\[12pt]
--& j\sum_{k \neq i} \left( \int_V \boldsymbol{e}_i \cdot \chi_a\boldsymbol{e}_k \mathrm{d}V \right) \frac{\omega_k^2}{2\omega_i}\left[ 1 - \frac{\omega_k+\omega'}{2\omega}\frac{\left(\int_V \boldsymbol{e}_i \cdot \chi_b e^{j\beta x}\boldsymbol{e}_a \mathrm{d}V \right) \left(\int_V e^{-j\beta x}\boldsymbol{e}_a \cdot \chi_a \boldsymbol{e}_k \mathrm{d}V \right)}{1 + \int_V \boldsymbol{e}_a \cdot \chi_b \boldsymbol{e}_a \mathrm{d}V} \right] b_k \\[12pt]
+-& j\sum_{k \neq i} \frac{\omega_k^2}{2\omega_i}\left( \int_V \boldsymbol{e}_i \cdot \chi_a\boldsymbol{e}_k \mathrm{d}V \right) \left[ 1 - \frac{\omega_k+\omega'}{2\omega}\frac{\left(\int_V \boldsymbol{e}_i \cdot \chi_b e^{j\beta x}\boldsymbol{e}_a \mathrm{d}V \right) \left(\int_V e^{-j\beta x}\boldsymbol{e}_a \cdot \chi_a \boldsymbol{e}_k \mathrm{d}V \right)}{1 + \int_V \boldsymbol{e}_a \cdot \chi_b \boldsymbol{e}_a \mathrm{d}V} \right] b_k \\[12pt]
 +& \sum_{k \neq i} \int_0^\infty \frac{\omega'^2}{4\omega_i\omega} \left(\int_V \boldsymbol{e}_i \cdot \chi_b e^{j\beta x}\boldsymbol{e}_a \mathrm{d}V \right) \left(\int_V e^{-j\beta x}\boldsymbol{e}_a \cdot \chi_a \boldsymbol{e}_k \mathrm{d}V \right) \int_0^t \omega_k^2 b_k e^{-j\omega'(t-\tau)} \mathrm{d}\tau \mathrm{d}\omega \\[12pt]
 =& \int_0^\infty \frac{\omega'^2}{j2\omega_i} \left(\int_V \boldsymbol{e}_i \cdot \chi_b e^{j\beta x}\boldsymbol{e}_a \mathrm{d}V\right) a_\mathrm{in}(\omega) e^{-j\omega' t}\mathrm{d}\omega
 \end{aligned}
@@ -161,9 +161,27 @@ $$
 
 # 标准形式化
 
+## Markov 近似
+
+首先，耦合方程的右侧的积分
+$$
+\int_V \boldsymbol{e}_i \cdot \chi_b e^{j\beta x}\boldsymbol{e}_a \mathrm{d}V
+\tag{3}
+$$
+对于模式 $i$ 来讲，$\boldsymbol{e}_i$ 中一定有一个角向因子 $\cos(m_i\varphi)$ ，这里 $m_i$ 是角量子数，$\varphi$ 是经度角。所以如果 $\beta$ 与 $m_iR_i$ 相距甚远（$R_i$ 是模式距盘心的平均半径），那么这一项积分就成为对一个快变的正弦函数求均值，结果是零
+
+由于 $\beta, m_i$ 本身是 $\omega, \omega_i$ 的函数，因此这就要求：只有在 $\omega' \approx \omega_i$ 的时候才有明显的耦合，因此方程右侧可以加以简化为
+$$
+-j\frac{\omega_i}{2} \left(\int_V \boldsymbol{e}_i \cdot \chi_b e^{j\beta_i x}\boldsymbol{e}_a \mathrm{d}V\right) \int_0^\infty a_\mathrm{in}(\omega) e^{-j\omega' t}\mathrm{d}\omega = -j\frac{\omega_i}{2} \left(\int_V \boldsymbol{e}_i \cdot \chi_b e^{j\beta_i x}\boldsymbol{e}_a \mathrm{d}V\right) a_\mathrm{in}(t)
+$$
+这里 $\beta_i = m_i R_i$ ，不妨将这个系数就记为 $\zeta_i$ ，也就是
+$$
+\zeta_i = \frac{\omega'^2}{j2\omega_i} \left(\int_V \boldsymbol{e}_i \cdot \chi_b e^{j\beta_i x}\boldsymbol{e}_a \mathrm{d}V\right) \approx -j\frac{\omega_i}{2} \left(\int_V \boldsymbol{e}_i \cdot \chi_b e^{j\beta_i x}\boldsymbol{e}_a \mathrm{d}V\right)
+$$
+
 ## 互易近似
 
-上面出现的两个积分可以重新写为
+另外，耦合方程的左侧出现了多次“两个积分相乘”，这两个积分可以重新写为
 $$
 \begin{aligned}
 & \int_V \boldsymbol{e}_i \cdot \chi_b e^{j\beta x}\boldsymbol{e}_a \mathrm{d}V = \int_{-\infty}^{+\infty} \left(\int_{S(x)} \boldsymbol{e}_i \cdot \chi_b \boldsymbol{e}_a \mathrm{d}S\right)e^{j\beta x} \mathrm{d}x \\[12pt]
@@ -207,4 +225,43 @@ $$
 $$
 {% endnote %}
 
-总之，在使用互易近似之后，
+现在来看方程左边的一项
+$$
+\int_0^\infty \frac{\omega'^2}{4\omega_i\omega} \left(\int_V \boldsymbol{e}_i \cdot \chi_b e^{j\beta x}\boldsymbol{e}_a \mathrm{d}V \right) \left(\int_V e^{-j\beta x}\boldsymbol{e}_a \cdot \chi_a \boldsymbol{e}_k \mathrm{d}V \right) \int_0^t \omega_k^2 b_k e^{-j\omega'(t-\tau)} \mathrm{d}\tau \mathrm{d}\omega
+\tag{4}
+$$
+和上一节一样的理由，只有当 $\beta_k$ 很接近 $\beta_i$ ，也即 $\omega_k$ 很接近 $\omega_i$ 时，这一项才有明显的非零值。此时再代入上一节要求的 $\omega' \approx \omega \approx \omega_i$ ，该式近似成为
+$$
+\frac{\omega_i\omega_k}{4} \left(\int_V \boldsymbol{e}_i \cdot \chi_b e^{j\beta_i x}\boldsymbol{e}_a \mathrm{d}V \right) \left(\int_V \boldsymbol{e}_k \cdot \chi_b e^{j\beta_k x} \boldsymbol{e}_a \mathrm{d}V \right)^\ast \int_0^\infty \left(\int_0^t b_k e^{-j\omega'(t-\tau)} \mathrm{d}\tau\right) \mathrm{d}\omega
+$$
+那么不妨记
+$$
+\kappa_{ik} = \frac{\omega_i\omega_k}{4} \left(\int_V \boldsymbol{e}_i \cdot \chi_b e^{j\beta_i x}\boldsymbol{e}_a \mathrm{d}V \right) \left(\int_V \boldsymbol{e}_k \cdot \chi_b e^{j\beta_k x} \boldsymbol{e}_a \mathrm{d}V \right)^\ast = \zeta_i\zeta_k^\ast
+$$
+如此一来方程左侧的这一项最终成为 $\kappa_{ik} b_k(t)/2$ ，这里 1/2 是因为对 $\tau$ 从 $0$ 积分到 $t$ 是一个半边 Fourier 变换，因此产生了一个额外的折半系数
+
+特别地，对于方程左侧 $i=k$ 的这一项，上面的关系自然甚至不需要近似就成立，此时 $\kappa_{ii} = |\zeta_i|^2$ ，对应的项也就是 $\kappa_{ii}b_i/2$ 
+
+最后来看方程左侧的一个中括号里面的项
+$$
+\frac{\omega_k+\omega'}{2\omega}\frac{\left(\int_V \boldsymbol{e}_i \cdot \chi_b e^{j\beta x}\boldsymbol{e}_a \mathrm{d}V \right) \left(\int_V e^{-j\beta x}\boldsymbol{e}_a \cdot \chi_a \boldsymbol{e}_k \mathrm{d}V \right)}{1 + \int_V \boldsymbol{e}_a \cdot \chi_b \boldsymbol{e}_a \mathrm{d}V} \approx \frac{4\kappa_{ik}/\omega_i\omega_k}{1 + \int_V \boldsymbol{e}_a \cdot \chi_b \boldsymbol{e}_a \mathrm{d}V}
+\tag{5}
+$$
+它的效果是使得本征谐振频率发生偏移。不过这个偏移量是极其之小的，因为 $\kappa_{ii}$ 与模式 $i$ 的半宽（FWHM）在同一量级（这一点在完全形式化后对耦合方程进行 Fourier 变换得到谐振谱线就可以看出），而光学谐振腔的品质因子 $Q_i = \omega_i/\mathrm{FWHM}_i$ 一般很难低于 $10^5$ ，所以上式几乎为零
+
+## 形式量的物理意义
+
+经过以上近似，还剩下唯一没有处理的积分就是
+$$
+\frac{\omega_k^2}{2\omega_i}\int_V \boldsymbol{e}_i \cdot \chi_a\boldsymbol{e}_k \mathrm{d}V
+\tag{6}
+$$
+将其记为 $g_{ik}$ ，那么就可以将耦合方程彻底形式化地写为**耦合模方程** 
+$$
+\frac{\partial b_i}{\partial t} = -\left( j\omega_i + \frac{\kappa_{ii}}{2}\right) b_i - \sum_{k\neq i} \left( jg_{ik} + \frac{\kappa_{ik}}{2} \right) b_k + \zeta_i a_\mathrm{in}
+\tag{CMT}
+$$
+这些形式量的物理意义，可以经由能量的角度来考虑。对于腔内所有模式，它们都是驻波，因此总的能量变化率正比于
+$$
+\sum_i \frac{\partial}{\partial t}|b_i|^2 = \sum_i \left( b_i^\ast\frac{\partial b_i}{\partial t} + b_i\frac{\partial b_i^\ast}{\partial t} \right)
+$$
