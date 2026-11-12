@@ -124,6 +124,7 @@ $$
 同样地，选定 $\omega$ 之后，进行和上面完全一样的操作，与 $e^{j\beta x}\boldsymbol{e}_a$ 做内积就得到
 $$
 2j\omega\frac{\partial a}{\partial t}\left( 1 + \int_V \boldsymbol{e}_a \cdot \chi_b \boldsymbol{e}_a \mathrm{d}V \right) - \omega^2 a \left( 2 + \int_V \boldsymbol{e}_a \cdot \chi_b \boldsymbol{e}_a \mathrm{d}V \right)  = -\int_V e^{-j\beta x}\boldsymbol{e}_a \cdot \chi_a\frac{\partial^2 \boldsymbol{E}_b}{\partial t^2} \mathrm{d}V
+\tag{3}
 $$
 这是一个一阶微分方程，所以将 $\boldsymbol{E}_b$ 展开，并利用常数变易法或者通解公式即可得到
 $$
@@ -169,7 +170,7 @@ $$
 首先，耦合方程的右侧的积分
 $$
 \int_V \boldsymbol{e}_i \cdot \chi_b e^{j\beta x}\boldsymbol{e}_a \mathrm{d}V
-\tag{3}
+\tag{4}
 $$
 对于模式 $i$ 来讲，$\boldsymbol{e}_i$ 中一定有一个角向因子 $\cos(m_i\varphi)$ ，这里 $m_i$ 是角量子数，$\varphi$ 是经度角。所以如果 $\beta$ 与 $m_iR_i$ 相距甚远（$R_i$ 是模式距盘心的平均半径），那么这一项积分就成为对一个快变的正弦函数求均值，结果是零
 
@@ -231,9 +232,9 @@ $$
 现在来看方程左边的一项
 $$
 \int_0^\infty \frac{\omega'^2}{4\omega_i\omega} \left(\int_V \boldsymbol{e}_i \cdot \chi_b e^{j\beta x}\boldsymbol{e}_a \mathrm{d}V \right) \left(\int_V e^{-j\beta x}\boldsymbol{e}_a \cdot \chi_a \boldsymbol{e}_k \mathrm{d}V \right) \int_0^t \omega_k^2 b_k e^{-j\omega'(t-\tau)} \mathrm{d}\tau \mathrm{d}\omega
-\tag{4}
+\tag{5}
 $$
-和上一节一样的理由，只有当 $\beta_k$ 很接近 $\beta_i$ ，也即 $\omega_k$ 很接近 $\omega_i$ 时，这一项才有明显的非零值。此时再代入上一节要求的 $\omega' \approx \omega \approx \omega_i$ ，该式近似成为
+和上一节一样的理由，只有当 $\beta_k$ 很接近 $\beta_i$ ，也即 $\omega_k$ 很接近 $\omega_i$ 时，这一项才有明显的非零值。此时代入上一节要求的 $\omega' \approx \omega \approx \omega_i$ ，并应用互易近似，该式成为
 $$
 \frac{\omega_i\omega_k}{4} \left(\int_V \boldsymbol{e}_i \cdot \chi_b e^{j\beta_i x}\boldsymbol{e}_a \mathrm{d}V \right) \left(\int_V \boldsymbol{e}_k \cdot \chi_b e^{j\beta_k x} \boldsymbol{e}_a \mathrm{d}V \right)^\ast \int_0^\infty \left(\int_0^t b_k e^{-j\omega'(t-\tau)} \mathrm{d}\tau\right) \mathrm{d}\omega
 $$
@@ -245,26 +246,44 @@ $$
 
 特别地，对于方程左侧 $i=k$ 的这一项，上面的关系自然甚至不需要近似就成立，此时 $\kappa_{ii} = |\zeta_i|^2$ ，对应的项也就是 $\kappa_{ii}b_i/2$ 
 
-最后来看方程左侧的一个中括号里面的项
+然后来看方程左侧的一个中括号里面的项
 $$
 \frac{\omega_k+\omega'}{2\omega}\frac{\left(\int_V \boldsymbol{e}_i \cdot \chi_b e^{j\beta x}\boldsymbol{e}_a \mathrm{d}V \right) \left(\int_V e^{-j\beta x}\boldsymbol{e}_a \cdot \chi_a \boldsymbol{e}_k \mathrm{d}V \right)}{1 + \int_V \boldsymbol{e}_a \cdot \chi_b \boldsymbol{e}_a \mathrm{d}V} \approx \frac{4\kappa_{ik}/\omega_i\omega_k}{1 + \int_V \boldsymbol{e}_a \cdot \chi_b \boldsymbol{e}_a \mathrm{d}V}
-\tag{5}
+\tag{6}
 $$
 它的效果是使得本征谐振频率发生偏移。不过这个偏移量是极其之小的，因为 $\kappa_{ii}$ 与模式 $i$ 的半宽（FWHM）在同一量级（这一点在完全形式化后对耦合方程进行 Fourier 变换得到谐振谱线就可以看出），而光学谐振腔的品质因子 $Q_i = \omega_i/\mathrm{FWHM}_i$ 一般很难低于 $10^5$ ，所以上式几乎为零
 
-## 形式量的物理意义
+## 形式化方程
 
 经过以上近似，还剩下唯一没有处理的积分就是
 $$
 \frac{\omega_k^2}{2\omega_i}\int_V \boldsymbol{e}_i \cdot \chi_a\boldsymbol{e}_k \mathrm{d}V
-\tag{6}
+\tag{7}
 $$
-将其记为 $g_{ik}$ ，那么就可以将耦合方程彻底形式化地写为**耦合模方程** 
+将其记为 $g_{ik}$ ，那么就可以将耦合方程彻底形式化地写为
 $$
 \frac{\partial b_i}{\partial t} = -\left( j\omega_i + \frac{\kappa_{ii}}{2}\right) b_i - \sum_{k\neq i} \left( jg_{ik} + \frac{\kappa_{ik}}{2} \right) b_k + \zeta_i a_\mathrm{in}
-\tag{CMT}
 $$
-这些形式量的物理意义，可以经由能量的角度来考虑。对于腔内所有模式，它们都是驻波，因此总的能量变化率正比于
+这是**无损的第一个耦合模方程**
+
+> 在这里需要强调的是：从上面的推导过程可以看出，只有模式 $k$ 与模式 $i$ 的谐振频率相距甚近时， $g_{ik}, \kappa_{ik}$ 才会有明显的非零值
+
+另外，现在回到式 (Bath) ，它是式 (3) 的一个通解。不过通过改变积分号的上下限，还有另一种形式的通解
 $$
-\sum_i \frac{\partial}{\partial t}|b_i|^2 = \sum_i \left( b_i^\ast\frac{\partial b_i}{\partial t} + b_i\frac{\partial b_i^\ast}{\partial t} \right)
+a(\omega, t) = e^{-j\omega' t}\left[ a_\mathrm{thr}(\omega) - \frac{1}{j2\omega}\sum_{k} \left(\int_V e^{-j\beta x}\boldsymbol{e}_a \cdot \chi_a\boldsymbol{e}_k \mathrm{d}V\right) \int_t^\infty \omega_k^2 b_ke^{j\omega' \tau}  \mathrm{d}\tau \right]
 $$
+改变积分上下限的操作相当于反演光的注入方向，式 (Bath) 代表了光从热池注入腔，而该式代表了光从腔注入回热池。沿用上面所有的形式记号，上式将可以给出
+$$
+\frac{\partial b_i}{\partial t} = -\left( j\omega_i - \frac{\kappa_{ii}}{2}\right) b_i - \sum_{k\neq i} \left( jg_{ik} - \frac{\kappa_{ik}}{2} \right) b_k - \zeta_i a_\mathrm{thr}
+$$
+将它与第一个耦合模方程相减，并考虑到一般 $\kappa_{ik} \ll \kappa_{ii}$ ，且 $\kappa_{ii} = |\zeta_i|^2$ ，就得到**第二个耦合模方程** 
+$$
+a_\mathrm{thr}(t) = a_\mathrm{in}(t) - \zeta_i^\ast b_i(t)
+\tag{CMT2}
+$$
+最后，在经典理论中，Maxwell 方程默认电磁波的传输是无损耗的。在量子理论中，可以通过非 Hermitian 算子引入损耗，不过在这里，只能在形式上添加一个本征损耗，对于模式 $i$ ，记它为 $\gamma_i$ ，那么得到完整的**第一个耦合模方程** 
+$$
+\frac{\partial b_i}{\partial t} = -\left( j\omega_i + \frac{\gamma_i + \kappa_{ii}}{2}\right) b_i - \sum_{k\neq i} \left( jg_{ik} + \frac{\kappa_{ik}}{2} \right) b_k + \zeta_i a_\mathrm{thr}
+\tag{CMT1}
+$$
+不难看出来，由于改变光的注入方向并不影响 $\gamma_i$ 的符号，因此这一项并不影响第二个耦合模方程的成立
