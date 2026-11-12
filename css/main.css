@@ -1164,7 +1164,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #7dd2e4;
+  background: #5eba6f;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2514,19 +2514,19 @@ hr {
 /* 提示框（danger） */
 .post-body .note.danger,
 .note.danger {
-  background-color: #f8edf0;
-  border-left-color: #8b646e;
+  background-color: #faf0f6;
+  border-left-color: #e4a9c7;
 }
 .post-body .note.danger > i,
 .note.danger > i {
-  color: #8b646e;
+  color: #e4a9c7;
 }
 .post-body .note.danger::before,
 .post-body .note.danger::after,
 .note.danger::before,
 .note.danger::after {
-  background-color: #f8edf0;
-  border-left-color: #8b646e;
+  background-color: #faf0f6;
+  border-left-color: #e4a9c7;
 }
 .post-body .note,
 .note {
