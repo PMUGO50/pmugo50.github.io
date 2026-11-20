@@ -67,7 +67,7 @@ $$
 这里自然 $\Delta x = \mu\Delta t + \sigma\Delta w + o(\Delta t)$，$\Delta w \sim N(0, \sqrt{\Delta t})$，不妨用一个标准正态变量 $u$ 将其写为 $\Delta w = u\sqrt{\Delta t}$ ，如此一来将上式保留到一次项就有
 
 $$
-\Delta f = \frac{\partial f}{\partial x} (\mu\Delta t + \sigma u\sqrt{\Delta t}) + \frac{\partial f}{\partial t} \Delta t + \frac{1}{2}\frac{\partial^2 f}{\partial x^2} \sigma^2u^2\Delta t + o \left( \Delta t \right)
+\Delta f = \frac{\partial f}{\partial x} (\mu'\Delta t + \sigma u\sqrt{\Delta t}) + \frac{\partial f}{\partial t} \Delta t + \frac{1}{2}\frac{\partial^2 f}{\partial x^2} \sigma^2u^2\Delta t + o \left( \Delta t \right)
 $$
 
 令 $\Delta t \rightarrow 0$ ，得到极限形式的微分，并代回 $\Delta w = u\sqrt{\Delta t}$ 就有
@@ -158,7 +158,7 @@ r(\Delta t) = \left( \mu - \frac{\sigma^2}{2} \right) \Delta t + \sigma \Delta w
 $$
 {% endnote %}
 
-并且不同时间段内的 $r(\Delta t)$ 是相互独立的
+并且不同时间段内的 $r(\Delta t)$ 是相互独立的。在之后的一节，为方便将记 $\mu' = \mu - \sigma^2/2$ 
 
 # 矩的估计
 
@@ -173,14 +173,14 @@ $$
 求样本均值的期望
 
 $$
-\mathrm{E}(\bar{r}) = \frac{1}{T} \sum_{i=1}^n \mathrm{E}(r_i) = \left( \mu - \frac{\sigma^2}{2} \right)\frac{1}{T} \sum_{i=1}^n \Delta t_i = \mu - \frac{\sigma^2}{2}
+\mathrm{E}(\bar{r}) = \frac{1}{T} \sum_{i=1}^n \mathrm{E}(r_i) = \mu'\frac{1}{T} \sum_{i=1}^n \Delta t_i = \mu'
 $$
 
-随着 $T \rightarrow \infty$ ，方差趋向于零。因而由 Khinchin 大数定律，$\bar{r} \rightarrow \mu - \sigma^2/2$ 
+随着 $T \rightarrow \infty$ ，方差趋向于零。因而由 Khinchin 大数定律，$\bar{r} \rightarrow \mu' = \mu - \sigma^2/2$ 
 
 ## 样本方差
 
-记 $\mu' = \mu - \sigma^2/2$ ，并在以 $\bar{r}$ 作为期望的估计值的情况下，样本方差的估计值是
+在以 $\bar{r}$ 作为期望的估计值的情况下，样本方差的估计值是
 $$
 s^2 = \frac{1}{\Theta} \sum_{i=1}^n [r_i(\Delta t_i) - \bar{r}\Delta t_i]^2 \quad,\quad \Theta = T - \frac{1}{T}\sum_{i=1}^n (\Delta t_i)^2
 $$
@@ -242,6 +242,6 @@ $$
 特别地，偏度和峰度估计为
 
 $$
-\kappa_3 \approx \frac{b_3}{s^3} \quad,\quad \kappa_4 \approx \frac{b_4}{s^4}
+\hat{\kappa}_3 = \frac{b_3}{s^3} \quad,\quad \hat{\kappa}_4 = \frac{b_4}{s^4}
 $$
-超额峰度就是 $\kappa_{4,\mathrm{Ex}} = \kappa_4 -3$ 
+超额峰度就是 $\hat{\kappa}_{4,\mathrm{Ex}} = \hat{\kappa}_4 -3$ 

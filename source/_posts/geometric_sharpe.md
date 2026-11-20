@@ -3,7 +3,7 @@ title: 学生氏统计量的渐近分布
 date: 2026-10-28 12:15:40
 categories: 时间序列处理
 mathjax: true
-description: 几何Sharpe比率在不同的分布假设下的渐近统计特性
+description: 学生氏统计量在有限样本下的渐近统计特性
 ---
 
 # 学生氏检验
@@ -41,7 +41,7 @@ $$
 
 **收益率的样本往往不服从正态分布，而是具有负的偏度和正的超额峰度**
 
-当样本数足够大时，样本均值和样本方差都服从正态分布，学生氏统计量 $\mathcal{T}$ 作为它们的函数按照 Delta 方法也服从正态分布，因而检验问题退化为 Z 检验。但问题就在于：对于需要精准把控的置信度来说，样本量往往是不够大的（10 年也就才 3000 多天，更不用说许多证券上市可能甚至就几周）
+当样本数足够大时，样本均值和样本方差都服从正态分布，学生氏统计量 $\mathcal{T}$ 作为它们的函数按照 Delta 方法也服从正态分布，因而检验问题退化为 Z 检验。但问题就在于：对于需要精准把控的置信度来说，样本量不一定是足够大的
 
 这时就需要考虑 $\mathcal{T}$ 实际的渐近分布，这分为两步进行：首先考虑方差 $\sigma^2$ 能先验获得的情况，这时学生氏统计量退化为 Z 统计量；然后考虑用样本方差 $s^2$ 估计真实方差的情况
 
@@ -166,42 +166,40 @@ ___
 $$
 \mathcal{T} = z_n \left( 1-\frac{1}{n} \right)^{1/2} \left( 1 + \frac{v_n}{\sqrt{n}} - \frac{z_n^2}{n} \right)^{-1/2} = z_n - \frac{z_nv_n}{2}n^{-1/2} + \left(\frac{z_n^3}{2} + \frac{3z_nv_n^2}{8} - \frac{z_n}{2} \right)n^{-1} + o(n^{-1})
 $$
-将上式记为记 $\mathcal{T} = U + o(n^{-1})$ ，由于 $P(\mathcal{T} \leq \tau) = P(U \leq \tau-o(n^{-1}))$ ，所以在 $n^{-1}$ 这个精度下只需要计算 $U$ 的特征函数，并反演回概率密度函数或者累积分布函数即可。事实上这就是 **Delta 方法** 
-
 ## 特征函数的计算
 
-为了知道 $U$ 的特征函数，并在 Edgeworth 展开中保留到 $n^{-1}$ ，需要计算 $U$ 的前四阶原点矩 $\mathrm{E}(U^k)$ 
+为了知道 $\mathcal{T}$ 的特征函数，并在 Edgeworth 展开中保留到 $n^{-1}$ ，需要计算 $\mathcal{T}$ 的前四阶原点矩 $\mathrm{E}(\mathcal{T}^k)$ 
 
 1. 一阶中心矩：这里涉及到 $\mathrm{E}(z_n^3) = \kappa_3n^{-1/2}$ ，计算得到
    $$
-   \mathrm{E}(U) = -\frac{\kappa_3}{2}n^{-1/2} + o(n^{-1})
+   \mathrm{E}(\mathcal{T}) = -\frac{\kappa_3}{2}n^{-1/2} + o(n^{-1})
    $$
 
 2. 二阶中心矩：首先考虑保留的阶数，展开得到
    $$
-   \mathrm{E}(U^2) = \mathrm{E}\left[ z_n^2 - z_n^2v_n n^{-1/2} + \left(z_n^4 + z_n^2v_n^2 - z_n^2 \right)n^{-1} \right] + o(n^{-1})
+   \mathrm{E}(\mathcal{T}^2) = \mathrm{E}\left[ z_n^2 - z_n^2v_n n^{-1/2} + \left(z_n^4 + z_n^2v_n^2 - z_n^2 \right)n^{-1} \right] + o(n^{-1})
    $$
    这里涉及到 $\mathrm{E}(z_n^4) = 3 + (\kappa_4-3)n^{-1}$ ，$\mathrm{E}(z_n^2v_n) = (\kappa_4-1)n^{-1/2}$ ，以及 $\mathrm{E}(z_n^2v_n^2) = (\kappa_4-1) + 2\kappa_3^2 + o(1)$ ，如此一来得到
    $$
-   \mathrm{E}(U^2) = \left[ 1 + 2(1+\kappa_3^2)n^{-1} \right] + o(n^{-1})
+   \mathrm{E}(\mathcal{T}^2) = \left[ 1 + 2(1+\kappa_3^2)n^{-1} \right] + o(n^{-1})
    $$
 
 3. 三阶中心矩：同样，先考虑保留的阶数，展开得到
    $$
-   \mathrm{E}(U^3) = \mathrm{E}\left[ z_n^3 - \frac{3}{2}z_n^3v_n n^{-1/2} + \left(\frac{3}{2}z_n^5 + \frac{15}{8}z_n^3v_n^2 - \frac{3}{2}z_n^3 \right)n^{-1} \right] + o(n^{-1})
+   \mathrm{E}(\mathcal{T}^3) = \mathrm{E}\left[ z_n^3 - \frac{3}{2}z_n^3v_n n^{-1/2} + \left(\frac{3}{2}z_n^5 + \frac{15}{8}z_n^3v_n^2 - \frac{3}{2}z_n^3 \right)n^{-1} \right] + o(n^{-1})
    $$
    对 $n^{-1}$ 项的系数取期望后都是 $o(1)$ 的，所以这一项没有贡献，要考虑的只有 $\mathrm{E}(z_n^3v_n) = 3\kappa_3 + o(n^{-1/2})$ ，得到
    $$
-   \mathrm{E}(U^3) = -\frac{7}{2}\kappa_3 n^{-1/2} + o(n^{-1})
+   \mathrm{E}(\mathcal{T}^3) = -\frac{7}{2}\kappa_3 n^{-1/2} + o(n^{-1})
    $$
 
 4. 四阶中心矩：考虑保留的阶数，展开得到
    $$
-   \mathrm{E}(U^4) = \mathrm{E}\left[ z_n^4 - 2z_n^4v_n n^{-1/2} + \left(2z_n^6 + 3z_n^4v_n^2 - 2z_n^4 \right)n^{-1}\right] + o(n^{-1})
+   \mathrm{E}(\mathcal{T}^4) = \mathrm{E}\left[ z_n^4 - 2z_n^4v_n n^{-1/2} + \left(2z_n^6 + 3z_n^4v_n^2 - 2z_n^4 \right)n^{-1}\right] + o(n^{-1})
    $$
    这里涉及到 $\mathrm{E}(z_n^4v_n) = [4\kappa_3^2 + 6(\kappa_4-1)]n^{-1/2} + o(n^{-1})$ ，$\mathrm{E}(z_n^4v_n^2) = 3(\kappa_4-1) + 12\kappa_3^2 + o(1)$ ，以及 $\mathrm{E}(z_n^6) = 15 + o(n^{-1/2})$ ，于是
    $$
-   \mathrm{E}(U^4) = \left[ 3+\left(24 - 2\kappa_4 + 28\kappa_3^2 \right)n^{-1}\right] + o(n^{-1})
+   \mathrm{E}(\mathcal{T}^4) = \left[ 3+\left(24 - 2\kappa_4 + 28\kappa_3^2 \right)n^{-1}\right] + o(n^{-1})
    $$
 
 接下来先计算累积量，然后得到 CGF ，前四阶累积量是

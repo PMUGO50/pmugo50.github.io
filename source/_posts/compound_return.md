@@ -22,15 +22,15 @@ $$
 $$
 1 + R_\mathrm{Daily} = \exp\left[\frac{1}{N}\sum_{n=1}^N \ln\left( 1 + R_n\right)\right] = \exp\left(\frac{1}{N}\sum_{n=1}^N r_n\right)
 $$
-$ r_n $ 也被称作**对数收益率**。当长期持有时 $ N\rightarrow\infty $，如果求和收敛，按照大数定律，一般来讲它应当就是随机变量 $ r = \ln(1+R) $ 的期望 $ \mu'$ ，这个值也被称为**连续复合收益**，也即
+$ r_n $ 也被称作**对数收益率**。当长期持有时 $ N\rightarrow\infty $，如果求和收敛，按照大数定律，一般来讲它应当就是随机变量 $ r = \ln(1+R) $ 的期望 $ \mu$ ，这个值也被称为**连续复合收益**，也即
 
 {% note primary %}
 
 **命题2（连续复合收益）**：对于长期持有的证券，平均收益率 $R_\mathrm{Daily}$ 将是
 $$
-R_\mathrm{Daily} = e^{ \mu'} - 1 \quad,\quad  \mu' = \mathrm{E}[\ln(1+R)]
+R_\mathrm{Daily} = e^{ \mu} - 1 \quad,\quad  \mu = \mathrm{E}[\ln(1+R)]
 $$
-这表明要靠长期持有证券获利，需要满足 $  \mu'=\mathrm{E}[\ln(1+R)]>0 $ 
+这表明要靠长期持有证券获利，需要满足 $\mu=\mathrm{E}[\ln(1+R)]>0 $ 
 
 {% endnote %}
 
@@ -48,12 +48,12 @@ $$
 
 将对数函数进行 Taylor 展开，得到
 $$
- \mu' = \mathrm{E}\left[ \sum_{k=1}^\infty \frac{(-1)^{k-1}}{k}r^k\right] =  \mathrm{E}(R) - \frac{\mathrm{E}(R^2)}{2} + \frac{\mathrm{E}(R^3)}{3} - \frac{\mathrm{E}(R^4)}{4} + \cdots
+\mu = \mathrm{E}\left[ \sum_{k=1}^\infty \frac{(-1)^{k-1}}{k}r^k\right] =  \mathrm{E}(R) - \frac{\mathrm{E}(R^2)}{2} + \frac{\mathrm{E}(R^3)}{3} - \frac{\mathrm{E}(R^4)}{4} + \cdots
 $$
 
 这里保留到 $R$ 的四阶矩——即保留期望、方差、偏度、峰度这四个统计量——上式成为
 $$
-\mu' = \mu_R - \frac{\sigma_R^2}{2} + \frac{\kappa_{3,R}}{3}\sigma^3_R - \frac{\kappa_{4,R}}{4}\sigma^4_R
+\mu = \mu_R - \frac{\sigma_R^2}{2} + \frac{\kappa_{3,R}}{3}\sigma^3_R - \frac{\kappa_{4,R}}{4}\sigma^4_R
 $$
 这里假定简单收益率的期望 $\mu_R$ 和方差 $\sigma^2_R$ 拥有相同的量级，这也比较符合一般的情况；并且保留 $\mu_R,\ \sigma^2$ 都到一阶，特别地，对于含 $k$ 阶矩的部分，允许保留到 $\kappa_{k,R} \sigma^k_R$ 
 
@@ -65,7 +65,7 @@ $$
 
 {% note primary %}
 
-**命题4**：连续复合收益与简单收益率的期望和方差之间近似有 $\mu' \approx \mu_R - \sigma_R^2/2$ 
+**命题4**：连续复合收益与简单收益率的期望和方差之间近似有 $\mu \approx \mu_R - \sigma_R^2/2$ 
 
 {% endnote %}
 
@@ -73,29 +73,29 @@ $$
 
 ## 简单收益率的期望
 
-另一方面，也可以在已知对数收益率相关统计量的情况下，求一段时间内的简单收益率，特别地一般就取年化值。当统计的天数够多时，命题2表明当 $N \rightarrow \infty$ 时，$R_\mathrm{Daily} \rightarrow e^{\mu'} - 1$ ，从而年化收益率是
+另一方面，也可以在已知对数收益率相关统计量的情况下，求一段时间内的简单收益率，特别地一般就取年化值。当统计的天数够多时，命题2表明当 $N \rightarrow \infty$ 时，$R_\mathrm{Daily} \rightarrow e^{\mu} - 1$ ，从而年化收益率是
 $$
-R'_\mathrm{Annual} = \lim_{N \rightarrow \infty}(1 + R_\mathrm{Daily})^{N_\mathrm{A}} - 1 = e^{\mu'N_\mathrm{A}} - 1
+R'_\mathrm{Annual} = \lim_{N \rightarrow \infty}(1 + R_\mathrm{Daily})^{N_\mathrm{A}} - 1 = e^{\mu N_\mathrm{A}} - 1
 $$
  这里 $N_\mathrm{A}$ 是一年中的交易日数量，它一般约等于 252
 
 然而，一般来说金融机构和各类软件披露出的年化收益率是这样计算的：
 $$
-1+R_\mathrm{Annual} = e^v \quad,\quad v = \sum_{n=1}^{N_\mathrm{A}} r_n \sim N\left(\mu'N_\mathrm{A}, \sigma^2N_\mathrm{A}\right)
+1+R_\mathrm{Annual} = e^v \quad,\quad v = \sum_{n=1}^{N_\mathrm{A}} r_n \sim N\left(\mu N_\mathrm{A}, \sigma^2N_\mathrm{A}\right)
 $$
-这里 $\mu'$ 仍然是对数收益率分布的期望，$\sigma$ 是对数收益率分布的标准差，正态分布是中心极限定理的结果。来求简单收益率 $R_\mathrm{Annual}$ 的期望
+这里 $\mu$ 仍然是对数收益率分布的期望，$\sigma$ 是对数收益率分布的标准差，正态分布是中心极限定理的结果。来求简单收益率 $R_\mathrm{Annual}$ 的期望
 $$
 \mathrm{E}(R_\mathrm{Annual}) = \mathrm{E}(e^v) - 1 = \frac{1}{\sqrt{2\pi N_\mathrm{A}}\sigma}\int_{-\infty}^{+\infty} e^v \exp\left[-\frac{(v-\mu'N_\mathrm{A})^2}{2\sigma^2N_\mathrm{A}}\right] \mathrm{d}v - 1
 $$
 指数上的部分是一个二次式，可以化为完全平方带上一个常数的形式，即
 
 $$
-v - \frac{(v-\mu'N_\mathrm{A})^2}{2\sigma^2N_\mathrm{A}} = -\frac{1}{2\sigma^2N_\mathrm{A}}\left[ v - \left(\mu'N_\mathrm{A}+\sigma^2N_\mathrm{A}\right) \right]^2 + \left(\mu'N_\mathrm{A} + \frac{\sigma^2}{2}N_\mathrm{A} \right)
+v - \frac{(v-\mu N_\mathrm{A})^2}{2\sigma^2N_\mathrm{A}} = -\frac{1}{2\sigma^2N_\mathrm{A}}\left[ v - \left(\mu N_\mathrm{A}+\sigma^2N_\mathrm{A}\right) \right]^2 + \left(\mu N_\mathrm{A} + \frac{\sigma^2}{2}N_\mathrm{A} \right)
 $$
 代入积分就有
 
 $$
-\mathrm{E}(R_\mathrm{Annual}) = e^{\mu'N_\mathrm{A} + \sigma^2N_\mathrm{A}/2} \int_{-\infty}^{+\infty} \frac{1}{\sqrt{2\pi N_\mathrm{A}}\sigma}\exp\left[-\frac{(v-\mu'N_\mathrm{A}-\sigma^2N_\mathrm{A})^2}{2\sigma^2N_\mathrm{A}}\right] \mathrm{d}v - 1 = e^{\mu'N_\mathrm{A} + \sigma^2N_\mathrm{A}/2} - 1
+\mathrm{E}(R_\mathrm{Annual}) = e^{\mu N_\mathrm{A} + \sigma^2N_\mathrm{A}/2} \int_{-\infty}^{+\infty} \frac{1}{\sqrt{2\pi N_\mathrm{A}}\sigma}\exp\left[-\frac{(v-\mu N_\mathrm{A}-\sigma^2N_\mathrm{A})^2}{2\sigma^2N_\mathrm{A}}\right] \mathrm{d}v - 1 = e^{\mu N_\mathrm{A} + \sigma^2N_\mathrm{A}/2} - 1
 $$
 
 然后就会发现 $R'_\mathrm{Annual}<\mathrm{E}(R_\mathrm{Annual})$ ；这是因为连乘不是线性操作，因此先乘后求期望和先求期望后乘的意义不同，具体来说
@@ -120,13 +120,13 @@ ___
 
 同样在 $N \approx 252$ 的情况下，简单收益率的方差将是
 $$
-\mathrm{Var}(R_\mathrm{Annual}) = \mathrm{E}\left[\left( R_\mathrm{Annual}-\mathrm{E}(R_\mathrm{Annual}) \right)^2 \right] = \mathrm{E}\left[\left( e^v-\mathrm{E}(e^v) \right)^2 \right] = \mathrm{E}(e^{2v}) - e^{2(\mu'N_\mathrm{A} + \sigma^2N_\mathrm{A}/2)}
+\mathrm{Var}(R_\mathrm{Annual}) = \mathrm{E}\left[\left( R_\mathrm{Annual}-\mathrm{E}(R_\mathrm{Annual}) \right)^2 \right] = \mathrm{E}\left[\left( e^v-\mathrm{E}(e^v) \right)^2 \right] = \mathrm{E}(e^{2v}) - e^{2(\mu N_\mathrm{A} + \sigma^2N_\mathrm{A}/2)}
 $$
 对于 $\mathrm{E}(e^{2v})$ ，计算方法和期望时一样，与正态分布的概率密度函数结合后可以化为一个二次式，结果是
 $$
-\mathrm{E}(e^{2v}) = e^{2(\mu'N_\mathrm{A} + \sigma^2N_\mathrm{A})} \int_{-\infty}^{+\infty} \frac{1}{\sqrt{2\pi N_\mathrm{A}}\sigma}\exp\left[-\frac{(v-\mu'N_\mathrm{A}-2\sigma^2N_\mathrm{A})^2}{2\sigma^2N_\mathrm{A}}\right] \mathrm{d}v = e^{2(\mu'N_\mathrm{A} + \sigma^2N_\mathrm{A})}
+\mathrm{E}(e^{2v}) = e^{2(\mu N_\mathrm{A} + \sigma^2N_\mathrm{A})} \int_{-\infty}^{+\infty} \frac{1}{\sqrt{2\pi N_\mathrm{A}}\sigma}\exp\left[-\frac{(v-\mu N_\mathrm{A}-2\sigma^2N_\mathrm{A})^2}{2\sigma^2N_\mathrm{A}}\right] \mathrm{d}v = e^{2(\mu N_\mathrm{A} + \sigma^2N_\mathrm{A})}
 $$
 所以方差是
 $$
-\mathrm{Var}(R_\mathrm{Annual}) = e^{\mu' N_\mathrm{A} + \sigma^2 N_\mathrm{A}} \left( e^{\sigma^2N_\mathrm{A}} - 1 \right)
+\mathrm{Var}(R_\mathrm{Annual}) = e^{\mu N_\mathrm{A} + \sigma^2 N_\mathrm{A}} \left( e^{\sigma^2N_\mathrm{A}} - 1 \right)
 $$

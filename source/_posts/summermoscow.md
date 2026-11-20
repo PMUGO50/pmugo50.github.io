@@ -7,6 +7,7 @@ description: 某一年夏天一个人在莫斯科散步时的回忆
 ---
 
 <img src="./summermoscow/Lomonosov_Moscow_State_University.png" width="65%" style="opacity:1" />
+
 <center><p style="color:#979a9a; font-size:.85em; font-weight:normal">[从南广场看国立大学]</p></center>
 
 # 出发
