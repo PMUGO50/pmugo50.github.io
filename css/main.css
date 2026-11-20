@@ -1164,7 +1164,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #3edefa;
+  background: #d97799;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2399,8 +2399,8 @@ hr {
 }
 /* 所有图片居中 */
 .post-body img {
-  display: block;
-  margin: 0 auto;
+  display: block !important;
+  margin: 0 auto !important;
 }
 /* 分割线 */
 .post-body hr {
