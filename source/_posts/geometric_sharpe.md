@@ -166,6 +166,7 @@ ___
 $$
 \mathcal{T} = z_n \left( 1-\frac{1}{n} \right)^{1/2} \left( 1 + \frac{v_n}{\sqrt{n}} - \frac{z_n^2}{n} \right)^{-1/2} = z_n - \frac{z_nv_n}{2}n^{-1/2} + \left(\frac{z_n^3}{2} + \frac{3z_nv_n^2}{8} - \frac{z_n}{2} \right)n^{-1} + o(n^{-1})
 $$
+
 ## 特征函数的计算
 
 为了知道 $\mathcal{T}$ 的特征函数，并在 Edgeworth 展开中保留到 $n^{-1}$ ，需要计算 $\mathcal{T}$ 的前四阶原点矩 $\mathrm{E}(\mathcal{T}^k)$ 
