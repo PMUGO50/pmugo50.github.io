@@ -25,15 +25,15 @@ $$
 
 举个例子，样本序列是 $\{ r_i\}$ ，一年中有 $n_\mathrm{A}$ 个样本，那么年化 Sharpe 比率的估计值是
 $$
-\hat{\mathcal{S}} = \sqrt{n_\mathrm{A}}\frac{\bar{r} - r_f}{s} = \sqrt{\frac{n_\mathrm{A}}{n}}\frac{\bar{r} - r_f}{s/\sqrt{n}} = \sqrt{\frac{n_\mathrm{A}}{n}}\mathcal{T} \quad\mathrm{when}\quad \mu' = r_f
+\hat{\mathcal{S}}_\mathrm{A} = \sqrt{n_\mathrm{A}}\frac{\bar{r} - r_f}{s} = \sqrt{\frac{n_\mathrm{A}}{n}}\frac{\bar{r} - r_f}{s/\sqrt{n}} = \sqrt{\frac{n_\mathrm{A}}{n}}\mathcal{T} \quad\mathrm{when}\quad \mu' = r_f
 $$
 也就是说
 
 {% note primary %}
 
-**独立正态样本的几何 Sharpe 比率**：如果证券的对数收益样本序列是独立的正态变量，且其期望与无风险收益相等 $\mu' = r_{f}$ ，记其年化的几何 Sharpe 比率估计值为 $\hat{\mathcal{S}}$ ，一年包含的样本数为 $n_\mathrm{A}$ ，那么
+**独立正态样本的几何 Sharpe 比率**：如果证券的对数收益样本序列是独立的正态变量，且其期望与无风险收益相等 $\mu' = r_{f}$ ，记其几何 Sharpe 比率估计值为 $\hat{\mathcal{S}}$ ，年化后的值为 $\hat{\mathcal{S}}_\mathrm{A}$ ，一年包含的样本数为 $n_\mathrm{A}$ ，那么
 $$
-\mathcal{T} = \sqrt{\frac{n}{n_\mathrm{A}}} \hat{\mathcal{S}} \sim t(n-1)
+\mathcal{T} = \sqrt{\frac{n}{n_\mathrm{A}}} \hat{\mathcal{S}}_\mathrm{A} = \sqrt{n}\hat{\mathcal{S}} \sim t(n-1)
 $$
 {% endnote %}
 
@@ -55,7 +55,7 @@ Edgeworth 展开是对中心极限定理（CLT）的补充，区别只在于它�
 
 {% note primary %}
 
-**Lindberg-Lévy 中心极限定理**：对于一个期望为 $\mu'$ ，方差为 $\sigma^2$ 的独立同分布样本序列 $\{r_i\}$ ，随着样本数量 $n$ 增大，样本均值的分布趋向于 $N(\mu',\sigma^2/n)$ ，或者说可以写为
+**Lindeberg-Lévy 中心极限定理**：对于一个期望为 $\mu'$ ，方差为 $\sigma^2$ 的独立同分布样本序列 $\{r_i\}$ ，随着样本数量 $n$ 增大，样本均值的分布趋向于 $N(\mu',\sigma^2/n)$ ，或者说可以写为
 $$
 \lim_{n \rightarrow \infty} z_n = \frac{\bar{r} - \mu'}{\sigma/\sqrt{n}} \sim N(0,1)
 $$
@@ -131,7 +131,7 @@ $$
 
 # 学生氏估计的渐近分布
 
-## Delta 方法
+## 统计量的逐级展开
 
 接下来考虑有限样本下，Edgeworth 修正对学生氏检验带来的影响。以下始终作原假设 $H_0: \mu'=r_f$ ，于是学生氏统计量是
 
@@ -275,7 +275,7 @@ $$
 > **单边学生氏检验**：
 >
 > 1. 做出原假设 $H_0: \mu' \leq r_f$ 
-> 2. 统计 $\bar{r}, s^2, \kappa_3, \kappa_4$ ，计算 $\tau = \sqrt{n/n_\mathrm{A}} \hat{\mathcal{S}}$ 以及累积分布函数 $F$ 
+> 2. 统计 $\bar{r}, s^2, \kappa_3, \kappa_4$ ，计算 $\mathcal{T} = \sqrt{n/n_\mathrm{A}} \hat{\mathcal{S}}$ 以及累积分布函数 $F$ 
 > 3. 如果 $F(\tau) \geq \alpha\%$ ，那么就可以断言：有 $\alpha \%$ 的置信度认为原假设不成立，因而证券的期望收益 $\mu'$ 明显超过无风险收益
 
 最后，来验证两个特殊情况：
