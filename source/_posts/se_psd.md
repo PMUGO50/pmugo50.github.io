@@ -38,6 +38,7 @@ $$
 $$
 I = \frac{c}{8\pi}\Braket{\frac{1}{2}[e(t) + e^{\ast}(t)]^2} = \frac{c}{8\pi}\Braket{e(t)e^{\ast}(t)} = \frac{c}{8\pi}\Braket{|e(t)|^2}
 $$
+
 # 自发辐射的光谱
 
 ## 谱分解
