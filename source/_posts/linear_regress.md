@@ -8,6 +8,8 @@ description: 以方差最小化为目标的线性回归
 
 # 最小二乘回归
 
+## 参数估计
+
 假定随机变量 $y$ 可以由随机向量 $\boldsymbol{x}$ 各分量的线性组合来表示，即 $y = \boldsymbol{\beta} \cdot \boldsymbol{x} + \alpha$ ；那么对于样本序列 $\{ \boldsymbol{x}_i \}$ 和 $\{y_i\}$ ，理论上应当满足
 $$
 y_i = \boldsymbol{\beta} \cdot \boldsymbol{x}_i + \alpha
@@ -18,7 +20,7 @@ $$
 $$
 预测值与实际值之间的误差被称为残差 $e_i = y_i - \hat{y}_i$ ；特别地，如果满足以下条件：
 
-1. 残差是独立同分布的，且 $\mathrm{E}(e_i)=0$ ，即是说残差序列是一个白噪声
+1. 残差是独立同分布的，且 $\mathrm{E}(e_i|x_i)=0$ ，即是说残差序列是一个白噪声
 2. 对于 $\{ \boldsymbol{x}_i \}$ 中任意一个分量，其无法始终被另一个分量线性表出
 
 此时回归的解法被称为普通最小二乘（OLS），它的做法是令总残差的平方和最小化。首先，残差的平方和是
@@ -37,3 +39,14 @@ $$
 $$
 \left(  \sum_{i=1}^n \boldsymbol{x}_i \boldsymbol{x}_i^T \right)\hat{\boldsymbol{\beta}} + \left( \sum_{i=1}^n \boldsymbol{x}_i \right)\hat{\alpha} = \sum_{i=1}^n y_i \boldsymbol{x}_i \quad,\quad \left(  \sum_{i=1}^n \boldsymbol{x}_i^T \right)\hat{\boldsymbol{\beta}} + n\hat{\alpha} = \sum_{i=1}^n y_i
 $$
+由第二式得到 $\hat{\alpha} = \bar{y} - \bar{\boldsymbol{x}}^T\hat{\boldsymbol{\beta}}$ ，代入第一式，就可以写出
+$$
+\hat{\boldsymbol{\beta}} = \left( \sum_{i=1}^n \boldsymbol{x}_i \boldsymbol{x}_i^T - n\bar{\boldsymbol{x}}\bar{\boldsymbol{x}}^T \right)^{-1} \left( \sum_{i=1}^n y_i \boldsymbol{x}_i - n\bar{y}\bar{\boldsymbol{x}} \right)
+$$
+因而先求得 $\hat{\boldsymbol{\beta}}$ ，进而就可以得到 $\hat{\alpha}$ 
+
+## 估计的无偏性
+
+## 估计的相合性
+
+# 假设检验
