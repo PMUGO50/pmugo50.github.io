@@ -23,14 +23,17 @@ $$
 
 此时回归的解法被称为普通最小二乘（OLS），它的做法是令总残差的平方和最小化。首先，残差的平方和是
 $$
-E^2 = \sum_{i=1}^n e_i^2 = \sum_{i=1}^n \left[(\boldsymbol{\beta} - \hat{\boldsymbol{\beta}})^T \boldsymbol{x}_i + (\alpha - \hat{\alpha}) \right]^2
+E^2 = \sum_{i=1}^n e_i^2 = \sum_{i=1}^n \left( y_i - \hat{\boldsymbol{\beta}}^T \boldsymbol{x}_i - \hat{\alpha} \right)^2
 $$
 它是关于估计值 $\hat{\boldsymbol{\beta}}, \hat{\alpha}$ 的二次函数。因而应当只有一个极值点，极值条件由梯度为零给出，即
 $$
 \begin{aligned}
-& \frac{\partial E^2}{\partial \hat{\boldsymbol{\beta}}} = 2\sum_{i=1}^n \left[(\hat{\boldsymbol{\beta}} - \boldsymbol{\beta})^T \boldsymbol{x}_i + (\hat{\alpha} - \alpha) \right]\boldsymbol{x}_i^T = 0 \\[12pt]
-& \frac{\partial E^2}{\partial \hat{\alpha}} = 2\sum_{i=1}^n \left[(\hat{\boldsymbol{\beta}} - \boldsymbol{\beta})^T \boldsymbol{x}_i + (\hat{\alpha} - \alpha) \right] = 0
+& \frac{\partial E^2}{\partial \hat{\boldsymbol{\beta}}} = 2\sum_{i=1}^n \left(\hat{\boldsymbol{\beta}}^T \boldsymbol{x}_i + \hat{\alpha} - y_i\right)\boldsymbol{x}_i^T = 0 \\[12pt]
+& \frac{\partial E^2}{\partial \hat{\alpha}} = 2\sum_{i=1}^n \left(\hat{\boldsymbol{\beta}}^T \boldsymbol{x}_i + \hat{\alpha} - y_i\right) = 0
 \end{aligned}
 $$
 
-
+将上面两式分别做转置之后，成为两个线性方程组
+$$
+\left(  \sum_{i=1}^n \boldsymbol{x}_i \boldsymbol{x}_i^T \right)\hat{\boldsymbol{\beta}} + \left( \sum_{i=1}^n \boldsymbol{x}_i \right)\hat{\alpha} = \sum_{i=1}^n y_i \boldsymbol{x}_i \quad,\quad \left(  \sum_{i=1}^n \boldsymbol{x}_i^T \right)\hat{\boldsymbol{\beta}} + n\hat{\alpha} = \sum_{i=1}^n y_i
+$$
