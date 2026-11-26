@@ -10,103 +10,76 @@ description: 以方差最小化为目标的线性回归
 
 ## 参数估计
 
-假定随机变量 $y$ 可以由随机向量 $\boldsymbol{x}$ 各分量的线性组合来表示，即 $y = \boldsymbol{\beta}^T \boldsymbol{x} + \alpha + u$ ，这里 $u$ 是一个代表线性关系无法解释的误差随机变量；那么对于样本序列 $\{ \boldsymbol{x}_i \}$ 和 $\{y_i\}$ ，理论上应当满足
+假定随机变量 $y$ 可以由随机向量 $\boldsymbol{x}$ 各分量的线性组合来表示，即 $y = \boldsymbol{x}^T \boldsymbol{\beta}  + \alpha + u$ ，这里 $u$ 是一个代表线性关系无法解释的误差随机变量；那么对于测量得到的样本序列 $\{ \boldsymbol{x}_i \}$ 和 $\{y_i\}$ ，理论上应当满足
 $$
-y_i = \boldsymbol{\beta}^T \boldsymbol{x}_i + \alpha + u_i
+\left[\begin{matrix} y_1 \\ \vdots \\ y_n \end{matrix}\right] = \left[\begin{matrix} \boldsymbol{x}_1^T & 1 \\ \vdots & \vdots \\ \boldsymbol{x}_n^T & 1 \end{matrix}\right] \left[\begin{matrix} \boldsymbol{\beta} \\ \alpha \end{matrix}\right] + \left[\begin{matrix} u_1 \\ \vdots \\ u_n \end{matrix}\right] \quad
 $$
-从已知的样本序列来估计 $\boldsymbol{\beta}, \alpha$ 的问题被称为线性回归。回归模型给出预测值 $\hat{y} = \hat{\boldsymbol{\beta}}^T \boldsymbol{x} + \hat{\alpha}$ ，对每一个样本来说就是
-$$
-\hat{y}_i = \hat{\boldsymbol{\beta}}^T \boldsymbol{x}_i + \hat{\alpha}
-$$
-预测值与实际值之间的误差被称为残差 $e_i = y_i - \hat{y}_i$ ；特别地，如果满足以下条件：
+将其记为 $\boldsymbol{Y} = \boldsymbol{X}\boldsymbol{\theta} + \boldsymbol{U}$ ，从已知的样本序列来估计 $\boldsymbol{\beta}, \alpha$ 的问题被称为线性回归。特别地，如果满足以下条件：
+1. **线性解释是充分的**：即 $u$ 与 $\boldsymbol{x}$ 之间已经没有相关性，且在已知 $\boldsymbol{X}$ 的情况下 $\boldsymbol{U}$ 是一个白噪声序列
+2. **线性解释变量的选择是必要的**：即对于 $\boldsymbol{X}$ 中任意一列，其无法被其它列线性表出，也就是说 $\boldsymbol{X}$ 是满秩的
 
-1. **线性解释是充分的**，即 $u$ 与 $\boldsymbol{x}$ 之间已经没有相关性，且在已知 $\boldsymbol{x_i}$ 的情况下 $\{ u_i \}$ 是一个白噪声序列
-2. **线性解释变量的选择是必要的**，即对于 $\{ \boldsymbol{x}_i \}$ 中任意一个分量，其无法始终被另一个分量线性表出
+此时回归的解法被称为普通最小二乘（OLS），它的思路是找到**欧氏空间**中的正交投影
 
-此时回归的解法被称为普通最小二乘（OLS），它的做法是令总残差的平方和最小化。首先，残差的平方和是
+首先从上式可以看出：
+
+- 实际的采样值 $\boldsymbol{Y}$ 构成一个 $n$ 维向量
+- 采样值 $\boldsymbol{X}$ 则构成一个 $n$ 行的矩阵，每一列就是一个 $n$ 维向量；这个向量组将张成 $n$ 维空间中的一个子空间，维数为 $\mathrm{dim}(\boldsymbol{x})+1$ 
+
+向量组的一个线性组合同样位于这个子空间内，距离实际的采样值 $\boldsymbol{Y}$ 最近的那个线性组合就被称为是 OLS 的预测值 $\hat{\boldsymbol{Y}}$ ，将线性组合系数记为 $\hat{\theta}$ ，也就是说 $\hat{\boldsymbol{Y}} = \boldsymbol{X}\hat{\boldsymbol{\theta}}$ ；测量得到的值和回归模型预测值之间的误差用欧氏距离来度量，也就是
 $$
-E^2 = \sum_{i=1}^n e_i^2 = \sum_{i=1}^n \left( y_i - \hat{\boldsymbol{\beta}}^T \boldsymbol{x}_i - \hat{\alpha} \right)^2
+E^2 = \left| \boldsymbol{Y} - \hat{\boldsymbol{Y}} \right|^2 = \left( \boldsymbol{Y} - \hat{\boldsymbol{Y}} \right)^T \left( \boldsymbol{Y} - \hat{\boldsymbol{Y}} \right) = \left( \boldsymbol{Y} - \boldsymbol{X}\hat{\boldsymbol{\theta}}\right)^T \left( \boldsymbol{Y} - \boldsymbol{X}\hat{\boldsymbol{\theta}} \right)
 $$
-它是关于估计值 $\hat{\boldsymbol{\beta}}, \hat{\alpha}$ 的二次函数。因而应当只有一个极值点，极值条件由梯度为零给出，即
+它是关于估计值 $\hat{\boldsymbol{\theta}}$ 的二次函数，因而应当只有一个极值点。且由于其作为欧氏距离的意义，一定是一个极小值点。极值条件由梯度为零给出，即
 $$
-\begin{aligned}
-& \frac{\partial E^2}{\partial \hat{\boldsymbol{\beta}}} = 2\sum_{i=1}^n \left(\hat{\boldsymbol{\beta}}^T \boldsymbol{x}_i + \hat{\alpha} - y_i\right)\boldsymbol{x}_i^T = 0 \\[12pt]
-& \frac{\partial E^2}{\partial \hat{\alpha}} = 2\sum_{i=1}^n \left(\hat{\boldsymbol{\beta}}^T \boldsymbol{x}_i + \hat{\alpha} - y_i\right) = 0
-\end{aligned}
+\frac{\partial E^2}{\partial \hat{\boldsymbol{\theta}}} = 2\boldsymbol{X}^T\left( \boldsymbol{X}\hat{\boldsymbol{\theta}} - \boldsymbol{Y} \right) = 0
 $$
 
-将上面两式分别做转置之后，成为两个线性方程组
-$$
-\left(  \sum_{i=1}^n \boldsymbol{x}_i \boldsymbol{x}_i^T \right)\hat{\boldsymbol{\beta}} + \left( \sum_{i=1}^n \boldsymbol{x}_i \right)\hat{\alpha} = \sum_{i=1}^n y_i \boldsymbol{x}_i \quad,\quad \left(  \sum_{i=1}^n \boldsymbol{x}_i^T \right)\hat{\boldsymbol{\beta}} + n\hat{\alpha} = \sum_{i=1}^n y_i
-$$
-由第二式得到 $\hat{\alpha} = \bar{y} - \bar{\boldsymbol{x}}^T\hat{\boldsymbol{\beta}}$ ，代入第一式，就可以写出
-$$
-\hat{\boldsymbol{\beta}} = \left( \sum_{i=1}^n \boldsymbol{x}_i \boldsymbol{x}_i^T - n\bar{\boldsymbol{x}}\bar{\boldsymbol{x}}^T \right)^{-1} \left( \sum_{i=1}^n y_i \boldsymbol{x}_i - n\bar{y}\bar{\boldsymbol{x}} \right)
-$$
-因而先求得 $\hat{\boldsymbol{\beta}}$ ，进而就可以得到 $\hat{\alpha}$ 
+直接得到 OLS 的估计结果 $\hat{\boldsymbol{\theta}} = (\boldsymbol{X}^T\boldsymbol{X})^{-1} (\boldsymbol{X}^T\boldsymbol{Y})$ 
 
 ## 估计的无偏性
 
-将 $\hat{\boldsymbol{\beta}}$ 表达式中的 $y_i$ 写为 $y_i = \boldsymbol{x}_i^T \boldsymbol{\beta} + \alpha + u_i$ ，那么同样有 $\bar{y} = \bar{\boldsymbol{x}}^T \boldsymbol{\beta} + \alpha + \bar{u}$ ，就得到
+将 $\hat{\boldsymbol{\theta}}$ 表达式中的 $\boldsymbol{Y}$ 写为 $\boldsymbol{X}\boldsymbol{\theta} + \boldsymbol{U}$ ，那么就得到
 $$
-\begin{aligned}
-\hat{\boldsymbol{\beta}} &= \left( \sum_{i=1}^n \boldsymbol{x}_i \boldsymbol{x}_i^T - n\bar{\boldsymbol{x}}\bar{\boldsymbol{x}}^T \right)^{-1} \left[ \left(\sum_{i=1}^n \boldsymbol{x}_i\boldsymbol{x}_i^T \boldsymbol{\beta} - n\bar{\boldsymbol{x}} \bar{\boldsymbol{x}}^T\boldsymbol{\beta}\right) + \left(\sum_{i=1}^n u_i\boldsymbol{x}_i - n\bar{u}\bar{\boldsymbol{x}}\right) \right] \\[12pt]
-&= \boldsymbol{\beta} + \left( \sum_{i=1}^n \boldsymbol{x}_i \boldsymbol{x}_i^T - n\bar{\boldsymbol{x}}\bar{\boldsymbol{x}}^T \right)^{-1} \left(\sum_{i=1}^n u_i\boldsymbol{x}_i - n\bar{u}\bar{\boldsymbol{x}}\right)
-\end{aligned}
+\hat{\boldsymbol{\theta}} = (\boldsymbol{X}^T\boldsymbol{X})^{-1} [(\boldsymbol{X}^T\boldsymbol{X})\boldsymbol{\theta} + \boldsymbol{X}^T\boldsymbol{U}] = \boldsymbol{\theta} + (\boldsymbol{X}^T\boldsymbol{X})^{-1}\boldsymbol{X}^T\boldsymbol{U}
 $$
-序列 $\{\boldsymbol{x}_i\}$ 是已经通过测量得知的，所以对上式求条件期望
+矩阵 $\boldsymbol{X}$ 是已经通过测量得知的，所以对上式求条件期望
 $$
-\mathrm{E}(\hat{\boldsymbol{\beta}}|\{\boldsymbol{x}_i\}) = \boldsymbol{\beta} + \left( \sum_{i=1}^n \boldsymbol{x}_i \boldsymbol{x}_i^T - n\bar{\boldsymbol{x}}\bar{\boldsymbol{x}}^T \right)^{-1}\left(\sum_{i=1}^n \mathrm{E}(u_i|\{\boldsymbol{x}_i\})\boldsymbol{x}_i - n\mathrm{E}(\bar{u}|\{\boldsymbol{x}_i\})\bar{\boldsymbol{x}}\right)
+\mathrm{E}(\hat{\boldsymbol{\theta}}|\boldsymbol{X}) = \boldsymbol{\theta} + (\boldsymbol{X}^T\boldsymbol{X})^{-1}\boldsymbol{X}^T\mathrm{E}(\boldsymbol{U}|\boldsymbol{X})
 $$
-由于前面假定已知 $\boldsymbol{x_i}$ 的情况下 $\{ u_i \}$ 是一个白噪声序列，所以样本均值满足
+由于前面假定已知 $\boldsymbol{X}$ 的情况下 $\boldsymbol{U}$ 是一个白噪声序列，所以 $\mathrm{E}(\boldsymbol{U}|\boldsymbol{X}) = 0$ ，这就给出了 $\mathrm{E}(\hat{\boldsymbol{\theta}}|\boldsymbol{X}) = \boldsymbol{\theta}$ 
+
+然后应用
 $$
-\mathrm{E}(\bar{u}|\{\boldsymbol{x}_i\}) = \frac{1}{n}\sum_{i=1}^n \mathrm{E}(u_i|\{\boldsymbol{x}_i\}) = 0
-$$
-这就给出了 $\mathrm{E}(\hat{\boldsymbol{\beta}}|\{\boldsymbol{x}_i\}) = \boldsymbol{\beta}$ ；于是立刻有
-$$
-\mathrm{E}(\hat{\alpha}|\{\boldsymbol{x}_i\}) = \bar{\boldsymbol{x}}^T \mathrm{E}[(\boldsymbol{\beta} - \hat{\boldsymbol{\beta}})|\{\boldsymbol{x}_i\}] + \alpha + \mathrm{E}(\bar{u}|\{\boldsymbol{x}_i\}) = \alpha
-$$
-最后应用
-$$
-\mathrm{E}(\hat{\boldsymbol{\beta}}) = \int \hat{\boldsymbol{\beta}} p(\hat{\boldsymbol{\beta}}, \boldsymbol{x}_1, \cdots, \boldsymbol{x}_n) \mathrm{d}\hat{\boldsymbol{\beta}}\mathrm{d}\boldsymbol{x}_1\cdots\mathrm{d}\boldsymbol{x}_n = \int  \left[ \int \hat{\boldsymbol{\beta}} \frac{p(\hat{\boldsymbol{\beta}}, \boldsymbol{x}_1, \cdots, \boldsymbol{x}_n)}{p_x(\boldsymbol{x}_1, \cdots, \boldsymbol{x}_n)} \mathrm{d}\hat{\boldsymbol{\beta}} \right]  p_x(\boldsymbol{x}_1, \cdots, \boldsymbol{x}_n)\mathrm{d}\boldsymbol{x}_1\cdots\mathrm{d}\boldsymbol{x}_n
+\mathrm{E}(\hat{\boldsymbol{\theta}}) = \int \hat{\boldsymbol{\theta}} \cdot p(\hat{\boldsymbol{\theta}}, \boldsymbol{x}_1, \cdots, \boldsymbol{x}_n) \mathrm{d}\hat{\boldsymbol{\theta}}\mathrm{d}\boldsymbol{x}_1\cdots\mathrm{d}\boldsymbol{x}_n = \int  \left[ \int \hat{\boldsymbol{\theta}} \frac{p(\hat{\boldsymbol{\theta}}, \boldsymbol{x}_1, \cdots, \boldsymbol{x}_n)}{p_x(\boldsymbol{x}_1, \cdots, \boldsymbol{x}_n)} \mathrm{d}\hat{\boldsymbol{\theta}} \right]  p_x(\boldsymbol{x}_1, \cdots, \boldsymbol{x}_n)\mathrm{d}\boldsymbol{x}_1\cdots\mathrm{d}\boldsymbol{x}_n
 $$
 
-这里 $p_x = \int_{-\infty}^{+\infty} p \mathrm{d}\hat{\boldsymbol{\beta}}$ 是序列 $\{ \boldsymbol{x}_i \}$ 的联合边际概率；事实上上式就是
+这里 $p_x = \int_{-\infty}^{+\infty} p \mathrm{d}\hat{\boldsymbol{\theta}}$ 是序列 $\{ \boldsymbol{x}_i \}$ 的联合边际概率；事实上上式就是
 $$
-\mathrm{E}(\hat{\boldsymbol{\beta}}) = \mathrm{E}_x[ \mathrm{E}(\hat{\boldsymbol{\beta}}|\{\boldsymbol{x}_i\}) ] = \mathrm{E}_x( \boldsymbol{\beta} ) = \boldsymbol{\beta}
+\mathrm{E}(\hat{\boldsymbol{\theta}}) = \mathrm{E}_x[ \mathrm{E}(\hat{\boldsymbol{\theta}}|\boldsymbol{X}) ] = \mathrm{E}_x( \boldsymbol{\theta} ) = \boldsymbol{\theta}
 $$
-对 $\hat{\alpha}$ 也是同样的道理，所以就有了
+所以就有了
 
 {% note primary %}
 
-**普通最小二乘估计的无偏性**：如果用随机变量 $\boldsymbol{x}$ 对随机变量 $y$  进行线性解释的关系式为 $y = \boldsymbol{\beta}^T \boldsymbol{x} + \alpha + u$ ，且在已知 $\boldsymbol{x_i}$ 的情况下 $\{ u_i \}$ 是白噪声序列，那么用普通最小二乘估计出的参数 $\hat{\boldsymbol{\beta}}, \hat{\alpha}$ 都是无偏的，即 $\mathrm{E}(\hat{\boldsymbol{\beta}}|\{\boldsymbol{x}_i\}) = \boldsymbol{\beta}$ ；$\mathrm{E}(\hat{\alpha}|\{\boldsymbol{x}_i\}) = \alpha$ 
+**普通最小二乘估计的无偏性**：如果用随机变量 $\boldsymbol{x}$ 对随机变量 $y$  进行线性解释的关系式为 $y = \boldsymbol{\beta}^T \boldsymbol{x} + \alpha + u$ ，且在已知 $\boldsymbol{x_i}$ 的情况下 $\{ u_i \}$ 是白噪声序列，那么用普通最小二乘估计出的参数 $\hat{\boldsymbol{\beta}}, \hat{\alpha}$ 都是无偏的，即 $\mathrm{E}(\hat{\boldsymbol{\beta}}) = \boldsymbol{\beta}$ ；$\mathrm{E}(\hat{\alpha}) = \alpha$ 
 
 {% endnote %}
 
 ## 估计的相合性
 
-将 $\hat{\boldsymbol{\beta}}$ 写为
+将 $\hat{\boldsymbol{\theta}}$ 写为 $\hat{\boldsymbol{\theta}} - \boldsymbol{\theta} = (\boldsymbol{X}^T\boldsymbol{X})^{-1}\boldsymbol{X}^T\boldsymbol{U}$ ，不妨展开写为
 $$
-\hat{\boldsymbol{\beta}} - \boldsymbol{\beta} = \left( \frac{1}{n}\sum_{i=1}^n \boldsymbol{x}_i \boldsymbol{x}_i^T - \bar{\boldsymbol{x}}\bar{\boldsymbol{x}}^T \right)^{-1} \left( \frac{1}{n}\sum_{i=1}^n u_i\boldsymbol{x}_i - \bar{u}\bar{\boldsymbol{x}}\right)
+\hat{\boldsymbol{\theta}} - \boldsymbol{\theta} = \left[\begin{matrix} \sum_{i=1}^n x_{1i}^2/n & \cdots & \sum_{i=1}^n x_{1i}/n \\ \vdots & \ddots & \vdots \\ \sum_{i=1}^n x_{1i}/n & \cdots & 1 \end{matrix}\right]^{-1} \left[\begin{matrix} \sum_{i=1}^n u_ix_{1i}/n \\ \vdots \\ \sum_{i=1}^n u_i/n \end{matrix}\right]
 $$
 按照 Khinchin 大数定律，只要对应的期望存在，那么当 $n \rightarrow \infty$ 时，上式依概率收敛到
 $$
-\hat{\boldsymbol{\beta}} - \boldsymbol{\beta} \overset{\mathrm{p}}{\longrightarrow} \mathrm{Cov}(\boldsymbol{x}, \boldsymbol{x})^{-1} \mathrm{Cov}(u, \boldsymbol{x})
+\hat{\boldsymbol{\theta}} - \boldsymbol{\theta} \overset{\mathrm{p}}{\longrightarrow} \left[\begin{matrix} \mathrm{Cov}(\boldsymbol{x}, \boldsymbol{x}) & \mathrm{E}(\boldsymbol{x}) \\ \mathrm{E}(\boldsymbol{x}^T) & 1 \end{matrix}\right]^{-1} \left[\begin{matrix} \mathrm{Cov}(u, \boldsymbol{x}) \\ \mathrm{E}(u) \end{matrix}\right]
 $$
-这里两个协方差矩阵（向量）的行列分量分别是
+线性解释的充分假设已经表明 $u$ 与 $\boldsymbol{x}$ 之间没有相关性，即 $\mathrm{Cov}(u, \boldsymbol{x}) = 0$ ，且白噪声假设表明 $\mathrm{E}(u|\boldsymbol{x})=0$ ，所以
 $$
-\begin{aligned}
-& \mathrm{Cov}(\boldsymbol{x}, \boldsymbol{x})_{pq} = \mathrm{Cov}(x_p, x_q) = \mathrm{E}(x_px_q) - \mathrm{E}(x_p)\mathrm{E}(x_q) \\[6pt]
-& \mathrm{Cov}(u, \boldsymbol{x})_q = \mathrm{Cov}(u, x_q) = \mathrm{E}(ux_q) - \mathrm{E}(u)\mathrm{E}(x_q)
-\end{aligned}
+\mathrm{E}(u) = \mathrm{E}_x[ \mathrm{E}(u|\boldsymbol{x}) ] = 0
 $$
-线性解释的充分假设已经表明 $u$ 与 $\boldsymbol{x}$ 之间没有相关性，即 $\mathrm{Cov}(u, \boldsymbol{x}) = 0$ ，所以 $\hat{\boldsymbol{\beta}} - \boldsymbol{\beta} \overset{\mathrm{p}}{\longrightarrow} 0$ 
-
-对于 $\hat{\alpha}$ 则有 $\hat{\alpha} - \alpha = \bar{\boldsymbol{x}}^T (\boldsymbol{\beta}-\hat{\boldsymbol{\beta}}) + \bar{u}$ ，大数定律给出
-$$
-\hat{\alpha} - \alpha \overset{\mathrm{p}}{\longrightarrow} \mathrm{E}(\boldsymbol{x}) (\boldsymbol{\beta}-\hat{\boldsymbol{\beta}}) + \mathrm{E}(u) \overset{\mathrm{p}}{\longrightarrow} \mathrm{E}(u)
-$$
-这里 $\mathrm{E}(u) = \mathrm{E}_x[\mathrm{E}(u|\boldsymbol{x})] = 0$ ，这来源于白噪声假设。所以
+这就给出
 
  {% note primary %}
 
@@ -115,3 +88,10 @@ $$
 {% endnote %}
 
 # 假设检验
+
+## 残差的分布
+
+利用 $\hat{\boldsymbol{Y}} = \boldsymbol{X}\hat{\boldsymbol{\theta}}$ 以及 OLS 给出的 $\hat{\boldsymbol{\theta}} = (\boldsymbol{X}^T\boldsymbol{X})^{-1} (\boldsymbol{X}^T\boldsymbol{Y})$ ，将有
+$$
+\hat{\boldsymbol{Y}} = \left[\boldsymbol{X} (\boldsymbol{X}^T\boldsymbol{X})^{-1} \boldsymbol{X}^T \right]\boldsymbol{Y}
+$$
