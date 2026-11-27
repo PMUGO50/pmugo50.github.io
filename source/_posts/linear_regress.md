@@ -15,8 +15,12 @@ $$
 \left[\begin{matrix} y_1 \\ \vdots \\ y_n \end{matrix}\right] = \left[\begin{matrix} \boldsymbol{x}_1^T & 1 \\ \vdots & \vdots \\ \boldsymbol{x}_n^T & 1 \end{matrix}\right] \left[\begin{matrix} \boldsymbol{\beta} \\ \alpha \end{matrix}\right] + \left[\begin{matrix} u_1 \\ \vdots \\ u_n \end{matrix}\right] \quad
 $$
 将其记为 $\boldsymbol{Y} = \boldsymbol{X}\boldsymbol{\theta} + \boldsymbol{U}$ ，从已知的样本序列来估计 $\boldsymbol{\beta}, \alpha$ 的问题被称为线性回归。特别地，如果满足以下条件：
-1. **线性解释是充分的**：即 $u$ 与 $\boldsymbol{x}$ 之间已经没有相关性，且在已知 $\boldsymbol{X}$ 的情况下 $\boldsymbol{U}$ 是一个白噪声序列
-2. **线性解释变量的选择是必要的**：即对于 $\boldsymbol{X}$ 中任意一列，其无法被其它列线性表出，也就是说 $\boldsymbol{X}$ 是满秩的
+1. **线性解释是充分的**：即 $u$ 与 $\boldsymbol{x}$ 之间已经没有相关性，且在已知 $\boldsymbol{X}$ 的情况下 $\boldsymbol{U}$ 是一个白噪声序列，即
+   $$
+   \mathrm{E}(u|\boldsymbol{x}) = 0 \quad,\quad \mathrm{Cov}[(\boldsymbol{U}, \boldsymbol{U})|\boldsymbol{X}] = \sigma^2\boldsymbol{I}
+   $$
+
+2. **线性解释变量的选择是必要的**：即对于 $\boldsymbol{X}$ 中任意一列，其无法被其它列线性表出
 
 此时回归的解法被称为普通最小二乘（OLS），它的思路是找到**欧氏空间**中的正交投影
 
@@ -24,6 +28,8 @@ $$
 
 - 实际的采样值 $\boldsymbol{Y}$ 构成一个 $n$ 维向量
 - 采样值 $\boldsymbol{X}$ 则构成一个 $n$ 行的矩阵，每一列就是一个 $n$ 维向量；这个向量组将张成 $n$ 维空间中的一个子空间，维数为 $\mathrm{dim}(\boldsymbol{x})+1$ 
+
+<img src="./linear_regress/project.png" alt="2STAGE_OPAMP" width="45%" />
 
 向量组的一个线性组合同样位于这个子空间内，距离实际的采样值 $\boldsymbol{Y}$ 最近的那个线性组合就被称为是 OLS 的预测值 $\hat{\boldsymbol{Y}}$ ，将线性组合系数记为 $\hat{\theta}$ ，也就是说 $\hat{\boldsymbol{Y}} = \boldsymbol{X}\hat{\boldsymbol{\theta}}$ ；测量得到的值和回归模型预测值之间的误差用欧氏距离来度量，也就是
 $$
@@ -93,5 +99,43 @@ $$
 
 利用 $\hat{\boldsymbol{Y}} = \boldsymbol{X}\hat{\boldsymbol{\theta}}$ 以及 OLS 给出的 $\hat{\boldsymbol{\theta}} = (\boldsymbol{X}^T\boldsymbol{X})^{-1} (\boldsymbol{X}^T\boldsymbol{Y})$ ，将有
 $$
-\hat{\boldsymbol{Y}} = \left[\boldsymbol{X} (\boldsymbol{X}^T\boldsymbol{X})^{-1} \boldsymbol{X}^T \right]\boldsymbol{Y}
+\hat{\boldsymbol{Y}} = \boldsymbol{P}\boldsymbol{Y} \quad,\quad \boldsymbol{P} = \boldsymbol{X} (\boldsymbol{X}^T\boldsymbol{X})^{-1} \boldsymbol{X}^T
 $$
+这里 $\boldsymbol{P}$ 是投影算子，不论直观想象，还是代入计算都可以得到 $\boldsymbol{P}^2 = \boldsymbol{P}$ ；但并不能通过在等式两侧同时乘上 $\boldsymbol{P}^{-1}$ 得到 $\boldsymbol{P} = \boldsymbol{I}$ ，这是因为除非子空间正是全空间，否则 $\boldsymbol{P}$ 不是满秩的，因而不是可逆的。它的秩等于子空间的维数，即 $\mathrm{rank}(\boldsymbol{P}) = \mathrm{dim}(\boldsymbol{x})+1$ 
+
+可以通过一个正交矩阵 $\boldsymbol{G}$ 对 $\boldsymbol{P}$ 完成对角化。正交矩阵是特殊的满秩投影矩阵，它的所有列构成一组**完备的正交归一化基**，因而几何意义是将向量投影到这组正交基上。也就是说 $\boldsymbol{Y} = \boldsymbol{G}\boldsymbol{G}^T\boldsymbol{Y}$ ，这里 $\boldsymbol{G}^T\boldsymbol{Y}$ 是获取 $\boldsymbol{Y}$ 在正交基系上的坐标，而再乘上一个 $\boldsymbol{G}$ 就是按照坐标对基进行线性组合。总之这给出 $\boldsymbol{G}\boldsymbol{G}^T = \boldsymbol{I}$ 
+
+通过选取合适的完备正交基系，使得基系中的前 $\mathrm{rank}(\boldsymbol{P})$ 个基向量都位于 $\boldsymbol{P}$ 对应的子空间内。那么在这组基系下，$\hat{\boldsymbol{Y}}$ 的前 $\mathrm{rank}(\boldsymbol{P})$ 个坐标应该和 $\boldsymbol{Y}$ 的坐标相同，而后 $n-\mathrm{rank}(\boldsymbol{P})$ 个坐标则是零，这也就是说
+$$
+\boldsymbol{G}^T\hat{\boldsymbol{Y}} = \left[\begin{matrix} \boldsymbol{I}_{\mathrm{rank}(\boldsymbol{P})} & 0 \\ 0 & 0 \end{matrix}\right]\boldsymbol{G}^T\boldsymbol{Y} \quad\Rightarrow\quad \boldsymbol{P} = \boldsymbol{G}\left[\begin{matrix} \boldsymbol{I}_{\mathrm{rank}(\boldsymbol{P})} & 0 \\ 0 & 0 \end{matrix}\right]\boldsymbol{G}^T
+$$
+
+<img src="./linear_regress/orthogonal.png" alt="2STAGE_OPAMP" width="50%" />
+
+这里利用了 $\boldsymbol{G}\boldsymbol{G}^T = \boldsymbol{I}$ ；至于 $\boldsymbol{X}$ ，由于其各列正是子空间内的向量，因此获取坐标的结果 $\boldsymbol{G}^T\boldsymbol{X}$ 只有前 $\mathrm{rank}(\boldsymbol{P})$ 行是非零的，而后 $n-\mathrm{rank}(\boldsymbol{P})$ 行都是零
+
+在这种情况下来看残差， 它可以重新写为
+$$
+E^2 = \left( \boldsymbol{Y} - \hat{\boldsymbol{Y}} \right)^T \left( \boldsymbol{Y} - \hat{\boldsymbol{Y}} \right) = \left( \boldsymbol{Y}^T\boldsymbol{G} - \hat{\boldsymbol{Y}}^T\boldsymbol{G} \right) \left( \boldsymbol{G}^T\boldsymbol{Y} - \boldsymbol{G}^T\hat{\boldsymbol{Y}} \right) = \boldsymbol{Y}^T\boldsymbol{G} \left[\begin{matrix} 0 & 0 \\ 0 & \boldsymbol{I}_{n-\mathrm{rank}(\boldsymbol{P})} \end{matrix}\right] \boldsymbol{G}^T\boldsymbol{Y}
+$$
+代入 $\boldsymbol{Y} = \boldsymbol{X}\boldsymbol{\theta} + \boldsymbol{U}$ ，由于 $\boldsymbol{G}^T\boldsymbol{X}$ 只有前 $\mathrm{rank}(\boldsymbol{P})$ 行非零的特性，它将不对上式构成贡献，所以最后得到一个二次型
+$$
+E^2 = \boldsymbol{U}^T\boldsymbol{G} \left[\begin{matrix} 0 & 0 \\ 0 & \boldsymbol{I}_{n-\mathrm{rank}(\boldsymbol{P})} \end{matrix}\right] \boldsymbol{G}^T\boldsymbol{U} = \sum_{i=\mathrm{rank}(\boldsymbol{P})+1}^n W_i^2
+$$
+这里向量 $\boldsymbol{W}=\boldsymbol{G}^T\boldsymbol{U}$ 
+
+特别地，在已知 $\boldsymbol{X}$ 的情况下，如果还假设 $\boldsymbol{U}$ 是一个 Gauss 白噪声，也就是说 $\boldsymbol{U}|\boldsymbol{X} \sim N(0, \sigma^2\boldsymbol{I})$ ，那么按照多元正态变量的性质，$\boldsymbol{W}|\boldsymbol{X}$ 也服从正态分布，它的期望自然也是零，协方差矩阵则是
+$$
+\mathrm{Cov}[(\boldsymbol{W}, \boldsymbol{W})|\boldsymbol{X}] = \mathrm{E}\left( \boldsymbol{W}\boldsymbol{W}^T \right) = \boldsymbol{G}^T \mathrm{E}\left( \boldsymbol{U}\boldsymbol{U}^T \right) \boldsymbol{G} = \sigma^2 \boldsymbol{G}^T \boldsymbol{G} = \sigma^2\boldsymbol{I}
+$$
+也就是说仍然有 $\boldsymbol{W}|\boldsymbol{X} \sim N(0, \sigma^2\boldsymbol{I})$ ，那么 $E^2$ 就是 $n-\mathrm{rank}(\boldsymbol{P})$ 个独立的正态变量平方相加，因而按照 $\chi^2$ 分布的定义就有
+
+{% note primary %}
+
+**正态假设下的残差分布**：假设 OLS 的线性关系 $\boldsymbol{Y} = \boldsymbol{X}\boldsymbol{\theta} + \boldsymbol{U}$ 中有 $\boldsymbol{U}|\boldsymbol{X} \sim N(0, \sigma^2\boldsymbol{I})$ ，那么残差 $E^2=|\boldsymbol{Y} - \hat{\boldsymbol{Y}}|^2$ 服从 $\chi^2(n-\mathrm{dim}(\boldsymbol{x})-1)$ 分布
+
+{% endnote %}
+
+## 对线性关系的检验
+
+在正态假设下，当 $\boldsymbol{X}$ 已知时 $\hat{\boldsymbol{\theta}} - \boldsymbol{\theta} = (\boldsymbol{X}^T\boldsymbol{X})^{-1}\boldsymbol{X}^T\boldsymbol{U}$ 自然也是服从正态分布的
