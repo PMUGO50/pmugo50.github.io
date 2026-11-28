@@ -18,20 +18,20 @@ $$
 
 对于总数为 $n$ 的独立正态对数收益样本序列，它的学生氏统计量是
 $$
-\mathcal{T} = \frac{\bar{r} - \mu'}{s/\sqrt{n}} \sim t(n-1) \rightarrow N(0,1)
+\mathcal{T} = \frac{\bar{r} - \mu}{s/\sqrt{n}} \sim t(n-1) \rightarrow N(0,1)
 $$
 
 极限在 $n \rightarrow \infty$ 时取到，这是学生氏分布的性质
 
 举个例子，样本序列是 $\{ r_i\}$ ，一年中有 $n_\mathrm{A}$ 个样本，那么年化 Sharpe 比率的估计值是
 $$
-\hat{\mathcal{S}}_\mathrm{A} = \sqrt{n_\mathrm{A}}\frac{\bar{r} - r_f}{s} = \sqrt{\frac{n_\mathrm{A}}{n}}\frac{\bar{r} - r_f}{s/\sqrt{n}} = \sqrt{\frac{n_\mathrm{A}}{n}}\mathcal{T} \quad\mathrm{when}\quad \mu' = r_f
+\hat{\mathcal{S}}_\mathrm{A} = \sqrt{n_\mathrm{A}}\frac{\bar{r} - r_f}{s} = \sqrt{\frac{n_\mathrm{A}}{n}}\frac{\bar{r} - r_f}{s/\sqrt{n}} = \sqrt{\frac{n_\mathrm{A}}{n}}\mathcal{T} \quad\mathrm{when}\quad \mu = r_f
 $$
 也就是说
 
 {% note primary %}
 
-**独立正态样本的几何 Sharpe 比率**：如果证券的对数收益样本序列是独立的正态变量，且其期望与无风险收益相等 $\mu' = r_{f}$ ，记其几何 Sharpe 比率估计值为 $\hat{\mathcal{S}}$ ，年化后的值为 $\hat{\mathcal{S}}_\mathrm{A}$ ，一年包含的样本数为 $n_\mathrm{A}$ ，那么
+**独立正态样本的几何 Sharpe 比率**：如果证券的对数收益样本序列是独立的正态变量，且其期望与无风险收益相等 $\mu = r_{f}$ ，记其几何 Sharpe 比率估计值为 $\hat{\mathcal{S}}$ ，年化后的值为 $\hat{\mathcal{S}}_\mathrm{A}$ ，一年包含的样本数为 $n_\mathrm{A}$ ，那么
 $$
 \mathcal{T} = \sqrt{\frac{n}{n_\mathrm{A}}} \hat{\mathcal{S}}_\mathrm{A} = \sqrt{n}\hat{\mathcal{S}} \sim t(n-1)
 $$
@@ -55,13 +55,13 @@ Edgeworth 展开是对中心极限定理（CLT）的补充，区别只在于它�
 
 {% note primary %}
 
-**Lindeberg-Lévy 中心极限定理**：对于一个期望为 $\mu'$ ，方差为 $\sigma^2$ 的独立同分布样本序列 $\{r_i\}$ ，随着样本数量 $n$ 增大，样本均值的分布趋向于 $N(\mu',\sigma^2/n)$ ，或者说可以写为
+**Lindeberg-Lévy 中心极限定理**：对于一个期望为 $\mu$ ，方差为 $\sigma^2$ 的独立同分布样本序列 $\{r_i\}$ ，随着样本数量 $n$ 增大，样本均值的分布趋向于 $N(\mu,\sigma^2/n)$ ，或者说可以写为
 $$
-\lim_{n \rightarrow \infty} z_n = \frac{\bar{r} - \mu'}{\sigma/\sqrt{n}} \sim N(0,1)
+\lim_{n \rightarrow \infty} z_n = \frac{\bar{r} - \mu}{\sigma/\sqrt{n}} \sim N(0,1)
 $$
 {% endnote %}
 
-定理最常见的证明需要用到特征函数。令 $y_i = (r_i-\mu')/\sigma$ ，首先就有
+定理最常见的证明需要用到特征函数。令 $y_i = (r_i-\mu)/\sigma$ ，首先就有
 $$
 \mathrm{E}(y_i) = 0 \quad,\quad \mathrm{E}(y_i^2) = \mathrm{Var}(y_i) = 1 \quad,\quad \mathrm{E}(y_i^3) = \mathrm{Skew}(r_i) = \kappa_3 \quad,\quad \mathrm{E}(y_i^4) = \mathrm{Kurt}(r_i) = \kappa_4
 $$
@@ -95,7 +95,7 @@ $$
 
 {% note primary %}
 
-**二阶 Edgeworth 展开**：对于一个独立同分布样本序列 $\{r_i\}$ ，记其期望、方差、偏度、峰度分别为 $\mu', \sigma^2, \kappa_3, \kappa_4$ ，那么统计量 $z = \sqrt{n}(\bar{r}-\mu')/\sigma$ 的概率密度函数是
+**二阶 Edgeworth 展开**：对于一个独立同分布样本序列 $\{r_i\}$ ，记其期望、方差、偏度、峰度分别为 $\mu, \sigma^2, \kappa_3, \kappa_4$ ，那么统计量 $z = \sqrt{n}(\bar{r}-\mu)/\sigma$ 的概率密度函数是
 $$
 p(z) = \phi(z)\left[1 + \frac{\kappa_3}{6\sqrt{n}}H_3(z) + \frac{\kappa_4}{24n}H_4(z) + \frac{\kappa_3^2}{72n}H_6(z) + o(n^{-1})\right]
 $$
@@ -133,17 +133,17 @@ $$
 
 ## 统计量的逐级展开
 
-接下来考虑有限样本下，Edgeworth 修正对学生氏检验带来的影响。以下始终作原假设 $H_0: \mu'=r_f$ ，于是学生氏统计量是
+接下来考虑有限样本下，Edgeworth 修正对学生氏检验带来的影响。以下始终作原假设 $H_0: \mu=r_f$ ，于是学生氏统计量是
 
 $$
-\mathcal{T} = \sqrt{n}\hat{\mathcal{S}} = \sqrt{n}\frac{\bar{r} - \mu'}{s}
+\mathcal{T} = \sqrt{n}\hat{\mathcal{S}} = \sqrt{n}\frac{\bar{r} - \mu}{s}
 $$
 按照定义，样本方差的计算式是
 $$
 s^2 = \frac{1}{n-1}\sum_{i=1}^n (r_i - \bar{r})^2 = \frac{n\sigma^2}{n-1} \left[ \frac{1}{n}\sum_{i=1}^n \left(\frac{r_i-\mu'}{\sigma}\right)^2 - \left(\frac{\bar{r}-\mu'}{\sigma}\right)^2\right] = \frac{n\sigma^2}{n-1} \left( 1 + \bar{x} - \bar{y}^2 \right)
 $$
 
-这里和前面一样定义了 $y_i = (r_i-\mu')/\sigma$ ，与此同时还有 $x_i = y_i^2 - 1$​ 
+这里和前面一样定义了 $y_i = (r_i-\mu)/\sigma$ ，与此同时还有 $x_i = y_i^2 - 1$​ 
 
 ___
 
@@ -230,7 +230,7 @@ $$
 
 ## 累积分布函数
 
-既然有了 $\varphi_t(\omega)$ ，那么学生氏统计量 $\tau$ 的概率密度函数 $p(\tau) = \mathcal{F}^{-1}[\varphi_t(\omega)]$ 也就确定了。不过在假设检验中，实际上一般关心的是落在某个值左侧或右侧的概率是多少，因此如果得出累积分布函数——即概率密度函数的积分——是更好的
+既然有了 $\varphi_t(\omega)$ ，那么学生氏统计量 $\tau$ 的概率密度函数 $p(\tau) = \mathcal{F}^{-1}[\varphi_t(\omega)]$ 也就确定了。不过在假设检验中，实际上一般关心的是落在某个值左侧或右侧的概率是多少，因此如果得出累积分布函数（CDF）——即概率密度函数的积分——是更好的
 
 利用 Fourier 变换的关系 $\int\phi(\tau)\mathrm{d}\tau \overset{\mathcal{F}}{\longleftrightarrow} (j\omega)^{-1} \mathcal{F}(\phi)$ ，累积分布函数 $F(\tau)$ 的 Fourier 变换将是
 $$
@@ -247,7 +247,7 @@ $$
 
 {% note primary %}
 
-**学生氏统计量的渐近分布**：对于一个独立同分布样本序列 $\{r_i\}$ ，记其期望、方差、偏度、峰度分别为 $\mu', \sigma^2, \kappa_3, \kappa_4$ ，那么学生氏统计量 $\tau = \sqrt{n}(\bar{r}-\mu')/s$ 的累积分布函数是
+**学生氏统计量的渐近分布**：对于一个独立同分布样本序列 $\{r_i\}$ ，记其期望、方差、偏度、峰度分别为 $\mu, \sigma^2, \kappa_3, \kappa_4$ ，那么学生氏统计量 $\tau = \sqrt{n}(\bar{r}-\mu)/s$ 的累积分布函数是
 $$
 F(\tau) = \Phi(\tau) + \left[q_{-1/2}(\tau)n^{-1/2} + q_{-1}(\tau)n^{-1}\right]\phi(\tau)  + o(n^{-1})
 $$
@@ -270,20 +270,28 @@ $$
 $$
 q_{-1/2}(\tau) = \frac{\kappa_3}{6}\left( 2\tau^2 - 1 \right) \quad,\quad q_{-1}(\tau) = -\frac{1}{2}(\tau^3 - \tau) +\frac{\kappa_4}{12}(\tau^3 - 3\tau) - \frac{\kappa_3^2}{18}(\tau^5 + 2\tau^3 - 3\tau)
 $$
-于是就有数量有限、任意样本分布下的学生氏检验
+当然在实际中，偏度和峰度也都是估计来的，这会引入额外的估计误差。不过由 CLT ，峰度的估计误差量级本身就是 $n^{-1/2}$ ，而在 $F(\tau)$ 中峰度只在 $q_{-1}$ 项中出现，所以其最终带来的误差量级至少是 $n^{-2/3}$ ，并不会影响二阶 Edgeworth 展开的结论
 
-> **单边学生氏检验**：
->
-> 1. 做出原假设 $H_0: \mu' \leq r_f$ 
-> 2. 统计 $\bar{r}, s^2, \kappa_3, \kappa_4$ ，计算 $\mathcal{T} = \sqrt{n/n_\mathrm{A}} \hat{\mathcal{S}}$ 以及累积分布函数 $F$ 
-> 3. 如果 $F(\tau) \geq \alpha\%$ ，那么就可以断言：有 $\alpha \%$ 的置信度认为原假设不成立，因而证券的期望收益 $\mu'$ 明显超过无风险收益
+而偏度的估计误差本身也是 $n^{-1/2}$ ，但由于它出现在 $q_{-1/2}$ 中，所以将使得 CDF 本身成为一个随机变量，出现一个 $n^{-1}$ 量级的估计误差。由 $F(\tau)$ 的表达式以及 CLT 不难看出其标准差大约是 $\mathrm{StdVar}(F(\tau)) \approx q_{-1/2}(\tau)\phi(\tau)\mathrm{StdVar}(\hat{\kappa}_3)/n$ ，所以在样本数非常少的场合，是至少需要对这种估计误差做出声明的
+
+在考虑到或者声明了估计的误差后，总的检验流程就是：
+
+{% note info %}
+
+**单边学生氏检验**：
+
+1. 做出原假设 $H_0: \mu \leq r_f$ 
+2. 统计 $\bar{r}, s^2, \hat{\kappa}_3, \hat{\kappa}_4$ ，计算 $\mathcal{T} = \sqrt{n/n_\mathrm{A}} \hat{\mathcal{S}}$ 以及累积分布函数 $F$ 
+3. 如果 $F(\mathcal{T}) \geq 1-\alpha\%$ ，那么就可以断言：原假设只有 $\alpha \%$ 的可能显著成立；因而有 $1-\alpha\%$ 的把握认为 $\mu > r_f$ 
+
+{% endnote %}
 
 最后，来验证两个特殊情况：
 
-- 样本来自于正态分布，即 $\kappa_3=0, \kappa_4=3$ ，此时 $\tau \sim t(n-1)$ ，它的累积分布函数是
+- 样本来自于正态分布，即 $\kappa_3=0, \kappa_4=3$ ，此时 $\mathcal{T} \sim t(n-1)$ ，它的累积分布函数是
 
   $$
   F(\tau) = \Phi(\tau) - \left[H_1(\tau) + \frac{H_3(\tau)}{4} \right]\phi(\tau)n^{-1} + o(n^{-1}) = \Phi(\tau) - \frac{1}{4}(\tau^3+\tau)\phi(\tau)n^{-1} + o(n^{-1})
   $$
 
-- 样本数量趋于无穷，即 $n \rightarrow \infty$ ，此时 $\tau$ 当然趋向于 $N(0,1)$ ，它的累积分布函数是 $F(\tau) = \Phi(\tau)$ 
+- 样本数量趋于无穷，即 $n \rightarrow \infty$ ，此时 $\mathcal{T}$ 当然趋向于 $N(0,1)$ ，它的累积分布函数是 $F(\tau) = \Phi(\tau)$ 

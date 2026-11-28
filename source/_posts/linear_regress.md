@@ -29,7 +29,7 @@ $$
 - 实际的采样值 $\boldsymbol{Y}$ 构成一个 $n$ 维向量
 - 采样值 $\boldsymbol{X}$ 则构成一个 $n$ 行的矩阵，每一列就是一个 $n$ 维向量；这个向量组将张成 $n$ 维空间中的一个子空间，维数为 $\mathrm{dim}(\boldsymbol{x})+1$ 
 
-<img src="./linear_regress/project.png" alt="2STAGE_OPAMP" width="45%" />
+<img src="./linear_regress/project.png" alt="2STAGE_OPAMP" width="50%" />
 
 向量组的一个线性组合同样位于这个子空间内，距离实际的采样值 $\boldsymbol{Y}$ 最近的那个线性组合就被称为是 OLS 的预测值 $\hat{\boldsymbol{Y}}$ ，将线性组合系数记为 $\hat{\theta}$ ，也就是说 $\hat{\boldsymbol{Y}} = \boldsymbol{X}\hat{\boldsymbol{\theta}}$ ；测量得到的值和回归模型预测值之间的误差用欧氏距离来度量，也就是
 $$
@@ -101,7 +101,7 @@ $$
 $$
 \hat{\boldsymbol{Y}} = \boldsymbol{P}\boldsymbol{Y} \quad,\quad \boldsymbol{P} = \boldsymbol{X} (\boldsymbol{X}^T\boldsymbol{X})^{-1} \boldsymbol{X}^T
 $$
-这里 $\boldsymbol{P}$ 是投影算子，不论直观想象，还是代入计算都可以得到 $\boldsymbol{P}^2 = \boldsymbol{P}$ ；但并不能通过在等式两侧同时乘上 $\boldsymbol{P}^{-1}$ 得到 $\boldsymbol{P} = \boldsymbol{I}$ ，这是因为除非子空间正是全空间，否则 $\boldsymbol{P}$ 不是满秩的，因而不是可逆的。它的秩等于子空间的维数，即 $\mathrm{rank}(\boldsymbol{P}) = \mathrm{dim}(\boldsymbol{x})+1$ 
+这里 $\boldsymbol{P}$ 是投影算子，不论直观想象，还是代入计算都可以得到 $\boldsymbol{P}^2 = \boldsymbol{P}$ ；但并不能通过在等式两侧同时乘上 $\boldsymbol{P}^{-1}$ 得到 $\boldsymbol{P} = \boldsymbol{I}$ ，这是因为除非子空间正是全空间，否则 $\boldsymbol{P}$ 不是满秩的，因而不是可逆的。它的秩等于子空间的维数，即 $\mathrm{rank}(\boldsymbol{P}) = \mathrm{dim}(\boldsymbol{x})+1 = \mathrm{dim}(\boldsymbol{\theta})$ 
 
 可以通过一个正交矩阵 $\boldsymbol{G}$ 对 $\boldsymbol{P}$ 完成对角化。正交矩阵是特殊的满秩投影矩阵，它的所有列构成一组**完备的正交归一化基**，因而几何意义是将向量投影到这组正交基上。也就是说 $\boldsymbol{Y} = \boldsymbol{G}\boldsymbol{G}^T\boldsymbol{Y}$ ，这里 $\boldsymbol{G}^T\boldsymbol{Y}$ 是获取 $\boldsymbol{Y}$ 在正交基系上的坐标，而再乘上一个 $\boldsymbol{G}$ 就是按照坐标对基进行线性组合。总之这给出 $\boldsymbol{G}\boldsymbol{G}^T = \boldsymbol{I}$ 
 
@@ -110,7 +110,7 @@ $$
 \boldsymbol{G}^T\hat{\boldsymbol{Y}} = \left[\begin{matrix} \boldsymbol{I}_{\mathrm{rank}(\boldsymbol{P})} & 0 \\ 0 & 0 \end{matrix}\right]\boldsymbol{G}^T\boldsymbol{Y} \quad\Rightarrow\quad \boldsymbol{P} = \boldsymbol{G}\left[\begin{matrix} \boldsymbol{I}_{\mathrm{rank}(\boldsymbol{P})} & 0 \\ 0 & 0 \end{matrix}\right]\boldsymbol{G}^T
 $$
 
-<img src="./linear_regress/orthogonal.png" alt="2STAGE_OPAMP" width="50%" />
+<img src="./linear_regress/orthogonal.png" alt="2STAGE_OPAMP" width="55%" />
 
 这里利用了 $\boldsymbol{G}\boldsymbol{G}^T = \boldsymbol{I}$ ；至于 $\boldsymbol{X}$ ，由于其各列正是子空间内的向量，因此获取坐标的结果 $\boldsymbol{G}^T\boldsymbol{X}$ 只有前 $\mathrm{rank}(\boldsymbol{P})$ 行是非零的，而后 $n-\mathrm{rank}(\boldsymbol{P})$ 行都是零
 
@@ -132,10 +132,43 @@ $$
 
 {% note primary %}
 
-**正态假设下的残差分布**：假设 OLS 的线性关系 $\boldsymbol{Y} = \boldsymbol{X}\boldsymbol{\theta} + \boldsymbol{U}$ 中有 $\boldsymbol{U}|\boldsymbol{X} \sim N(0, \sigma^2\boldsymbol{I})$ ，那么残差 $E^2=|\boldsymbol{Y} - \hat{\boldsymbol{Y}}|^2$ 服从 $\chi^2(n-\mathrm{dim}(\boldsymbol{x})-1)$ 分布
+**正态假设下的残差分布**：假设 OLS 的线性关系 $\boldsymbol{Y} = \boldsymbol{X}\boldsymbol{\theta} + \boldsymbol{U}$ 中有 $\boldsymbol{U}|\boldsymbol{X} \sim N(0, \sigma^2\boldsymbol{I})$ ，那么残差 $E^2/\sigma^2=|\boldsymbol{Y} - \hat{\boldsymbol{Y}}|^2/\sigma^2$ 服从 $\chi^2(n-\mathrm{dim}(\boldsymbol{\theta}))$ 分布
 
 {% endnote %}
 
-## 对线性关系的检验
+## 对单个线性关系的检验
 
-在正态假设下，当 $\boldsymbol{X}$ 已知时 $\hat{\boldsymbol{\theta}} - \boldsymbol{\theta} = (\boldsymbol{X}^T\boldsymbol{X})^{-1}\boldsymbol{X}^T\boldsymbol{U}$ 自然也是服从正态分布的
+在正态假设下，当 $\boldsymbol{X}$ 已知时 $\hat{\boldsymbol{\theta}} - \boldsymbol{\theta} = (\boldsymbol{X}^T\boldsymbol{X})^{-1}\boldsymbol{X}^T\boldsymbol{U}$ ，它也服从零期望的正态分布，按照和上面完全相同的推导过程得到
+$$
+\mathrm{Cov}[(\boldsymbol{\theta}, \boldsymbol{\theta})|\boldsymbol{X}] = (\boldsymbol{X}^T\boldsymbol{X})^{-1}\boldsymbol{X}^T\mathrm{Cov}(\boldsymbol{U}, \boldsymbol{U})\boldsymbol{X}[(\boldsymbol{X}^T\boldsymbol{X})^{-1}]^T = \sigma^2 (\boldsymbol{X}^T\boldsymbol{X})^{-1}(\boldsymbol{X}^T\boldsymbol{X})(\boldsymbol{X}^T\boldsymbol{X})^{-1} = (\boldsymbol{X}^T\boldsymbol{X})^{-1}
+$$
+第二个等号利用了对称矩阵的逆矩阵仍然是对称的，因此可以得到 $\hat{\boldsymbol{\theta}}|\boldsymbol{X} \sim N\left(\boldsymbol{\theta}, \sigma^2(\boldsymbol{X}^T\boldsymbol{X})^{-1} \right)$ ；另外上面的表达式可以重新写为 $\hat{\boldsymbol{\theta}} - \boldsymbol{\theta} = (\boldsymbol{X}^T\boldsymbol{X})^{-1}\boldsymbol{X}^T\boldsymbol{G}\boldsymbol{W}$ ，并计算
+$$
+\begin{aligned}
+\mathrm{Cov}[(\hat{\boldsymbol{\theta}}, E^2)|\boldsymbol{X}] &= \mathrm{E}\left[ (E^2 - \mathrm{E}(E^2))(\hat{\boldsymbol{\theta}} - \boldsymbol{\theta}) | \boldsymbol{X}\right] \\[12pt]
+&= (\boldsymbol{X}^T\boldsymbol{X})^{-1}\boldsymbol{X}^T\boldsymbol{G} \mathrm{E}\left( \left. \sum_{i=\mathrm{rank}(\boldsymbol{P})+1}^n W_i^2\boldsymbol{W} \right|\boldsymbol{X} \right) - \mathrm{E}(E^2) (\boldsymbol{X}^T\boldsymbol{X})^{-1}\boldsymbol{X}^T\boldsymbol{G}\mathrm{E}(\boldsymbol{W}|\boldsymbol{X})
+\end{aligned}
+$$
+由于 $\mathrm{E}(\boldsymbol{W}|\boldsymbol{X})=0$ ，后一项当然是零，至于前一项中的期望可以继续展开写为
+$$
+\mathrm{E}\left( \left. \sum_{i=\mathrm{rank}(\boldsymbol{P})+1}^n W_i^2\boldsymbol{W} \right|\boldsymbol{X} \right) = \sum_{i=\mathrm{rank}(\boldsymbol{P})+1}^n \mathrm{E}(W_i^2)\left[\begin{matrix} \mathrm{E}(W_1) \\ \vdots \\ \mathrm{E}(W_{\mathrm{rank}(\boldsymbol{P})}) \\ 0 \\ \vdots \\ 0 \end{matrix}\right] + \sum_{i=\mathrm{rank}(\boldsymbol{P})+1}^n \left[\begin{matrix} 0 \\ \vdots \\ 0 \\ \mathrm{E}(W_i^3) \\ \vdots \\ 0 \end{matrix}\right]
+$$
+由于 $\boldsymbol{W}|\boldsymbol{X} \sim N(0, \sigma^2\boldsymbol{I})$ ，因而一阶矩 $\mathrm{E}(W_i)$ 和三阶矩 $\mathrm{E}(W_i^3)$ 自然都是零，所以 $\mathrm{Cov}[(\hat{\boldsymbol{\theta}}, E^2)|\boldsymbol{X}] = 0$ ，参数估计值 $\hat{\boldsymbol{\theta}}$ 和残差 $E^2$ 之间并不相关
+
+于是对一个选定的参数（ $\hat{\beta}_k$ 或者 $\hat{\alpha}$ ，以 $\hat{\beta}_k$ 为例），可以构造学生氏统计量，按照定义它是一个标准正态变量和一个 $\chi^2$ 变量之比，前者就来源于零期望假设下的 $\hat{\beta}_k$ ，后者则来源于 $E^2$ ，因此将可以构造
+$$
+\mathcal{T} = \frac{ \hat{\beta}_k / \sigma\sqrt{(\boldsymbol{X}^T\boldsymbol{X})^{-1}_{kk}} }{\sqrt{E^2}/\sigma} = \frac{ \hat{\beta}_k }{E\sqrt{(\boldsymbol{X}^T\boldsymbol{X})^{-1}_{kk}}} \sim t(n-\mathrm{dim}(\boldsymbol{\theta})) \quad\mathrm{when}\quad \beta_k = 0
+$$
+这里 $(\boldsymbol{X}^T\boldsymbol{X})^{-1}_{kk}$ 是指 $(\boldsymbol{X}^T\boldsymbol{X})^{-1}$ 第 $k$ 行第 $k$ 列的元素，即当其它参数都给定时的 $\mathrm{Var}(\hat{\beta}_k)/\sigma^2$ 
+
+{% note info %}
+
+**对单线性关系的学生氏检验**：
+
+1. 做出原假设 $H_0$ ：该参数的真值 $\beta_k = 0$ ，也就是该线性解释关系并不存在
+2. 构造学生氏统计量 $\mathcal{T} = \hat{\beta}_k / E\sqrt{(\boldsymbol{X}^T\boldsymbol{X})^{-1}_{kk}}$ ，并计算累积分布函数 $F$ 
+3. 如果 $F(\mathcal{T}) \geq 1-\alpha\%/2$ 或者 $F(\mathcal{T}) \leq \alpha\%/2$，那么就可以断言：原假设只有 $\alpha \%$ 的可能显著成立；因而有 $1-\alpha\%$ 的把握认为 $\beta_k \neq 0$ ，即该线性解释关系确实存在
+
+{% endnote %}
+
+## 单变量情况
