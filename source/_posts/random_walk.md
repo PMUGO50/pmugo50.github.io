@@ -162,22 +162,17 @@ $$
 
 # 差分化与去相关
 
-对于一个随机游走序列 $w_n$ ，它的自相关系数是
+对于证券价格，或者信号预测，都希望能够用往常采集到的数据 $y_{n-1}, \cdots, y_{n-l}$ 来在一定程度上推测未来的值，即希望找到两个函数 $f,g$ 使得
 $$
-\gamma(l) = \frac{\mathrm{E}(w_n w_{n-l})}{\mathrm{Var}(w_n)} = \frac{1}{\sum_{i=1}^{n} \sigma_i^2\Delta t_i^2}\sum_{i=1}^n\sum_{i'=1}^{n-l} \mathrm{E}(z_i z_{i'})\Delta t_i \Delta t_{i'} = \frac{\sum_{i=1}^{n-l} \mathrm{E}( z_{i}^2) \Delta t_i^2}{\sum_{i=1}^{n} \sigma_i^2\Delta t_i^2} = = \frac{\sum_{i=1}^{n-l} \sigma_i^2 \Delta t_i^2}{\sum_{i=1}^{n} \sigma_i^2\Delta t_i^2}
+y_n = f(y_{n-1},\cdots,y_{n-l}) + g(x_n,x_{n-1},\cdots,x_{n-m}) + e_n
 $$
-当 $n \rightarrow \infty$ 时，对于所有 $l$ 都有 $\gamma(l) \rightarrow 1$ ；在实际中能够得到的是自相关系数的相合估计值
+这里 $x_n$ 是每一时刻向系统中加入的新扰动，$e_n$ 则是最终无法用模型解释的残差。函数 $f$ 可以被认为代表了输出 $y_n$ 一种依赖于前值的惯性，函数 $g$ 则代表了扰动带来的影响能够持续一段时间。特别地，当 $f,g$ 都是线性函数且输入输出都足够平稳的时候，上式实际上构成一个线性滤波器
 $$
-\hat{\gamma}(l) = \frac{1}{s^2}\left[ \frac{1}{n-l} \sum_{k=1}^n (w_k - \bar{w}) (w_{k-l} - \bar{w}) \right] \overset{\mathrm{p}}{\longrightarrow} \gamma(l)
+y_n = \sum_{k=1}^m a_k y_{n-k} + \sum_{k=0}^q b_k x_{n-k} + e_n
 $$
-通过绘制 $\hat{\gamma}(l)$ ，并观察是否对于所有的 $l$ 其都接近 1 ，这样就可以识别一个序列是否为随机游走。对理想的随机游走进行差分化，即执行 $w_n - w_{n-1}$ ，获得的是白噪声 $z_i \Delta t_i$ ，白噪声序列自相关系数自然是 $\gamma_z(l) = \delta_{l0}$ 
+这里限定 $\mathrm{E}(x_n) = E(y_n) = 0$ ，如若有非零的期望，直接构造 $y'=y-\mathrm{E}(y)$ 以及 $x'=x-\mathrm{E}(x)$ 即可。判断这个模型优度的一个标准就是 $e_n$ 的相关性。当 $e_n$ 成为一个白噪声时，就意味着模型已经足够好了，这是因为对于一个白噪声而言，已经再也不可能用 $e_{n-1}$ 来预测 $e_n$ 了
 
-从时间序列处理的角度来看，随机游走可以被视为一个一阶 AR 低通滤波器的极限形式，即 $w_n - a w_{n-1} = z_i\Delta t_i$ 并令 $a \rightarrow 1$ ；这个 AR 滤波器的传递函数是
+用自相关函数来表达，也就是说对于任意 $l$ 都有
 $$
-H(z) = \frac{1}{1-az^{-1}} = \frac{z}{z-a} \quad\Rightarrow\quad H(\omega) = -\frac{e^{j\omega}/a}{1-e^{j\omega}/a}
+\mathrm{E}\left[ \left( y_n - \sum_{k=1}^m a_k y_{n-k} - \sum_{k=0}^q b_k x_{n-k} \right) \left( y_{n-l} - \sum_{k=1}^m a_k y_{n-l-k} - \sum_{k=0}^q b_k x_{n-l-k} \right) \right] = \sigma_e^2\delta_{l0}
 $$
-它有一个零点 $z_0=0$ ，一个极点 $p_0=a$ ，不难获得其半高全宽是 $2\arccos \left[2a/(a^2+1)\right]$ ；当 $a\rightarrow 1$ 时，极点逼近复平面上的单位圆，变成一个不稳定的低通滤波器，半高全宽也成为零，因为其在直流处的幅频响应是无限大的。而就是 $H(z)$ 的逆系统，它是一个 MA 高通滤波器，在直流处具有零的幅频响应，因而能够将随机游走重新稳定化
-
-由 Wiener-Khinchin 定理，自相关系数和归一化的功率谱密度（PSD）构成一组 Fourier 变换。时间强相关的序列（例如随机游走）的自相关系数会延展很长，所以其 PSD 在直流处将具有一个高峰。而一个高通滤波（例如差分化）能够抑制直流处的峰值，抹平 PSD ，这反过来将使得自相关系数尖锐化，降低序列的时间相关性
-
-所以在识别到时间强相关序列后，一个常见的做法就是对其进行差分化或者其它高通滤波处理，然后再考察滤波之后序列的统计特性。这类高通滤波器也可以称为**去相关系统** 。自然，并非所有情形下获得到的“时间强相关序列”都是随机游走，它的自相关系数可能并非像随机游走一样完全平坦，而是有起伏，或者延展长度有限。所以使其去相关的高通滤波也就不是简单的一阶差分
